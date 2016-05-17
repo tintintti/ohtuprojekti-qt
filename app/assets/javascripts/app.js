@@ -1,6 +1,6 @@
 // Haetaan tekstifilu jesarilla. Tää korvataan kun saadaan joku
 // db pyörimään mistä se data haetaan
-var file = "/file";
+var file = "https://raw.githubusercontent.com/tintintti/qt-software-project/master/app/assets/textdata/theFile.txt";
 var rawFile = new XMLHttpRequest();
 rawFile.open("GET", file, false);
 rawFile.onreadystatechange = function() {
