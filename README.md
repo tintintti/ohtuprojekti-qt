@@ -4,4 +4,4 @@
 
 [product backlog] (https://docs.google.com/spreadsheets/d/1i8u4nV4QKqtlUKjJtBon5xgYCYruVzvzuO8uzfHm0q4/pubhtml)
 
-http://qt-software-project.herokuapp.com/
+[heroku page] (http://qt-software-project.herokuapp.com/)
