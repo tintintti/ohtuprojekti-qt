@@ -1,4 +1,6 @@
 language: ruby
+rvm:
+- 2.3.0
 notifications: email:false
 deploy:
   api_key:
