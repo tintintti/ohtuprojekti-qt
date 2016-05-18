@@ -6,7 +6,11 @@ gem 'rails', '4.2.6'
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'rspec-rails', '~> 3.0'
   gem 'jasmine'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'launchy'
 end
 
 group :production do
@@ -32,9 +36,9 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'd3-rails'
-
-gem 'nvd3-rails'
+# gem 'd3-rails'
+#
+# gem 'nvd3-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
