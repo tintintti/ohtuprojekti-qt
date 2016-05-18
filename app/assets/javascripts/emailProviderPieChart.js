@@ -6,8 +6,8 @@ function drawEmailProviderPieChart() {
         uniqueEmails = allAndUniqueEmails[1];
     var data = createJsonArrayForPieChart(allEmails, uniqueEmails);
     drawPieChart(data, true, "#chart svg");
-    var asd = createPostJsonArray(jsons);
-    drawPieChart(asd, false, "#chart2 svg");
+    var postdata = createPostJsonArray(jsons);
+    drawPieChart(postdata, false, "#chart2 svg");
 }
 // Haetaan tekstifilu jesarilla. Tää korvataan kun saadaan joku
 // db pyörimään mistä se data haetaan
@@ -34,32 +34,30 @@ function jsonStringToArrayOfJsons(rawfiles) {
     return jsons;
 }
 
-//uniqueEmails sisältää kaikki uniikit sähköpostit väliltä "@"" ja sitä seuraava ".". Eli "asdgf@gmail.com"
-//löytyy muodossa "gmail" sieltä. allEmails sisältää kaikki uniikit spostit kokonaisuudessaan.
+//uniqueEmails sisältää kaikki uniikit sähköpostit viimeisimmän pisteen
+//ja toiseksi viimeisen pisteen väliltä tai jos pisteitä on vain yksi niin "@". Eli "asdgf@gmail.com"
+//löytyy muodossa "gmail" ja @cs.helsinki.fi löytyisi muodossa "helsinki".
+//allEmails sisältää kaikki uniikit spostit kokonaisuudessaan.
 function getAllAndUniqueEmails(jsons) {
     var uniqueEmails = new Array(),
         allEmails = new Array();
     for (var i = 0; i < jsons.length - 1; i++) {
         var currentJson = jsons[i];
-        if (currentJson.posts != null) {
-            for (var j = 0; j < currentJson.posts.length; j++) {
-                var email = currentJson.posts[j].user.email;
-                if (email == null) {
-                    continue;
-                }
-                if (allEmails.indexOf(email) == -1) {
-                    allEmails.push(email);
-                    email = email.split("@")[1].split(".");
-                    if (uniqueEmails.indexOf(email[email.length - 2]) == -1) {
-                        uniqueEmails.push(email[email.length - 2]);
-                    }
+        if (currentJson.posts == null) continue;
+        for (var j = 0; j < currentJson.posts.length; j++) {
+            var email = currentJson.posts[j].user.email;
+            if (email == null) continue;
+            if (allEmails.indexOf(email) == -1) {
+                allEmails.push(email);
+                email = email.split("@")[1].split(".");
+                if (uniqueEmails.indexOf(email[email.length - 2]) == -1) {
+                    uniqueEmails.push(email[email.length - 2]);
                 }
             }
         }
     }
     var allAndUniqueEmails = new Array();
-    allAndUniqueEmails.push(allEmails);
-    allAndUniqueEmails.push(uniqueEmails.sort());
+    allAndUniqueEmails.push(allEmails.sort()), allAndUniqueEmails.push(uniqueEmails.sort());
     return allAndUniqueEmails;
 }
 
@@ -75,7 +73,7 @@ function createPostJsonArray(jsons) {
     }
     usernames.sort();
     var userNamesAndPosts = new Array(),
-        noobPostCount = 0;
+        smallPostCountUserPostCount = 0;
     for (var i = 0; i < usernames.length; i++) {
         var count = usernames.filter(function(x) {
             return x == usernames[i];
@@ -86,13 +84,13 @@ function createPostJsonArray(jsons) {
                 "value": count
             });
         } else {
-            noobPostCount += count;
+            smallPostCountUserPostCount += count;
         }
         i += count - 1;
     }
     userNamesAndPosts.push({
         "label": "users w/ <10 posts",
-        "value": noobPostCount
+        "value": smallPostCountUserPostCount
     });
 
     return objectSorter(userNamesAndPosts);
