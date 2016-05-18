@@ -4,4 +4,5 @@ class DownloadController < ApplicationController
     contents = file.read
     send_data(contents, filename:"theFile.txt")
   end
+
 end
