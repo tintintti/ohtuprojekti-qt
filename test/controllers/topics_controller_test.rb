@@ -18,7 +18,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   test "should create topic" do
     assert_difference('Topic.count') do
-      post :create, topic: { raw_json: @topic.raw_json, tid: @topic.tid }
+      post :create, topic: { raw_json: @topic.raw_json, slug: @topic.slug, tid: @topic.tid }
     end
 
     assert_redirected_to topic_path(assigns(:topic))
@@ -35,7 +35,7 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   test "should update topic" do
-    patch :update, id: @topic, topic: { raw_json: @topic.raw_json, tid: @topic.tid }
+    patch :update, id: @topic, topic: { raw_json: @topic.raw_json, slug: @topic.slug, tid: @topic.tid }
     assert_redirected_to topic_path(assigns(:topic))
   end
 

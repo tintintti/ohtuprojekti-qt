@@ -2,8 +2,10 @@
 
 one:
   tid: 1
+  slug: MyString
   raw_json: MyString
 
 two:
   tid: 1
+  slug: MyString
   raw_json: MyString
