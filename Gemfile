@@ -6,6 +6,7 @@ gem 'rails', '4.2.6'
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'jasmine'
 end
 
 group :production do
