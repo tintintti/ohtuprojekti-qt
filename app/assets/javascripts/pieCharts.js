@@ -1,21 +1,35 @@
-drawEmailProviderPieChart();
-drawPostCountPieChart();
+drawAllCharts()
 
 //tähän vois sit tulla se data sieltä backendilta joka korvais ton getTextFile()
-function drawEmailProviderPieChart() {
+function drawAllCharts() {
     var jsons = jsonStringToArrayOfJsons(getTextFile());
     var allAndUniqueEmails = getAllAndUniqueEmails(jsons);
     var allEmails = allAndUniqueEmails[0],
         uniqueEmails = allAndUniqueEmails[1];
     var data = createJsonArrayForPieChart(allEmails, uniqueEmails);
     drawPieChart(data, true, "#chart svg");
-}
-
-function drawPostCountPieChart() {
-    var jsons = jsonStringToArrayOfJsons(getTextFile());
-    var postdata = createPostJsonArray(jsons);
+    var postdata = getPostCountsByUsers(jsons);
     drawPieChart(postdata, false, "#chart2 svg");
 }
+
+function drawEmailChartOnly() {
+    d3.selectAll("#chart svg > *").remove();
+    var jsons = jsonStringToArrayOfJsons(getTextFile());
+    var allAndUniqueEmails = getAllAndUniqueEmails(jsons);
+    var allEmails = allAndUniqueEmails[0],
+        uniqueEmails = allAndUniqueEmails[1];
+    var data = createJsonArrayForPieChart(allEmails, uniqueEmails);
+    drawPieChart(data, true, "#chart svg");
+
+}
+
+function drawPosterChartOnly() {
+    d3.selectAll("#chart svg > *").remove();
+    var jsons = jsonStringToArrayOfJsons(getTextFile());
+    var postdata = getPostCountsByUsers(jsons);
+    drawPieChart(postdata, false, "#chart svg");
+}
+
 // Haetaan tekstifilu jesarilla. Tää korvataan kun saadaan joku
 // db pyörimään mistä se data haetaan
 function getTextFile() {
@@ -68,7 +82,9 @@ function getAllAndUniqueEmails(jsons) {
     return allAndUniqueEmails;
 }
 
-function createPostJsonArray(jsons) {
+//Hakee erikseen postausmäärät käyttäjiltä joilla on yli 10 postia ja laskee
+//myös yhteen alle 10-postisten käyttäjien postausmäärän.
+function getPostCountsByUsers(jsons) {
     var usernames = new Array();
     for (var i = 0; i < jsons.length - 1; i++) {
         var currentJson = jsons[i];
