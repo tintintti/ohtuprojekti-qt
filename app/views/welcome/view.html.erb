@@ -1,19 +1,17 @@
-
-</html>
+<html>
 <!DOCTYPE html>
 <meta charset="utf-8">
 <body>
-    <h1>Sähköpostien palveluntarjoajat</h1>
+    <button type="button" class="btn btn-primary active"
+    onclick=drawEmailChartOnly()>Sähköpostien palveluntarjoajat</button>
+    <button type="button" class="btn btn-primary active"
+    onclick=drawPosterChartOnly()>Viestien lähettäjät</button>
     <%= javascript_include_tag "d3.v3.min.js" %>
     <%= javascript_include_tag "nv3d.js" %>
-    <%= javascript_include_tag "app.js" %>
     <%= stylesheet_link_tag "nvcss.css" %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <div id="chart">
         <svg></svg>
     </div>
-    <h1>~5000 "uusimman" viestin lähettäjät</h1>
-    <div id="chart2">
-        <svg></svg>
-    </div>
 </body>
+</html>
