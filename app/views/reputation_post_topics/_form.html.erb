@@ -1,0 +1,29 @@
+<%= form_for(@reputation_post_topic) do |f| %>
+  <% if @reputation_post_topic.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reputation_post_topic.errors.count, "error") %> prohibited this reputation_post_topic from being saved:</h2>
+
+      <ul>
+      <% @reputation_post_topic.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :tid %><br>
+    <%= f.number_field :tid %>
+  </div>
+  <div class="field">
+    <%= f.label :reputation %><br>
+    <%= f.number_field :reputation %>
+  </div>
+  <div class="field">
+    <%= f.label :postcount %><br>
+    <%= f.number_field :postcount %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

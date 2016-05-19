@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reputation_post_topics
   resources :topics
   get 'welcome/index'
 

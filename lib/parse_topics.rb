@@ -57,6 +57,15 @@ class ParseTopics
     end
   end
 
+  def self.add_postcount_reputation_topics
+    topics = recent_topics
+    topics.each do |topic|
+      user = topic["user"]
+      ReputationPostTopic.create(tid:topic["tid"], reputation:user["reputation"], postcount:user["postcount"], email:user["email"])
+    end
+
+  end
+
   # Adds the topics from api/recent to the database.
   def self.add_topics_from_recent
     topics = recent_topics
