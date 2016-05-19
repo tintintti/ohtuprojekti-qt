@@ -15,7 +15,7 @@ require 'rails_helper'
 describe "Main page", :js => true do
 
   it "should have gmail" do
-    visit('/')
+    visit('/welcome/index')
     save_and_open_page
     expect(page).to have_content 'gmail'
   end
