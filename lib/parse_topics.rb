@@ -31,9 +31,11 @@ class ParseTopics
     topics = []
     strings = 0
     i = 0
+
     while i < n
       url = url_base + "/topic/" + (first - i).to_s
 
+      # skips to the next id if the topic doesn't exist
       if (HTTParty.get(url).parsed_response.class != String)
         first -= 1
         next
@@ -56,7 +58,6 @@ class ParseTopics
   end
 
   # Adds the topics from api/recent to the database.
-  # Maybe don't use.
   def self.add_topics_from_recent
     topics = recent_topics
 
