@@ -5,15 +5,17 @@ require 'capybara'
 # end
 
 Capybara.register_driver :selenium do |app|
+      options = {
+        timeout: 180,
+        js_errors: false,
+        logger: nil,
+        phantomjs_options:
+        [
+          '--load-images=no',
+          '--ignore-ssl-errors=yes'
+        ]
+      }
       Capybara::Selenium::Driver.new app, :browser => :chrome
-      # timeout: 180,
-          # js_errors: false,
-          # logger: nil,
-          # phantomjs_options:
-          # [
-          #   '--load-images=no',
-          #   '--ignore-ssl-errors=yes'
-          # ]
 end
 # Capybara.register_driver(:poltergeist) do |app|
 #     Capybara::Poltergeist::Driver.new(app, :phantomjs => Phantomjs.path),
