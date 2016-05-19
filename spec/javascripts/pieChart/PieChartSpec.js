@@ -5,21 +5,21 @@ describe('Test piechart with jasmine ', function() {
     });
 
     afterEach(function() {
-        d3.selectAll('#chart svg').remove();
+        //d3.selectAll('#chart svg').remove();
     });
 
 
     it('svg should be created', function() {
-        drawEmailProviderPieChart();
+        drawAllCharts();
         expect(getSvg()).not.toBeNull();
     });
 
     it('empty string returns empty array', function() {
-        expect(textFileToArrayOfJsons("").length).toBe(0);
+        expect(jsonStringToArrayOfJsons("").length).toBe(0);
     });
 
     it('string with 2 jsons returns array of 2 jsons', function() {
-       expect(textFileToArrayOfJsons('{"id":1}split123{"id":2}split123').length).toBe(2);
+       expect(jsonStringToArrayOfJsons('{"id":1}split123{"id":2}split123').length).toBe(2);
     });
 
     //it('2 same emails return array of 1 unique', function() {
