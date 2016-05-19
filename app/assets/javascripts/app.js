@@ -1,1 +1,1 @@
-drawEmailProviderPieChart();
+drawAllCharts();

@@ -12,6 +12,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
+  gem 'poltergeist'
+  gem 'selenium-webdriver'
 end
 
 group :production do
