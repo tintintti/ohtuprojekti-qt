@@ -12,7 +12,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
-  # gem 'poltergeist'
+  gem 'poltergeist'
   gem 'selenium-webdriver'
   gem "chromedriver-helper"
 end
