@@ -9,7 +9,7 @@ function drawAllCharts() {
     var data = createJsonArrayForPieChart(allEmails, uniqueEmails);
     drawPieChart(data, true, "#chart svg");
     var postdata = getPostCountsByUsers(jsons);
-    drawPieChart(postdata, false, "#chart2 svg");
+    drawPieChart(postdata, true, "#chart2 svg");
 }
 
 function drawEmailChartOnly() {
@@ -27,7 +27,7 @@ function drawPosterChartOnly() {
     d3.selectAll("#chart svg > *").remove();
     var jsons = jsonStringToArrayOfJsons(getTextFile());
     var postdata = getPostCountsByUsers(jsons);
-    drawPieChart(postdata, false, "#chart svg");
+    drawPieChart(postdata, true, "#chart svg");
 }
 
 // Haetaan tekstifilu jesarilla. Tää korvataan kun saadaan joku
@@ -114,7 +114,6 @@ function getPostCountsByUsers(jsons) {
         "label": "users w/ <10 posts",
         "value": smallPostCountUserPostCount
     });
-
     return objectSorter(userNamesAndPosts);
 }
 //Luodaan lista json-muodossa olevista olioista mitkä annetaan piirakanluonti-metodille.
@@ -130,9 +129,7 @@ function createJsonArrayForPieChart(allEmails, uniqueEmails) {
                 "label": uniqueEmails[i],
                 "value": count
             });
-
     }
-
     return objectSorter(jsonArray);
 }
 //Piirakka luodaan tässä. Tätä ei välttämättä tarvii siivota.
