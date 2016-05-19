@@ -24,15 +24,33 @@ class ParseTopics
     topics = response.parsed_response["topics"]
   end
 
-
-  # Adds n+1 amount of newest topics to the database
-  def self.add_newest_topics(n)
+  # returns n amount of newest topics in a list
+  def self.newest_topics(n)
     url_base = "http://forum.qt.io/api"
     first = newest_topic
-    for i in 0..n
+    topics = []
+    strings = 0
+    i = 0
+    while i < n
       url = url_base + "/topic/" + (first - i).to_s
+
+      if (HTTParty.get(url).parsed_response.class != String)
+        first -= 1
+        next
+      end
       real_url = url_base + HTTParty.get(url).parsed_response
+
       topic = HTTParty.get(real_url).parsed_response
+      topics << topic
+      i += 1
+    end
+    topics
+  end
+
+  # Adds n amount of newest topics to the database
+  def self.add_newest_topics(n)
+    topics = newest_topics(n)
+    topics.each do |topic|
       Topic.create(tid:topic["tid"], slug:topic["slug"], raw_json:ActiveSupport::JSON.encode(topic))
     end
   end
