@@ -556,7 +556,7 @@ Interactive Layer
     stroke: #ccc;
 }
 #chart svg {
-    height: 1200px;
+    height: 800px;
 }
 #chart2 {
     height: 800px;

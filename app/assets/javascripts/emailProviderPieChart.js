@@ -104,16 +104,24 @@ function createPostJsonArray(jsons) {
 //Luodaan lista json-muodossa olevista olioista mitkä annetaan piirakanluonti-metodille.
 //Lasketaan myös monta mitäkin mailia(gmail, yahoo, hotmail jne.) on.
 function createJsonArrayForPieChart(allEmails, uniqueEmails) {
-    var jsonArray = new Array();
+    var jsonArray = new Array(), smallEmailProviders = 0;
     for (var i = 0; i < uniqueEmails.length - 1; i++) {
         var count = allEmails.filter(function(x) {
             return x.split("@")[1].split(".")[0] == uniqueEmails[i];
         }).length
-        jsonArray.push({
-            "label": uniqueEmails[i],
-            "value": count
-        });
+        if (count == 1) {
+            smallEmailProviders++;
+        } else {
+            jsonArray.push({
+                "label": uniqueEmails[i],
+                "value": count
+            });
+        }
     }
+    jsonArray.push({
+        "label": "other",
+        "value": smallEmailProviders
+    });
     return objectSorter(jsonArray);
 }
 //Piirakka luodaan tässä. Tätä ei välttämättä tarvii siivota.
