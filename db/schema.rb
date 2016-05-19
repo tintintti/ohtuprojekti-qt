@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519082703) do
+ActiveRecord::Schema.define(version: 20160519113846) do
 
   create_table "reputation_post_topics", force: :cascade do |t|
     t.integer  "tid"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160519082703) do
     t.integer  "postcount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "email"
   end
 
   create_table "topics", force: :cascade do |t|

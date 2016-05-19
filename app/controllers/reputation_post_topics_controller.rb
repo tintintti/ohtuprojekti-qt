@@ -5,6 +5,9 @@ class ReputationPostTopicsController < ApplicationController
   # GET /reputation_post_topics.json
   def index
     @reputation_post_topics = ReputationPostTopic.all
+    @average_reputation = ReputationPostTopic.all.sum(:reputation) / ReputationPostTopic.count
+    @average_postcount = ReputationPostTopic.all.sum(:postcount) / ReputationPostTopic.count
+    @postcount_less_than_twenty = ReputationPostTopic.where("postcount < 20").count
   end
 
   # GET /reputation_post_topics/1
