@@ -44,8 +44,9 @@ function getTextFile() {
     return file;
 }
 
-//Se tekstitiedosto on yks iso tiedosto missä on peräkkäin ne viestiketjujen json-
-//tiedostot. Jokasen json-tiedoston välissä on "split123" minkä avulla ne splitataan. Yskittäisisiksi jsoneiksi.
+//Se tekstitiedosto on yks iso tiedosto missä on peräkkäin ne viestiketjujen
+//json-tiedostot. Jokasen json-tiedoston välissä on "split123" jonka avulla ne
+//splitataan yksittäisisiksi jsoneiksi.
 function jsonStringToArrayOfJsons(rawfiles) {
     var files = rawfiles.split("split123");
     var jsons = new Array();
@@ -56,9 +57,10 @@ function jsonStringToArrayOfJsons(rawfiles) {
 }
 
 //uniqueEmails sisältää kaikki uniikit sähköpostit viimeisimmän pisteen
-//ja toiseksi viimeisen pisteen väliltä tai jos pisteitä on vain yksi niin "@". Eli "asdgf@gmail.com"
-//löytyy muodossa "gmail" ja @cs.helsinki.fi löytyisi muodossa "helsinki".
-//allEmails sisältää kaikki uniikit spostit kokonaisuudessaan.
+//ja toiseksi viimeisen pisteen väliltä tai jos pisteitä on vain yksi niin "@".
+//Eli "asdgf@gmail.com" löytyy muodossa "gmail" ja @cs.helsinki.fi löytyy
+//muodossa "helsinki". allEmails sisältää kaikki uniikit sähköpostit
+//kokonaisuudessaan.
 function getAllAndUniqueEmails(jsons) {
     var uniqueEmails = new Array(),
         allEmails = new Array();
@@ -117,8 +119,10 @@ function getPostCountsByUsers(jsons) {
 
     return objectSorter(userNamesAndPosts);
 }
-//Luodaan lista json-muodossa olevista olioista mitkä annetaan piirakanluonti-metodille.
-//Lasketaan myös monta mitäkin mailia(gmail, yahoo, hotmail jne.) on.
+
+//Luodaan lista json-muodossa olevista olioista jotka annetaan
+//piirakanluonti-metodille. Lasketaan myös monta eri palveluntarjoajaa
+//(gmail, yahoo, hotmail jne.) on yhteensä.
 function createJsonArrayForPieChart(allEmails, uniqueEmails) {
     var jsonArray = new Array();
     for (var i = 0; i < uniqueEmails.length - 1; i++) {
