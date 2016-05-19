@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tid:</strong>
+  <%= @reputation_post_topic.tid %>
+</p>
+
+<p>
+  <strong>Reputation:</strong>
+  <%= @reputation_post_topic.reputation %>
+</p>
+
+<p>
+  <strong>Postcount:</strong>
+  <%= @reputation_post_topic.postcount %>
+</p>
+
+<%= link_to 'Edit', edit_reputation_post_topic_path(@reputation_post_topic) %> |
+<%= link_to 'Back', reputation_post_topics_path %>
