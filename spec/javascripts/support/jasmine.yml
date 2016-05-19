@@ -62,8 +62,8 @@ spec_files:
 #
 # src_dir: public
 #
-src_dir:
-
+src_dir: spec/javascripts
+ 
 # spec_dir
 #
 # Spec directory path. Your spec_files must be returned relative to this path.
@@ -132,4 +132,3 @@ boot_files:
 # random: true
 #
 random:
-
