@@ -1,8 +1,11 @@
 class DownloadController < ApplicationController
 
   def download
-    data = count_emails
-    @contents = ActiveSupport::JSON.encode(data)
+    @contents = count_emails
+    respond_to do |format|
+      format.html
+      format.json {render json: @contents}
+    end
   end
 
   def count_emails
