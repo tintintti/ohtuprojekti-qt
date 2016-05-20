@@ -74,6 +74,7 @@ class ParseTopics
 
   end
 
+
   # Adds the topics from api/recent to the database.
   def self.add_topics_from_recent
     topics = recent_topics
