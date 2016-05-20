@@ -27,10 +27,10 @@ require 'rails_helper'
 
 describe "Main page", :js => true do
 
-  it "should have gmail" do
+  it "should have text" do
     visit('')
 
-    expect(page).to have_content 'gmail'
+    expect(page).to have_content 'Visualisointeja Qt:n keräämästä datasta'
   end
 
 end

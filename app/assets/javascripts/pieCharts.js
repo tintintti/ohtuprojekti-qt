@@ -1,5 +1,3 @@
-drawAllCharts()
-
 //tähän vois sit tulla se data sieltä backendilta joka korvais ton getTextFile()
 function drawAllCharts() {
     var jsons = jsonStringToArrayOfJsons(getTextFile());
