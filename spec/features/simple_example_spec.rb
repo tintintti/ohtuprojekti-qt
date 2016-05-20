@@ -28,8 +28,27 @@ require 'rails_helper'
 describe "Main page", :js => true do
 
   it "should have gmail" do
-    visit('/welcome/index')
-    # save_and_open_page
+    visit('')
+
     expect(page).to have_content 'gmail'
   end
+
+end
+
+describe "Chart page", :js => true do
+
+  it "emails chart should have gmail" do
+    visit('/charts')
+    click_button("Sähköpostien palveluntarjoajat")
+
+    expect(page).to have_content 'gmail'
+  end
+
+  it "posts chart should have SGaist" do
+    visit('/charts')
+    click_button("Viestien lähettäjät")
+
+    expect(page).to have_content 'SGaist'
+  end
+
 end

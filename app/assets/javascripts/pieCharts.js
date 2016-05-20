@@ -44,9 +44,7 @@ function getTextFile() {
     return file;
 }
 
-//Se tekstitiedosto on yks iso tiedosto missä on peräkkäin ne viestiketjujen
-//json-tiedostot. Jokasen json-tiedoston välissä on "split123" jonka avulla ne
-//splitataan yksittäisisiksi jsoneiksi.
+//Tekstitiedosto pilkotaan yksittäisiksi json-objekteiksi.
 function jsonStringToArrayOfJsons(rawfiles) {
     var files = rawfiles.split("split123");
     var jsons = new Array();
@@ -136,7 +134,8 @@ function createJsonArrayForPieChart(allEmails, uniqueEmails) {
     }
     return objectSorter(jsonArray);
 }
-//Piirakka luodaan tässä. Tätä ei välttämättä tarvii siivota.
+
+//Piirakka luodaan tässä. Tätä ei välttämättä tarvitses siivota.
 function drawPieChart(data, showlegend, divName) {
     nv.addGraph(function() {
         var chart = nv.models.pieChart()
