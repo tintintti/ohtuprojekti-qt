@@ -1,5 +1,3 @@
-drawAllCharts()
-
 //tähän vois sit tulla se data sieltä backendilta joka korvais ton getTextFile()
 function drawAllCharts() {
     var jsons = jsonStringToArrayOfJsons(getTextFile());
@@ -125,10 +123,10 @@ function createJsonArrayForPieChart(allEmails, uniqueEmails) {
             return x.split("@")[1].split(".")[0] == uniqueEmails[i];
         }).length
 
-            jsonArray.push({
-                "label": uniqueEmails[i],
-                "value": count
-            });
+        jsonArray.push({
+            "label": uniqueEmails[i],
+            "value": count
+        });
     }
     return objectSorter(jsonArray);
 }
@@ -142,7 +140,7 @@ function drawPieChart(data, showlegend, divName) {
             .y(function(d) {
                 return d.value
             })
-            .showLabels(true).showLegend(showlegend);
+            .showLabels(true).labelThreshold(.01).showLegend(showlegend);
 
         d3.select(divName)
             .datum(data)

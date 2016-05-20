@@ -1,8 +1,7 @@
 <html>
 <!DOCTYPE html>
 <meta charset="utf-8">
-<body>
-    <h1>Sähköpostien palveluntarjoajat</h1>
+<body onload="drawAllCharts()">
     <%= javascript_include_tag "d3.v3.min.js" %>
     <%= javascript_include_tag "nv3d.js" %>
     <%= javascript_include_tag "pieCharts.js" %>
@@ -11,7 +10,6 @@
     <div id="chart">
         <svg></svg>
     </div>
-    <h1>~5000 "uusimman" viestin lähettäjät</h1>
     <div id="chart2">
         <svg></svg>
     </div>
