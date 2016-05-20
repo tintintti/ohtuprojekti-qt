@@ -11,6 +11,7 @@ class DownloadController < ApplicationController
     topics.each do |t|
       topic = ActiveSupport::JSON.decode(t.raw_json)
       email = topic["posts"][0]["user"]["email"]
+      # guest users don't have an email so check for email
       if email == nil
         next
       end

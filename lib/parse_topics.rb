@@ -34,19 +34,21 @@ class ParseTopics
 
     while i < n
       url = url_base + "/topic/" + (first - i).to_s
+      slug = HTTParty.get(url).parsed_response
 
       # skips to the next id if the topic doesn't exist
-      if (HTTParty.get(url).parsed_response.class != String)
+      if (slug.class != String)
         first -= 1
         next
       end
 
-      if (HTTParty.get(url).parsed_response == "not-authorized")
+      #skips to the next id if the topic can't be accessed
+      if (slug == "not-authorized")
         first -= 1
         next
       end
 
-      real_url = url_base + HTTParty.get(url).parsed_response
+      real_url = url_base + slug
 
       topic = HTTParty.get(real_url).parsed_response
       topics << topic
