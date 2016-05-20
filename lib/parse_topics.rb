@@ -40,6 +40,12 @@ class ParseTopics
         first -= 1
         next
       end
+
+      if (HTTParty.get(url).parsed_response == "not-authorized")
+        first -= 1
+        next
+      end
+
       real_url = url_base + HTTParty.get(url).parsed_response
 
       topic = HTTParty.get(real_url).parsed_response

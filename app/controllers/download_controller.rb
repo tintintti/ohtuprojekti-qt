@@ -2,16 +2,18 @@ class DownloadController < ApplicationController
 
   def download
     data = count_emails
-    contents = ActiveSupport::JSON.encode(data)
-    send_data(contents, filename:"emails.txt")
+    @contents = ActiveSupport::JSON.encode(data)
   end
 
   def count_emails
     topics = Topic.all
     emails = Hash.new
-    topics.each do |topic|
-      topic = ActiveSupport::JSON.decode(topic.raw_json)
+    topics.each do |t|
+      topic = ActiveSupport::JSON.decode(t.raw_json)
       email = topic["posts"][0]["user"]["email"]
+      if email == nil
+        next
+      end
       email = email.split("@")
       email = email[1]
       if !emails.has_key?(email)
