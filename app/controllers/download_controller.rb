@@ -21,11 +21,17 @@ class DownloadController < ApplicationController
       email = email.split("@")
       email = email[1]
       if !emails.has_key?(email)
-        emails[email] = 0
+        emails[email] = {label:email, value:0}
       end
-      emails[email] += 1
+      emails[email][:value] += 1
     end
-    emails
+
+    data = []
+    emails.each do |key, value|
+      data << value
+    end
+    sorted_data = data.sort_by{ |item| item[:value]}
+    sorted_data
   end
 
 end
