@@ -22,6 +22,7 @@ Postcount less than twenty amount
       <th>Tid</th>
       <th>Reputation</th>
       <th>Postcount</th>
+      <th>Timestamp</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -32,6 +33,7 @@ Postcount less than twenty amount
         <td><%= reputation_post_topic.tid %></td>
         <td><%= reputation_post_topic.reputation %></td>
         <td><%= reputation_post_topic.postcount %></td>
+        <td><%= reputation_post_topic.timestamp %></td>
         <td><%= link_to 'Show', reputation_post_topic %></td>
         <td><%= link_to 'Edit', edit_reputation_post_topic_path(reputation_post_topic) %></td>
         <td><%= link_to 'Destroy', reputation_post_topic, method: :delete, data: { confirm: 'Are you sure?' } %></td>

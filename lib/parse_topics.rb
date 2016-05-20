@@ -61,7 +61,7 @@ class ParseTopics
     topics = recent_topics
     topics.each do |topic|
       user = topic["user"]
-      ReputationPostTopic.create(tid:topic["tid"], reputation:user["reputation"], postcount:user["postcount"], email:user["email"])
+      ReputationPostTopic.create(tid:topic["tid"], reputation:user["reputation"], postcount:user["postcount"], email:user["email"], timestamp:topic["timestamp"].to_i)
     end
 
   end
