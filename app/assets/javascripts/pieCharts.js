@@ -125,17 +125,20 @@ function createJsonArrayForPieChart(allEmails, uniqueEmails) {
             return x.split("@")[1].split(".")[0] == uniqueEmails[i];
         }).length
 
-            jsonArray.push({
-                "label": uniqueEmails[i],
-                "value": count
-            });
+        jsonArray.push({
+            "label": uniqueEmails[i],
+            "value": count
+        });
     }
     return objectSorter(jsonArray);
 }
 
 //Piirakka luodaan tässä. Tätä ei välttämättä tarvitses siivota.
 function drawPieChart(data, showlegend, divName) {
+    var height = setPieChartHeight(data);
     nv.addGraph(function() {
+        d3.select(divName).attr('height', height);
+
         var chart = nv.models.pieChart()
             .x(function(d) {
                 return d.label
@@ -143,12 +146,35 @@ function drawPieChart(data, showlegend, divName) {
             .y(function(d) {
                 return d.value
             })
+            .height(height)
+            .donut(true).donutRatio(0)
             .showLabels(true).showLegend(showlegend);
 
         d3.select(divName)
             .datum(data)
-            .transition().duration(350)
+            .transition().duration(1200)
             .call(chart);
+
+        d3.selectAll(".nv-label text")
+            .attr("text-anchor", "middle")
+            // Alter CSS attributes
+            .style({
+                "font-size": "1em"
+            });
+
+        d3.selectAll('.nv-series').each(function(d, i) {
+            var group = d3.select(this),
+                circle = group.select('circle');
+            var color = circle.style('fill');
+            circle.remove();
+            var symbol = group.append('path')
+                .attr('d', d3.svg.symbol().type('square'))
+                .style('stroke', color)
+                .style('fill', color)
+                // ADJUST SIZE AND POSITION
+                .attr('transform', 'scale(1.5) translate(-2,0)')
+        });
+
         return chart;
     });
 }
@@ -157,4 +183,11 @@ function objectSorter(array) {
     return array.sort(function(a, b) {
         return parseInt(a.value) - parseInt(b.value);
     });
+}
+
+function setPieChartHeight(data) {
+   var height = 800;
+   height += data.length * 3;
+   if (height > 1800) height = 1800;
+   return height;
 }

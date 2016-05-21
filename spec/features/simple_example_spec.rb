@@ -30,7 +30,7 @@ describe "Main page", :js => true do
   it "should have text" do
     visit('')
 
-    expect(page).to have_content 'Visualisointeja Qt:n keräämästä datasta'
+    expect(page).to have_content 'Visualisointeja The Qt Companyn keräämästä datasta'
   end
 
 end
