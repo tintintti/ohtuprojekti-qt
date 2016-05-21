@@ -147,7 +147,6 @@ function drawPieChart(data, showlegend, divName) {
                 return d.value
             })
             .height(height)
-            .donut(true).donutRatio(0)
             .showLabels(true).showLegend(showlegend);
 
         d3.select(divName)
