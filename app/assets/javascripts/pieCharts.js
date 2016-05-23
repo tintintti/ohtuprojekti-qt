@@ -26,6 +26,7 @@ function drawPosterChartOnly() {
     var jsons = jsonStringToArrayOfJsons(getTextFile());
     var postdata = getPostCountsByUsers(jsons);
     drawPieChart(postdata, true, "#chart svg");
+
 }
 
 // Haetaan tekstifilu jesarilla. Tää korvataan kun saadaan joku
@@ -175,6 +176,13 @@ function drawPieChart(data, showlegend, divName) {
         });
 
         return chart;
+    },
+    //tää kohta pitäis saada muualle
+    function() {
+        d3.selectAll(".nv-slice").on('click',
+            function(d) {
+                redirectToUserPage(d.data.label);
+            });
     });
 }
 
@@ -185,8 +193,12 @@ function objectSorter(array) {
 }
 
 function setPieChartHeight(data) {
-   var height = 800;
-   height += data.length * 3;
-   if (height > 1800) height = 1800;
-   return height;
+    var height = 800;
+    height += data.length * 3;
+    if (height > 1800) height = 1800;
+    return height;
+}
+
+function redirectToUserPage(name) {
+    window.location = "http://forum.qt.io/user/" + name;
 }
