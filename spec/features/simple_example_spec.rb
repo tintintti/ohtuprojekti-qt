@@ -31,6 +31,7 @@ describe "Main page", :js => true do
     visit('')
 
     expect(page).to have_content 'Visualisointeja The Qt Companyn keräämästä datasta'
+    
   end
 
 end
