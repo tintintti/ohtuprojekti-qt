@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pid:</strong>
+  <%= @post.pid %>
+</p>
+
+<p>
+  <strong>Did:</strong>
+  <%= @post.did %>
+</p>
+
+<p>
+  <strong>Tid:</strong>
+  <%= @post.tid %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @post.content %>
+</p>
+
+<p>
+  <strong>Timestamp:</strong>
+  <%= @post.timestamp %>
+</p>
+
+<p>
+  <strong>Reputation:</strong>
+  <%= @post.reputation %>
+</p>
+
+<p>
+  <strong>Votes:</strong>
+  <%= @post.votes %>
+</p>
+
+<p>
+  <strong>Edited:</strong>
+  <%= @post.edited %>
+</p>
+
+<p>
+  <strong>Deleted:</strong>
+  <%= @post.deleted %>
+</p>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>

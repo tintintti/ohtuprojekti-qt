@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Categories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cid</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Slug</th>
+      <th>Parentcid</th>
+      <th>Topic count</th>
+      <th>Post count</th>
+      <th>Disabled</th>
+      <th>Order</th>
+      <th>Link</th>
+      <th>Numrecentreplies</th>
+      <th>Totalpostcount</th>
+      <th>Totaltopiccount</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.cid %></td>
+        <td><%= category.name %></td>
+        <td><%= category.description %></td>
+        <td><%= category.slug %></td>
+        <td><%= category.parentCid %></td>
+        <td><%= category.topic_count %></td>
+        <td><%= category.post_count %></td>
+        <td><%= category.disabled %></td>
+        <td><%= category.order %></td>
+        <td><%= category.link %></td>
+        <td><%= category.numRecentReplies %></td>
+        <td><%= category.totalPostCount %></td>
+        <td><%= category.totalTopicCount %></td>
+        <td><%= link_to 'Show', category %></td>
+        <td><%= link_to 'Edit', edit_category_path(category) %></td>
+        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Category', new_category_path %>
