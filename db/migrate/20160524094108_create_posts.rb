@@ -10,6 +10,7 @@ class CreatePosts < ActiveRecord::Migration
       t.integer :votes
       t.string :edited
       t.boolean :deleted
+      t.integer :index
 
       t.timestamps null: false
     end
