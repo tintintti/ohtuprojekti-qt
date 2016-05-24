@@ -12,9 +12,9 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
-  gem 'poltergeist'
   gem 'selenium-webdriver'
-  gem "chromedriver-helper"
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
 end
 
 group :production do
