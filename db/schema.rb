@@ -39,8 +39,9 @@ ActiveRecord::Schema.define(version: 20160524101037) do
     t.string   "timestamp"
     t.integer  "reputation"
     t.integer  "votes"
-    t.integer  "edited"
+    t.string   "edited"
     t.boolean  "deleted"
+    t.integer  "index"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
