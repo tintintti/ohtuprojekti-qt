@@ -77,10 +77,10 @@ ActiveRecord::Schema.define(version: 20160524101037) do
     t.integer  "postcount"
     t.boolean  "banned"
     t.string   "status"
-    t.integer  "did"
-    t.integer  "lastonline"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "uid"
+    t.integer  "lastonline", limit: 8
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
 end

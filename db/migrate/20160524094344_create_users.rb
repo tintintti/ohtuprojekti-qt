@@ -12,7 +12,7 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean :banned
       t.string :status
       t.integer :uid
-      t.integer :lastonline
+      t.integer :lastonline, :limit => 8
 
       t.timestamps null: false
     end
