@@ -12,12 +12,14 @@ function drawAllCharts() {
 }
 
 function drawEmailChartOnly() {
+    document.getElementById("title").innerHTML = "Sähköpostien palveluntarjoajat";
     d3.selectAll("#chart svg > *").remove();
     drawPieChart("emails", data, true, "#chart svg");
 }
 
 function drawPosterChartOnly() {
     document.getElementById("emails").innerHTML = "";
+    document.getElementById("title").innerHTML = "Viimeiset ~5000 viestiä käyttäjien mukaan";
     d3.selectAll("#chart svg > *").remove();
     drawPieChart("posts", postdata, true, "#chart svg");
 }
