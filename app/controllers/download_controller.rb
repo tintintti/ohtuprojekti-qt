@@ -1,6 +1,6 @@
 class DownloadController < ApplicationController
 
-  def download
+  def emails
     @contents = count_emails
     respond_to do |format|
       format.html
@@ -13,7 +13,8 @@ class DownloadController < ApplicationController
     emails = Hash.new
     topics.each do |t|
       topic = ActiveSupport::JSON.decode(t.raw_json)
-      email = topic["posts"][0]["user"]["email"]
+      user = topic["posts"][0]["user"]
+      email = user["email"]
       # guest users don't have an email so check for email
       if email == nil
         next
@@ -21,9 +22,10 @@ class DownloadController < ApplicationController
       email = email.split("@")
       email = email[1]
       if !emails.has_key?(email)
-        emails[email] = {label:email, value:0}
+        emails[email] = {label:email, value:0, users:[]}
       end
       emails[email][:value] += 1
+      emails[email][:users] << {user:user["username"], slug:user["userslug"]}
     end
 
     data = []
