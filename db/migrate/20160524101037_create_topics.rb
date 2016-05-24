@@ -7,8 +7,8 @@ class CreateTopics < ActiveRecord::Migration
       t.integer :mainPid
       t.string :title
       t.string :slug
-      t.integer :timestamp, :limit => 8
-      t.integer :lastposttime, :limit => 8
+      t.string :timestamp
+      t.string :lastposttime
       t.integer :postcount
       t.integer :viewcount
       t.boolean :locked

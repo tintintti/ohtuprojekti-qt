@@ -36,13 +36,13 @@ ActiveRecord::Schema.define(version: 20160524101037) do
     t.integer  "uid"
     t.integer  "tid"
     t.string   "content"
-    t.integer  "timestamp",  limit: 8
+    t.string   "timestamp"
     t.integer  "reputation"
     t.integer  "votes"
     t.integer  "edited"
     t.boolean  "deleted"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "topics", force: :cascade do |t|
@@ -52,8 +52,8 @@ ActiveRecord::Schema.define(version: 20160524101037) do
     t.integer  "mainPid"
     t.string   "title"
     t.string   "slug"
-    t.integer  "timestamp",       limit: 8
-    t.integer  "lastposttime",    limit: 8
+    t.string   "timestamp"
+    t.string   "lastposttime"
     t.integer  "postcount"
     t.integer  "viewcount"
     t.boolean  "locked"
@@ -62,8 +62,8 @@ ActiveRecord::Schema.define(version: 20160524101037) do
     t.integer  "isSolved"
     t.string   "relativeTime"
     t.string   "lastposttimeISO"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -78,9 +78,9 @@ ActiveRecord::Schema.define(version: 20160524101037) do
     t.boolean  "banned"
     t.string   "status"
     t.integer  "uid"
-    t.integer  "lastonline", limit: 8
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.string   "lastonline"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

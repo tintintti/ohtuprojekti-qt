@@ -5,7 +5,7 @@ class CreatePosts < ActiveRecord::Migration
       t.integer :uid
       t.integer :tid
       t.string :content
-      t.integer :timestamp, :limit => 8
+      t.string :timestamp
       t.integer :reputation
       t.integer :votes
       t.integer :edited
