@@ -19,6 +19,7 @@ function drawEmailChartOnly() {
 function drawPosterChartOnly() {
     d3.selectAll("#chart svg > *").remove();
     drawPieChart(postdata, true, "#chart svg");
+
 }
 
 // Haetaan tekstifilu jesarilla. Tää korvataan kun saadaan joku
@@ -174,6 +175,13 @@ function drawPieChart(data, showlegend, divName) {
                 .attr('transform', 'scale(1.5) translate(-2,0)')
         });
         return chart;
+    },
+    //tää kohta pitäis saada muualle
+    function() {
+        d3.selectAll(".nv-slice").on('click',
+            function(d) {
+                redirectToUserPage(d.data.label);
+            });
     });
 }
 
@@ -188,4 +196,8 @@ function setPieChartHeight(data) {
     height += data.length * 3;
     if (height > 1800) height = 1800;
     return height;
+}
+
+function redirectToUserPage(name) {
+    window.location = "http://forum.qt.io/user/" + name;
 }
