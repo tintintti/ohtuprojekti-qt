@@ -138,52 +138,53 @@ function createJsonArrayForPieChart(allEmails, uniqueEmails) {
 function drawPieChart(data, showlegend, divName) {
     var height = setPieChartHeight(data);
     nv.addGraph(function() {
-        d3.select(divName).attr('height', height);
+            d3.select(divName).attr('height', height);
 
-        var chart = nv.models.pieChart()
-            .x(function(d) {
-                return d.label
-            })
-            .y(function(d) {
-                return d.value
-            })
-            .height(height)
-            .showLabels(true).showLegend(showlegend);
+            var chart = nv.models.pieChart()
+                .x(function(d) {
+                    return d.label
+                })
+                .y(function(d) {
+                    return d.value
+                })
+                .height(height)
+                .showLabels(true).showLegend(showlegend);
 
-        d3.select(divName)
-            .datum(data)
-            .transition().duration(1200)
-            .call(chart);
+            d3.select(divName)
+                .datum(data)
+                .transition().duration(1200)
+                .call(chart);
 
-        d3.selectAll(".nv-label text")
-            .attr("text-anchor", "middle")
-            // Alter CSS attributes
-            .style({
-                "font-size": "1em"
+            d3.selectAll(".nv-label text")
+                .attr("text-anchor", "middle")
+                // Alter CSS attributes
+                .style({
+                    "font-size": "1em"
+                });
+
+            d3.selectAll('.nv-series').each(function(d, i) {
+                var group = d3.select(this),
+                    circle = group.select('circle');
+                var color = circle.style('fill');
+                circle.remove();
+                var symbol = group.append('path')
+                    .attr('d', d3.svg.symbol().type('square'))
+                    .style('stroke', color)
+                    .style('fill', color)
+                    // ADJUST SIZE AND POSITION
+                    .attr('transform', 'scale(1.5) translate(-2,0)')
             });
 
-        d3.selectAll('.nv-series').each(function(d, i) {
-            var group = d3.select(this),
-                circle = group.select('circle');
-            var color = circle.style('fill');
-            circle.remove();
-            var symbol = group.append('path')
-                .attr('d', d3.svg.symbol().type('square'))
-                .style('stroke', color)
-                .style('fill', color)
-                // ADJUST SIZE AND POSITION
-                .attr('transform', 'scale(1.5) translate(-2,0)')
+            return chart;
+        },
+        //tää kohta pitäis saada muualle
+        function() {
+            d3.selectAll(".nv-slice").on('click',
+                function(d) {
+                    listEmailsOfProvider(d.data);
+                    //redirectToQtUserPage(d.data.label);
+                });
         });
-
-        return chart;
-    },
-    //tää kohta pitäis saada muualle
-    function() {
-        d3.selectAll(".nv-slice").on('click',
-            function(d) {
-                redirectToUserPage(d.data.label);
-            });
-    });
 }
 
 function objectSorter(array) {
@@ -199,6 +200,34 @@ function setPieChartHeight(data) {
     return height;
 }
 
-function redirectToUserPage(name) {
-    window.location = "http://forum.qt.io/user/" + name;
+function redirectToQtUserPage(name) {
+    if (name != "users w/ <10 posts") {
+        window.location = "http://forum.qt.io/user/" + name;
+    }
+
+}
+
+function listEmailsOfProvider(data) {
+   document.getElementById("emails").innerHTML = "";
+   document.getElementById("emails").innerHTML += "<h2>Emails by provider " + data.label + "</h2>";
+   document.getElementById("emails").appendChild(makeUL(data.label));
+}
+
+function makeUL(array) {
+// Create the list element:
+  var list = document.createElement('ul');
+
+  for(var i = 0; i < array.length; i++) {
+      // Create the list item:
+      var item = document.createElement('li');
+
+      // Set its contents:
+      item.appendChild(document.createTextNode(array[i]));
+
+      // Add it to the list:
+      list.appendChild(item);
+  }
+
+  // Finally, return the constructed list:
+  return list;
 }
