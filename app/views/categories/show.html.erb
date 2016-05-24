@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cid:</strong>
+  <%= @category.cid %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @category.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @category.description %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @category.slug %>
+</p>
+
+<p>
+  <strong>Parentcid:</strong>
+  <%= @category.parentCid %>
+</p>
+
+<p>
+  <strong>Topic count:</strong>
+  <%= @category.topic_count %>
+</p>
+
+<p>
+  <strong>Post count:</strong>
+  <%= @category.post_count %>
+</p>
+
+<p>
+  <strong>Disabled:</strong>
+  <%= @category.disabled %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @category.order %>
+</p>
+
+<p>
+  <strong>Link:</strong>
+  <%= @category.link %>
+</p>
+
+<p>
+  <strong>Numrecentreplies:</strong>
+  <%= @category.numRecentReplies %>
+</p>
+
+<p>
+  <strong>Totalpostcount:</strong>
+  <%= @category.totalPostCount %>
+</p>
+
+<p>
+  <strong>Totaltopiccount:</strong>
+  <%= @category.totalTopicCount %>
+</p>
+
+<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %>
