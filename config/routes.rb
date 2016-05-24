@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   get 'charts' => 'welcome#view'
 
+  get 'emails' => 'download#emails'
+
   root 'welcome#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
