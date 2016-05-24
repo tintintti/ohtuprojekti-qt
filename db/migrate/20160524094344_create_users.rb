@@ -11,7 +11,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :postcount
       t.boolean :banned
       t.string :status
-      t.integer :did
+      t.integer :uid
       t.integer :lastonline
 
       t.timestamps null: false

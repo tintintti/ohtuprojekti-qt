@@ -4,15 +4,14 @@ RSpec.describe "topics/edit", type: :view do
   before(:each) do
     @topic = assign(:topic, Topic.create!(
       :tid => 1,
-      :did => 1,
-      :cid => "",
+      :uid => 1,
+      :cid => 1,
       :mainPid => 1,
       :title => "MyString",
       :slug => "MyString",
       :timestamp => 1,
       :lastposttime => 1,
-      :post => "MyString",
-      :count => 1,
+      :postcount => 1,
       :viewcount => 1,
       :locked => false,
       :pinned => false,
@@ -30,7 +29,7 @@ RSpec.describe "topics/edit", type: :view do
 
       assert_select "input#topic_tid[name=?]", "topic[tid]"
 
-      assert_select "input#topic_did[name=?]", "topic[did]"
+      assert_select "input#topic_uid[name=?]", "topic[uid]"
 
       assert_select "input#topic_cid[name=?]", "topic[cid]"
 
@@ -44,9 +43,7 @@ RSpec.describe "topics/edit", type: :view do
 
       assert_select "input#topic_lastposttime[name=?]", "topic[lastposttime]"
 
-      assert_select "input#topic_post[name=?]", "topic[post]"
-
-      assert_select "input#topic_count[name=?]", "topic[count]"
+      assert_select "input#topic_postcount[name=?]", "topic[postcount]"
 
       assert_select "input#topic_viewcount[name=?]", "topic[viewcount]"
 

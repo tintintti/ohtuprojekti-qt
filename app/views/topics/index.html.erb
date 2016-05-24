@@ -6,15 +6,14 @@
   <thead>
     <tr>
       <th>Tid</th>
-      <th>Did</th>
+      <th>Uid</th>
       <th>Cid</th>
       <th>Mainpid</th>
       <th>Title</th>
       <th>Slug</th>
       <th>Timestamp</th>
       <th>Lastposttime</th>
-      <th>Post</th>
-      <th>Count</th>
+      <th>Postcount</th>
       <th>Viewcount</th>
       <th>Locked</th>
       <th>Pinned</th>
@@ -30,15 +29,14 @@
     <% @topics.each do |topic| %>
       <tr>
         <td><%= topic.tid %></td>
-        <td><%= topic.did %></td>
+        <td><%= topic.uid %></td>
         <td><%= topic.cid %></td>
         <td><%= topic.mainPid %></td>
         <td><%= topic.title %></td>
         <td><%= topic.slug %></td>
         <td><%= topic.timestamp %></td>
         <td><%= topic.lastposttime %></td>
-        <td><%= topic.post %></td>
-        <td><%= topic.count %></td>
+        <td><%= topic.postcount %></td>
         <td><%= topic.viewcount %></td>
         <td><%= topic.locked %></td>
         <td><%= topic.pinned %></td>

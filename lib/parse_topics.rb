@@ -61,7 +61,14 @@ class ParseTopics
   def self.add_newest_topics(n)
     topics = newest_topics(n)
     topics.each do |topic|
-      Topic.create(tid:topic["tid"], slug:topic["slug"], raw_json:ActiveSupport::JSON.encode(topic))
+      posts = topic["posts"]
+      posts.each do |post|
+        user = post["user"]
+        Post.create(pid:post["pid"], uid:post["uid"], tid:post["tid"], content:post["content"], timestamp:post["timestamp"], reputation:post["reputation"], votes:post["votes"], edited:post["edited"], deleted:post["deleted"], )
+        User.create(username:user["username"], userslug:user["userslug"], email:user["email"], picture:user["picture"], fullname:user["fullname"], signature:user["signature"], reputation:user["reputation"], postcount:user["postcount"], banned:user["banned"], status:user["status"], lastonline:user["lastonline"], uid:user["uid"], )
+      end
+
+      Topic.create(tid:topic["tid"], slug:topic["slug"], uid:topic["uid"], cid:topic["cid"], mainPid:topic["mainPid"], title:topic["title"], timestamp:topic["timestamp"], postcount:topic["postcount"], viewcount:topic["viewcount"], locked:topic["locked"], pinned:topic["pinned"], isQuestion:topic["isQuestion"], isSolved:topic["isSolved"], relativeTime:topic["relativeTime"], lastposttime:topic["lastposttime"] )
     end
   end
 
@@ -81,7 +88,11 @@ class ParseTopics
     topics = recent_topics
 
     topics.each do |topic|
-      Topic.create(tid:topic["tid"], slug:topic["slug"], raw_json:ActiveSupport::JSON.encode(topic))
+      posts = topic["posts"]
+      posts.each do |post|
+        puts post["content"]
+      end
+     # Topic.create(tid:topic["tid"], slug:topic["slug"], raw_json:ActiveSupport::JSON.encode(topic))
     end
 
   end

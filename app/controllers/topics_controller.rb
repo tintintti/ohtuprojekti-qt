@@ -69,6 +69,6 @@ class TopicsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def topic_params
-      params.require(:topic).permit(:tid, :did, :cid, :mainPid, :title, :slug, :timestamp, :lastposttime, :post, :count, :viewcount, :locked, :pinned, :isQuestion, :isSolved, :relativeTime, :lastposttimeISO)
+      params.require(:topic).permit(:tid, :uid, :cid, :mainPid, :title, :slug, :timestamp, :lastposttime, :postcount, :viewcount, :locked, :pinned, :isQuestion, :isSolved, :relativeTime, :lastposttimeISO)
     end
 end
