@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tid:</strong>
+  <%= @topic.tid %>
+</p>
+
+<p>
+  <strong>Did:</strong>
+  <%= @topic.did %>
+</p>
+
+<p>
+  <strong>Cid:</strong>
+  <%= @topic.cid %>
+</p>
+
+<p>
+  <strong>Mainpid:</strong>
+  <%= @topic.mainPid %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @topic.title %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @topic.slug %>
+</p>
+
+<p>
+  <strong>Timestamp:</strong>
+  <%= @topic.timestamp %>
+</p>
+
+<p>
+  <strong>Lastposttime:</strong>
+  <%= @topic.lastposttime %>
+</p>
+
+<p>
+  <strong>Post:</strong>
+  <%= @topic.post %>
+</p>
+
+<p>
+  <strong>Count:</strong>
+  <%= @topic.count %>
+</p>
+
+<p>
+  <strong>Viewcount:</strong>
+  <%= @topic.viewcount %>
+</p>
+
+<p>
+  <strong>Locked:</strong>
+  <%= @topic.locked %>
+</p>
+
+<p>
+  <strong>Pinned:</strong>
+  <%= @topic.pinned %>
+</p>
+
+<p>
+  <strong>Isquestion:</strong>
+  <%= @topic.isQuestion %>
+</p>
+
+<p>
+  <strong>Issolved:</strong>
+  <%= @topic.isSolved %>
+</p>
+
+<p>
+  <strong>Relativetime:</strong>
+  <%= @topic.relativeTime %>
+</p>
+
+<p>
+  <strong>Lastposttimeiso:</strong>
+  <%= @topic.lastposttimeISO %>
+</p>
+
+<%= link_to 'Edit', edit_topic_path(@topic) %> |
+<%= link_to 'Back', topics_path %>

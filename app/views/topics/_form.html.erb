@@ -1,0 +1,85 @@
+<%= form_for(@topic) do |f| %>
+  <% if @topic.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@topic.errors.count, "error") %> prohibited this topic from being saved:</h2>
+
+      <ul>
+      <% @topic.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :tid %><br>
+    <%= f.number_field :tid %>
+  </div>
+  <div class="field">
+    <%= f.label :did %><br>
+    <%= f.number_field :did %>
+  </div>
+  <div class="field">
+    <%= f.label :cid %><br>
+    <%= f.text_field :cid %>
+  </div>
+  <div class="field">
+    <%= f.label :mainPid %><br>
+    <%= f.number_field :mainPid %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :slug %><br>
+    <%= f.text_field :slug %>
+  </div>
+  <div class="field">
+    <%= f.label :timestamp %><br>
+    <%= f.number_field :timestamp %>
+  </div>
+  <div class="field">
+    <%= f.label :lastposttime %><br>
+    <%= f.number_field :lastposttime %>
+  </div>
+  <div class="field">
+    <%= f.label :post %><br>
+    <%= f.text_field :post %>
+  </div>
+  <div class="field">
+    <%= f.label :count %><br>
+    <%= f.number_field :count %>
+  </div>
+  <div class="field">
+    <%= f.label :viewcount %><br>
+    <%= f.number_field :viewcount %>
+  </div>
+  <div class="field">
+    <%= f.label :locked %><br>
+    <%= f.check_box :locked %>
+  </div>
+  <div class="field">
+    <%= f.label :pinned %><br>
+    <%= f.check_box :pinned %>
+  </div>
+  <div class="field">
+    <%= f.label :isQuestion %><br>
+    <%= f.number_field :isQuestion %>
+  </div>
+  <div class="field">
+    <%= f.label :isSolved %><br>
+    <%= f.number_field :isSolved %>
+  </div>
+  <div class="field">
+    <%= f.label :relativeTime %><br>
+    <%= f.text_field :relativeTime %>
+  </div>
+  <div class="field">
+    <%= f.label :lastposttimeISO %><br>
+    <%= f.text_field :lastposttimeISO %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
