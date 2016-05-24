@@ -1,30 +1,23 @@
 //tähän vois sit tulla se data sieltä backendilta joka korvais ton getTextFile()
+var jsons = jsonStringToArrayOfJsons(getTextFile());
+var allAndUniqueEmails = getAllAndUniqueEmails(jsons);
+var allEmails = allAndUniqueEmails[0],
+    uniqueEmails = allAndUniqueEmails[1];
+var data = createJsonArrayForPieChart(allEmails, uniqueEmails);
+var postdata = getPostCountsByUsers(jsons);
+
 function drawAllCharts() {
-    var jsons = jsonStringToArrayOfJsons(getTextFile());
-    var allAndUniqueEmails = getAllAndUniqueEmails(jsons);
-    var allEmails = allAndUniqueEmails[0],
-        uniqueEmails = allAndUniqueEmails[1];
-    var data = createJsonArrayForPieChart(allEmails, uniqueEmails);
     drawPieChart(data, true, "#chart svg");
-    var postdata = getPostCountsByUsers(jsons);
     drawPieChart(postdata, true, "#chart2 svg");
 }
 
 function drawEmailChartOnly() {
     d3.selectAll("#chart svg > *").remove();
-    var jsons = jsonStringToArrayOfJsons(getTextFile());
-    var allAndUniqueEmails = getAllAndUniqueEmails(jsons);
-    var allEmails = allAndUniqueEmails[0],
-        uniqueEmails = allAndUniqueEmails[1];
-    var data = createJsonArrayForPieChart(allEmails, uniqueEmails);
     drawPieChart(data, true, "#chart svg");
-
 }
 
 function drawPosterChartOnly() {
     d3.selectAll("#chart svg > *").remove();
-    var jsons = jsonStringToArrayOfJsons(getTextFile());
-    var postdata = getPostCountsByUsers(jsons);
     drawPieChart(postdata, true, "#chart svg");
 }
 
@@ -52,11 +45,7 @@ function jsonStringToArrayOfJsons(rawfiles) {
     return jsons;
 }
 
-//uniqueEmails sisältää kaikki uniikit sähköpostit viimeisimmän pisteen
-//ja toiseksi viimeisen pisteen väliltä tai jos pisteitä on vain yksi niin "@".
-//Eli "asdgf@gmail.com" löytyy muodossa "gmail" ja @cs.helsinki.fi löytyy
-//muodossa "helsinki". allEmails sisältää kaikki uniikit sähköpostit
-//kokonaisuudessaan.
+
 function getAllAndUniqueEmails(jsons) {
     var uniqueEmails = new Array(),
         allEmails = new Array();
@@ -124,7 +113,6 @@ function createJsonArrayForPieChart(allEmails, uniqueEmails) {
         var count = allEmails.filter(function(x) {
             return x.split("@")[1].split(".")[0] == uniqueEmails[i];
         }).length
-
         jsonArray.push({
             "label": uniqueEmails[i],
             "value": count
@@ -133,12 +121,11 @@ function createJsonArrayForPieChart(allEmails, uniqueEmails) {
     return objectSorter(jsonArray);
 }
 
-//Piirakka luodaan tässä. Tätä ei välttämättä tarvitses siivota.
+//Piirakka luodaan tässä.
 function drawPieChart(data, showlegend, divName) {
     var height = setPieChartHeight(data);
     nv.addGraph(function() {
         d3.select(divName).attr('height', height);
-
         var chart = nv.models.pieChart()
             .x(function(d) {
                 return d.label
@@ -147,7 +134,20 @@ function drawPieChart(data, showlegend, divName) {
                 return d.value
             })
             .height(height)
-            .showLabels(true).showLegend(showlegend);
+            .showLabels(true).showLegend(showlegend).tooltipContent(function(key, y, e, graph) {
+                var tooltipcontent = "<p>" + key.data.label + "</p>",
+                    count = 0;
+                for (var i = 0; i < allEmails.length; i++) {
+                    if (allEmails[i].split("@")[1].split(".")[0] == key.data.label) {
+                        tooltipcontent = tooltipcontent + "<p>" + allEmails[i] + "</p>";
+                        count++;
+                    }
+                    if (count > 10) {
+                        break;
+                    }
+                }
+                return tooltipcontent;
+            });
 
         d3.select(divName)
             .datum(data)
@@ -173,7 +173,6 @@ function drawPieChart(data, showlegend, divName) {
                 // ADJUST SIZE AND POSITION
                 .attr('transform', 'scale(1.5) translate(-2,0)')
         });
-
         return chart;
     });
 }
@@ -185,8 +184,8 @@ function objectSorter(array) {
 }
 
 function setPieChartHeight(data) {
-   var height = 800;
-   height += data.length * 3;
-   if (height > 1800) height = 1800;
-   return height;
+    var height = 800;
+    height += data.length * 3;
+    if (height > 1800) height = 1800;
+    return height;
 }
