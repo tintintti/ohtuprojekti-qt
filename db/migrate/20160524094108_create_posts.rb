@@ -8,7 +8,7 @@ class CreatePosts < ActiveRecord::Migration
       t.string :timestamp
       t.integer :reputation
       t.integer :votes
-      t.integer :edited
+      t.string :edited
       t.boolean :deleted
 
       t.timestamps null: false
