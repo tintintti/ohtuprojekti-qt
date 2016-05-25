@@ -5,3 +5,10 @@ As a community manager I want to see who has posted messages on the forum
 Scenario: User sees the welcome message
 When I go to the home page
 Then page should have text message "Qt Software Project"
+
+@javascript
+Scenario: User clicks on pie chart object
+When I go to charts
+When I press "Viestien lähettäjät"
+When I click user on piechart
+Then I should be on user's forum page

@@ -10,10 +10,21 @@ end
 
 When /^I press "([^\"]*)"$/ do |button|
   click_button(button)
+  # find("button", :text=> button).trigger("click")
+  # find("button", :text=> button).click
 end
 
 When /^I click "([^\"]*)"$/ do |link|
   click_link(link)
+end
+
+When /^I click user on piechart$/ do
+  all(".nv-slice")[1].click
+end
+
+When /^I click "([^\"]*)" with text "([^\"]*)"$/ do |link, text|
+  # click_link(link)
+  find(link, :text => text).trigger("click")
 end
 
 When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
@@ -80,8 +91,16 @@ Then /^the "([^\"]*)" checkbox should not be checked$/ do |label|
   find_field(label).should_not be_checked
 end
 
-Then /^I should be on (.+)$/ do |page_name|
+Then /^I should be on page (.+)$/ do |url|
   current_path.should == path_to(page_name)
+end
+
+Then /^I should be on user's forum page$/ do
+  forumPage = current_url
+  visit path_to("charts")
+  click_button("Viestien lähettäjät")
+  all(".nv-slice")[1].hover
+  forumPage.should == "http://forum.qt.io/user/" + find(".key").text
 end
 
 Then /^page should have (.+) message "([^\"]*)"$/ do |type, text|
