@@ -4,9 +4,7 @@
     <body>
         <button type="button" class="btn btn-primary active" onclick=drawEmailChartOnly()>Sähköpostien palveluntarjoajat</button>
         <button type="button" class="btn btn-primary active" onclick=drawPosterChartOnly()>Viestien lähettäjät</button>
-        <%= content_tag "div", id: "postcount", data: {postcounts: @postcounts} do %>
-          Loading products...
-        <% end %>
+        <% content_tag "div", id: "postcount", data: {postcounts: @postcounts} %>
         <%= javascript_include_tag "d3.v3.min.js" %>
         <%= javascript_include_tag "nv3d.js" %>
         <%= javascript_include_tag "pieCharts.js" %>
