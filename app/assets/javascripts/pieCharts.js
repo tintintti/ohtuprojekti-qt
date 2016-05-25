@@ -179,6 +179,7 @@ function drawPieChart(type, data, showlegend, divName) {
 }
 
 
+
 function objectSorter(array) {
     return array.sort(function(a, b) {
         return parseInt(a.value) - parseInt(b.value);
