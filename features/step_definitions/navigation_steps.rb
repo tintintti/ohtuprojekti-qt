@@ -103,8 +103,7 @@ Then /^I should be on user's forum page$/ do
   visit path_to("charts")
   click_button("Viestien lähettäjät")
   all(".nv-slice")[1].hover
-  forumPage.should == "http://forum.qt.io/user/MSDQuick"
-  # + find(".key").text
+  forumPage.should == "http://forum.qt.io/user/" + find(".key").text
 end
 
 Then /^page should have (.+) message "([^\"]*)"$/ do |type, text|
