@@ -12,28 +12,26 @@ var data = createJsonArrayForPieChart(allEmails, uniqueEmails);
 var postdata = getPostCountsByUsers(jsons, 10);
 
 function drawAllCharts() {
+    emptyContainers();
     drawPieChart("emails", data, true, "#chart svg");
     drawPieChart("posts", postdata, true, "#chart2 svg");
 }
 
 function drawEmailChartOnly() {
-    document.getElementById("title").innerHTML = "Sähköpostien palveluntarjoajat";
-    document.getElementById("minButton").innerHTML = "";
-    d3.selectAll("#chart svg > *").remove();
+    emptyContainers();
+    insertTitle("Sähköpostien palveluntarjoajat");
     drawPieChart("emails", data, true, "#chart svg");
 }
 
 function drawPosterChartOnly() {
+    emptyContainers();
     insertMinButton();
-    document.getElementById("emails").innerHTML = "";
-    document.getElementById("title").innerHTML = "Viimeiset ~5000 viestiä käyttäjien mukaan";
-    d3.selectAll("#chart svg > *").remove();
+    insertTitle("Viimeiset ~5000 viestiä käyttäjien mukaan");
     drawPieChart("posts", postdata, true, "#chart svg");
 }
 
 function drawWithMinPosts(minPosts) {
     if (minPosts > 0) {
-        d3.selectAll("#chart svg > *").remove();
         var postdata = getPostCountsByUsers(jsons, minPosts);
         drawPieChart("posts", postdata, true, "#chart svg");
     }
@@ -141,6 +139,7 @@ function createJsonArrayForPieChart(allEmails, uniqueEmails) {
 
 //Piirakka luodaan tässä.
 function drawPieChart(type, data, showlegend, divName) {
+    d3.selectAll("#chart svg > *").remove();
     var height = setPieChartHeight(data);
     nv.addGraph(function() {
             d3.select(divName).attr('height', height);
@@ -210,7 +209,7 @@ function setPieChartHeight(data) {
 
 //Ohjaa haettavan Qt:n foorumin käyttäjän sivuille
 function redirectToQtUserPage(name) {
-    if (name != "users w/ <10 posts") {
+    if (!name.includes("users w/")) {
         window.open("http://forum.qt.io/user/" + name);
     }
 
@@ -247,7 +246,16 @@ function makeUL(array) {
     return list;
 }
 
+function insertTitle(title) {
+  document.getElementById("title").innerHTML = title + "";
+}
+
 function insertMinButton() {
     document.getElementById("minButton").innerHTML =
         "<input type=number value=10 id='minimum'/><p><input type = button value = 'Aseta viestien minimimäärä' onclick = 'drawWithMinPosts(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
+}
+
+function emptyContainers() {
+  document.getElementById("minButton").innerHTML = "";
+  document.getElementById("emails").innerHTML = "";
 }
