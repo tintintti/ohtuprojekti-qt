@@ -10,7 +10,7 @@ describe('Test piechart with jasmine ', function() {
 
 
     it('svg should be created', function() {
-        drawAllCharts();
+        drawWithMinPosts(10);
         expect(getSvg()).not.toBeNull();
     });
 
