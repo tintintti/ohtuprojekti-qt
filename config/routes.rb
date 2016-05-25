@@ -12,11 +12,11 @@ Rails.application.routes.draw do
 
   get 'file' => 'download#download'
 
-  get 'charts' => 'welcome#view'
+  get 'charts' => 'charts#view'
 
   get 'emails' => 'download#emails'
 
-  root 'welcome#index'
+  root 'charts#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

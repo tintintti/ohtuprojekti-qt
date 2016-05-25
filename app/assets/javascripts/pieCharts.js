@@ -111,9 +111,9 @@ function getPostCountsByUsers(jsons) {
     return objectSorter(userNamesAndPosts);
 }
 
-//Luodaan lista json-muodossa olevista olioista jotka annetaan
-//piirakanluonti-metodille. Lasketaan myös monta eri palveluntarjoajaa
-//(gmail, yahoo, hotmail jne.) on yhteensä.
+//Luodaan lista json-muodossa olevista sähköposteista jotka annetaan sitten
+//piirakanluonti-metodille. Lasketaan myös monta eri käyttäjää on yhteensä
+//eri palveluntarjoajilla (gmail, yahoo, hotmail jne.)
 function createJsonArrayForPieChart(allEmails, uniqueEmails) {
     var jsonArray = new Array();
     for (var i = 0; i < uniqueEmails.length - 1; i++) {
@@ -132,51 +132,56 @@ function createJsonArrayForPieChart(allEmails, uniqueEmails) {
 function drawPieChart(type, data, showlegend, divName) {
     var height = setPieChartHeight(data);
     nv.addGraph(function() {
-        d3.select(divName).attr('height', height);
-        var chart = nv.models.pieChart()
-            .x(function(d) {
-                return d.label
-            })
-            .y(function(d) {
-                return d.value
-            })
-            .height(height)
-            .showLabels(true).showLegend(showlegend).tooltipContent(function(key, y, e, graph) {
-                var tooltipcontent = "<p>" + key.data.label + "</p>",
-                    count = 0;
-                for (var i = 0; i < allEmails.length; i++) {
-                    if (allEmails[i].split("@")[1].split(".")[0] == key.data.label) {
-                        tooltipcontent = tooltipcontent + "<p>" + allEmails[i] + "</p>";
-                        count++;
+            d3.select(divName).attr('height', height);
+            var chart = nv.models.pieChart()
+                .x(function(d) {
+                    return d.label
+                })
+                .y(function(d) {
+                    return d.value
+                })
+                .height(height)
+                .showLabels(true).showLegend(showlegend);
+            if (type == "emails") {
+                chart.showLabels(true).showLegend(showlegend).tooltipContent(function(key, y, e, graph) {
+                    var tooltipcontent = "<p>" + key.data.label + "</p>",
+                        count = 0;
+                    for (var i = 0; i < allEmails.length; i++) {
+                        if (allEmails[i].split("@")[1].split(".")[0] == key.data.label) {
+                            tooltipcontent = tooltipcontent + "<p>" + allEmails[i] + "</p>";
+                            count++;
+                        }
+                        if (count > 10) {
+                            break;
+                        }
                     }
-                    if (count > 10) {
-                        break;
-                    }
-                }
-                return tooltipcontent;
-            });
+                    return tooltipcontent;
+                });
+            }
 
-        d3.select(divName)
-            .datum(data)
-            .transition().duration(1200)
-            .call(chart);
+            d3.select(divName)
+                .datum(data)
+                .transition().duration(1200)
+                .call(chart);
 
-        d3.selectAll(".nv-label text")
-            .attr("text-anchor", "middle")
-            // Alter CSS attributes
-            .style({
-                "font-size": "1em"
-            });
+            d3.selectAll(".nv-label text")
+                .attr("text-anchor", "middle")
+                // Alter CSS attributes
+                .style({
+                    "font-size": "1em"
+                });
 
-        return chart;
-    }, function() {
-        d3.select("#chart svg").selectAll(".nv-slice").on('click',
-            function(d) {
-                if (type == "emails") listEmailsOfProvider(d.data.label);
-                if (type == "posts") redirectToQtUserPage(d.data.label);
-            });
-    });
+            return chart;
+        },
+        function() {
+            d3.select("#chart svg").selectAll(".nv-slice").on('click',
+                function(d) {
+                    if (type == "emails") listEmailsOfProvider(d.data.label);
+                    if (type == "posts") redirectToQtUserPage(d.data.label);
+                });
+        });
 }
+
 
 
 function objectSorter(array) {
@@ -192,6 +197,7 @@ function setPieChartHeight(data) {
     return height;
 }
 
+//Ohjaa haettavan Qt:n foorumin käyttäjän sivuille
 function redirectToQtUserPage(name) {
     if (name != "users w/ <10 posts") {
         window.open("http://forum.qt.io/user/" + name);
@@ -199,6 +205,7 @@ function redirectToQtUserPage(name) {
 
 }
 
+//Listaa sivulla kaikki yhden palveluntarjoajan osoitteet
 function listEmailsOfProvider(name) {
     document.getElementById("emails").innerHTML = "";
     document.getElementById("emails").innerHTML += "<h2>Emails by provider " + name + "</h2>";
