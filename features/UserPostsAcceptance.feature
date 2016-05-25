@@ -10,4 +10,4 @@ Then page should have text message "Qt Software Project"
 Scenario: User checks user post chart
 When I go to charts
 When I press "Viestien lähettäjät"
-Then there should be a piechart of users
+Then there should be a piechart

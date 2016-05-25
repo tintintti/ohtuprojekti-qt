@@ -63,10 +63,10 @@ Then /^I should see "([^\"]*)"$/ do |text|
   page.should have_content(text)
 end
 
-Then /^there should be a piechart of users$/ do
-  all(".nv-slice")[1].hover
-  sleep 1
-  page.should have_content(find(".key").text)
+Then /^there should be a piechart$/ do
+  # all(".nv-slice")[1].hover
+  expect(page).to have_css(".nvd3-svg")
+  # page.should have_content(find(".key").text)
 end
 
 Then /^I should see \/([^\/]*)\/$/ do |regexp|
