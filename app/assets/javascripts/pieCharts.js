@@ -5,6 +5,10 @@ var allEmails = allAndUniqueEmails[0],
     uniqueEmails = allAndUniqueEmails[1];
 var data = createJsonArrayForPieChart(allEmails, uniqueEmails);
 var postdata = getPostCountsByUsers(jsons);
+//console.log(postdata)
+//var postdata2 = $("#postcount").data().postcounts;
+//console.log("dfsf")
+//console.log(postdata2)
 
 function drawAllCharts() {
     drawPieChart("emails", data, true, "#chart svg");

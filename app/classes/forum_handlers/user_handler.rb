@@ -1,12 +1,6 @@
-class WelcomeController < ApplicationController
-  def index
-  end
+class UserHandler
 
-  def view
-    @postcounts = UserHandler.user_postcounts
-  end
-
-  def user_postcounts_cut_with(n)
+  def self.user_postcounts
     arr = Array.new
     users = User.all
 
@@ -27,5 +21,6 @@ class WelcomeController < ApplicationController
     # arr.push(entry)
     arr
   end
+
 
 end
