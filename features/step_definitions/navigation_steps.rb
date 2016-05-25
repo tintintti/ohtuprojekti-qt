@@ -61,6 +61,11 @@ Then /^I should see "([^\"]*)"$/ do |text|
   page.should have_content(text)
 end
 
+Then /^there should be a piechart of users$/ do
+  all(".nv-slice")[1].hover
+  page.should have_content(find(".key").text)
+end
+
 Then /^I should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
   page.should have_content(regexp)
@@ -98,7 +103,6 @@ end
 Then /^I should be on user's forum page$/ do
   switch_to_window(windows.last)
   forumPage = current_url
-  current_path.should == "/user/MSDQuick"
   switch_to_window(windows.first)
   visit path_to("charts")
   click_button("Viestien lähettäjät")

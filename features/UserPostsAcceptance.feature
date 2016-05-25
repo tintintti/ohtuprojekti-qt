@@ -12,3 +12,9 @@ When I go to charts
 When I press "Viestien lähettäjät"
 When I click user on piechart
 Then I should be on user's forum page
+
+@javascript
+Scenario: User checks user post chart
+When I go to charts
+When I press "Viestien lähettäjät"
+Then there should be a piechart of users
