@@ -16,7 +16,7 @@ group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'byebug'
-
+  gem "capybara-webkit"
 end
 
 group :production do

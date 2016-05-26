@@ -4,24 +4,26 @@ var allAndUniqueEmails = getAllAndUniqueEmails(jsons);
 var allEmails = allAndUniqueEmails[0],
     uniqueEmails = allAndUniqueEmails[1];
 var data = createJsonArrayForPieChart(allEmails, uniqueEmails);
-var postdata = getPostCountsByUsers(jsons);
-
-function drawAllCharts() {
-    drawPieChart("emails", data, true, "#chart svg");
-    drawPieChart("posts", postdata, true, "#chart2 svg");
-}
+var postdata = getPostCountsByUsers(jsons, 10);
 
 function drawEmailChartOnly() {
-    document.getElementById("title").innerHTML = "Sähköpostien palveluntarjoajat";
-    d3.selectAll("#chart svg > *").remove();
+    emptyContainers();
+    insertTitle("Sähköpostien palveluntarjoajat");
     drawPieChart("emails", data, true, "#chart svg");
 }
 
 function drawPosterChartOnly() {
-    document.getElementById("emails").innerHTML = "";
-    document.getElementById("title").innerHTML = "Viimeiset ~5000 viestiä käyttäjien mukaan";
-    d3.selectAll("#chart svg > *").remove();
+    emptyContainers();
+    insertMinButton();
+    insertTitle("Viimeiset ~5000 viestiä käyttäjien mukaan");
     drawPieChart("posts", postdata, true, "#chart svg");
+}
+
+function drawWithMinPosts(minPosts) {
+    if (minPosts > 0) {
+        var postdata = getPostCountsByUsers(jsons, minPosts);
+        drawPieChart("posts", postdata, true, "#chart svg");
+    }
 }
 
 // Haetaan tekstifilu jesarilla. Tää korvataan kun saadaan joku
@@ -74,7 +76,7 @@ function getAllAndUniqueEmails(jsons) {
 
 //Hakee erikseen postausmäärät käyttäjiltä joilla on yli 10 postia ja laskee
 //myös yhteen alle 10-postisten käyttäjien postausmäärän.
-function getPostCountsByUsers(jsons) {
+function getPostCountsByUsers(jsons, minPosts) {
     var usernames = new Array();
     for (var i = 0; i < jsons.length - 1; i++) {
         var currentJson = jsons[i];
@@ -90,7 +92,7 @@ function getPostCountsByUsers(jsons) {
         var count = usernames.filter(function(x) {
             return x == usernames[i];
         }).length
-        if (count > 10) {
+        if (count >= minPosts) {
             userNamesAndPosts.push({
                 "label": usernames[i],
                 "value": count
@@ -101,15 +103,15 @@ function getPostCountsByUsers(jsons) {
         i += count - 1;
     }
     userNamesAndPosts.push({
-        "label": "users w/ <10 posts",
+        "label": "users w/ <" + minPosts + " posts",
         "value": smallPostCountUserPostCount
     });
     return objectSorter(userNamesAndPosts);
 }
 
-//Luodaan lista json-muodossa olevista olioista jotka annetaan
-//piirakanluonti-metodille. Lasketaan myös monta eri palveluntarjoajaa
-//(gmail, yahoo, hotmail jne.) on yhteensä.
+//Luodaan lista json-muodossa olevista sähköposteista jotka annetaan sitten
+//piirakanluonti-metodille. Lasketaan myös monta eri käyttäjää on yhteensä
+//eri palveluntarjoajilla (gmail, yahoo, hotmail jne.)
 function createJsonArrayForPieChart(allEmails, uniqueEmails) {
     var jsonArray = new Array();
     for (var i = 0; i < uniqueEmails.length - 1; i++) {
@@ -126,53 +128,59 @@ function createJsonArrayForPieChart(allEmails, uniqueEmails) {
 
 //Piirakka luodaan tässä.
 function drawPieChart(type, data, showlegend, divName) {
+    d3.selectAll("#chart svg > *").remove();
     var height = setPieChartHeight(data);
     nv.addGraph(function() {
-        d3.select(divName).attr('height', height);
-        var chart = nv.models.pieChart()
-            .x(function(d) {
-                return d.label
-            })
-            .y(function(d) {
-                return d.value
-            })
-            .height(height)
-            .showLabels(true).showLegend(showlegend).tooltipContent(function(key, y, e, graph) {
-                var tooltipcontent = "<p>" + key.data.label + "</p>",
-                    count = 0;
-                for (var i = 0; i < allEmails.length; i++) {
-                    if (allEmails[i].split("@")[1].split(".")[0] == key.data.label) {
-                        tooltipcontent = tooltipcontent + "<p>" + allEmails[i] + "</p>";
-                        count++;
+            d3.select(divName).attr('height', height);
+            var chart = nv.models.pieChart()
+                .x(function(d) {
+                    return d.label
+                })
+                .y(function(d) {
+                    return d.value
+                })
+                .height(height)
+                .showLabels(true).showLegend(showlegend);
+            if (type == "emails") {
+                chart.showLabels(true).showLegend(showlegend).tooltipContent(function(key, y, e, graph) {
+                    var tooltipcontent = "<p>" + key.data.label + "</p>",
+                        count = 0;
+                    for (var i = 0; i < allEmails.length; i++) {
+                        if (allEmails[i].split("@")[1].split(".")[0] == key.data.label) {
+                            tooltipcontent = tooltipcontent + "<p>" + allEmails[i] + "</p>";
+                            count++;
+                        }
+                        if (count > 10) {
+                            break;
+                        }
                     }
-                    if (count > 10) {
-                        break;
-                    }
-                }
-                return tooltipcontent;
-            });
+                    return tooltipcontent;
+                });
+            }
 
-        d3.select(divName)
-            .datum(data)
-            .transition().duration(1200)
-            .call(chart);
+            d3.select(divName)
+                .datum(data)
+                .transition().duration(1200)
+                .call(chart);
 
-        d3.selectAll(".nv-label text")
-            .attr("text-anchor", "middle")
-            // Alter CSS attributes
-            .style({
-                "font-size": "1em"
-            });
+            d3.selectAll(".nv-label text")
+                .attr("text-anchor", "middle")
+                // Alter CSS attributes
+                .style({
+                    "font-size": "1em"
+                });
 
-        return chart;
-    }, function() {
-        d3.select("#chart svg").selectAll(".nv-slice").on('click',
-            function(d) {
-                if (type == "emails") listEmailsOfProvider(d.data.label);
-                if (type == "posts") redirectToQtUserPage(d.data.label);
-            });
-    });
+            return chart;
+        },
+        function() {
+            d3.select("#chart svg").selectAll(".nv-slice").on('click',
+                function(d) {
+                    if (type == "emails") listEmailsOfProvider(d.data.label);
+                    if (type == "posts") redirectToQtUserPage(d.data.label);
+                });
+        });
 }
+
 
 
 function objectSorter(array) {
@@ -188,16 +196,18 @@ function setPieChartHeight(data) {
     return height;
 }
 
+//Ohjaa haettavan Qt:n foorumin käyttäjän sivuille
 function redirectToQtUserPage(name) {
-    if (name != "users w/ <10 posts") {
+    if (!name.includes("users w/")) {
         window.open("http://forum.qt.io/user/" + name);
     }
 
 }
 
+//Listaa sivulla kaikki yhden palveluntarjoajan osoitteet
 function listEmailsOfProvider(name) {
     document.getElementById("emails").innerHTML = "";
-    document.getElementById("emails").innerHTML += "<h2>Emails by provider " + name + "</h2>";
+    document.getElementById("emails").innerHTML += "<h2>Osoitteet tarjoajalta " + name + "</h2>";
 
     var emailArray = [];
     for (var i = 0; i < allEmails.length; i++) {
@@ -223,4 +233,18 @@ function makeUL(array) {
     }
 
     return list;
+}
+
+function insertTitle(title) {
+  document.getElementById("title").innerHTML = title + "";
+}
+
+function insertMinButton() {
+    document.getElementById("minButton").innerHTML =
+        "<input type=number value=10 id='minimum'/><p><input type = button value = 'Aseta viestien minimimäärä' onclick = 'drawWithMinPosts(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
+}
+
+function emptyContainers() {
+  document.getElementById("minButton").innerHTML = "";
+  document.getElementById("emails").innerHTML = "";
 }

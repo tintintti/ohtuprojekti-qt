@@ -10,10 +10,23 @@ end
 
 When /^I press "([^\"]*)"$/ do |button|
   click_button(button)
+  # find("button", :text=> button).trigger("click")
+  # find("button", :text=> button).click
 end
 
 When /^I click "([^\"]*)"$/ do |link|
   click_link(link)
+end
+
+When /^I click user on piechart$/ do
+  all(".nv-slice")[1].click
+  switch_to_window(windows.first)
+  all(".nv-slice")[1].click
+end
+
+When /^I click "([^\"]*)" with text "([^\"]*)"$/ do |link, text|
+  click_link(link)
+  # find(link, :text => text).trigger("click")
 end
 
 When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
@@ -50,6 +63,12 @@ Then /^I should see "([^\"]*)"$/ do |text|
   page.should have_content(text)
 end
 
+Then /^there should be a piechart$/ do
+  # all(".nv-slice")[1].hover
+  expect(page).to have_css(".nvd3-svg")
+  # page.should have_content(find(".key").text)
+end
+
 Then /^I should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
   page.should have_content(regexp)
@@ -80,8 +99,19 @@ Then /^the "([^\"]*)" checkbox should not be checked$/ do |label|
   find_field(label).should_not be_checked
 end
 
-Then /^I should be on (.+)$/ do |page_name|
+Then /^I should be on page (.+)$/ do |page_name|
   current_path.should == path_to(page_name)
+end
+
+Then /^I should be on user's forum page$/ do
+  switch_to_window(windows.last)
+  forumPage = current_url
+  switch_to_window(windows.first)
+  visit path_to("charts")
+  click_button("Viestien lähettäjät")
+  all(".nv-slice")[1].hover
+  sleep 1
+  forumPage.should == "http://forum.qt.io/user/" + find(".key").text
 end
 
 Then /^page should have (.+) message "([^\"]*)"$/ do |type, text|
