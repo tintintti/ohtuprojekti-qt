@@ -1,1 +1,12 @@
 <li><%= link_to 'Datakaaviot', charts_path %></li>
+
+<li role="presentation" class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Listaukset
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li><%= link_to 'Viestit', posts_path %></li>
+    <li><%= link_to 'Aiheet', topics_path %></li>
+    <li><%= link_to 'Käyttäjät', users_path %></li>
+  </ul>
+</li>
