@@ -22,7 +22,27 @@ class UserHandler
     arr
   end
 
+  def self.count_emails
+    emails = emails_and_users
+    data = []
+    emails.each do |item|
+      data << {label: item[:label], value: item[:value]}
+    end
+    data
+  end
+
   def self.users_by_email_provider
+    emails = emails_and_users
+    data = {}
+    emails.each do |item|
+      data[item[:label]] = []
+      item[:users].each { |user| data[item[:label]] << user }
+    end
+    data
+  end
+
+
+  def self.emails_and_users
     users = User.all
     emails = {}
     users.each do |user|
