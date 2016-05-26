@@ -4,21 +4,10 @@ class UserHandler
     arr = Array.new
     users = User.all
 
-    # lowPostCount = 0
-
     users.each do |user|
-
-      # if (user.postcount < n)
-      #   lowPostCount += 1
-      #   next
-      # end
-
       entry = { label: user.username, value: user.postcount }
-
       arr.push(entry)
     end
-    # entry = { "label" => "users with < #{n} posts", "postcount" => lowPostCount }
-    # arr.push(entry)
     arr
   end
 
@@ -46,6 +35,5 @@ class UserHandler
     email = email.split(".")
     email = email[-2]
   end
-
 
 end
