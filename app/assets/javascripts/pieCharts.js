@@ -17,20 +17,14 @@ function drawPosterChartOnly() {
     document.getElementById("emails").innerHTML = "";
     document.getElementById("title").innerHTML = "Viimeiset ~5000 viestiä käyttäjien mukaan";
     d3.selectAll("#chart svg > *").remove();
-    drawPieChart("posts", getPostCountsByUsers(10), true, "#chart svg");
+    drawWithMinPosts($("#user_data").data().postCounts, 10);
 }
 
-function drawWithMinPosts(minPosts) {
+function drawWithMinPosts(data, minPosts) {
     if (minPosts > 0) {
-        var postdata = getPostCountsByUsers(jsons, minPosts);
+        var postdata = getPostCountsByUsers(data, minPosts);
         drawPieChart("posts", postdata, true, "#chart svg");
     }
-}
-
-function dataForChart() {
-  var emails = $("#user_data").data().usersByEmail;
-  var data = [];
-  console.log(Object.keys(emails))
 }
 
 // Haetaan tekstifilu jesarilla. Tää korvataan kun saadaan joku
@@ -83,8 +77,7 @@ function getAllAndUniqueEmails(jsons) {
 
 //Hakee erikseen postausmäärät käyttäjiltä joilla on yli n postia ja laskee
 //myös yhteen alle n-postisten käyttäjien postausmäärän.
-function getPostCountsByUsers(minPosts) {
-  var postCounts = $("#user_data").data().postCounts;
+function getPostCountsByUsers(postCounts, minPosts) {
   var data = []
   var postCountForGroupedUsers = 0;
   for (var postCount in postCounts) {
