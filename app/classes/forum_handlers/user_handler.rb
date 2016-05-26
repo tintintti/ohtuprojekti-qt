@@ -12,9 +12,7 @@ class UserHandler
       #   lowPostCount += 1
       #   next
       # end
-
-      entry = { "label" => user.username, "postcount" => user.postcount }
-
+      entry = { "label" => user.username, "value" => user.postcount }
       arr.push(entry)
     end
     # entry = { "label" => "users with < #{n} posts", "postcount" => lowPostCount }
@@ -22,5 +20,15 @@ class UserHandler
     arr
   end
 
+  def self.user_emails
+    arr = Array.new
+    users = User.all
+
+    users.each do |user|
+      entry = { "user" => user.username, "email" => user.email}
+      arr.push(entry)
+    end
+    arr
+  end
 
 end

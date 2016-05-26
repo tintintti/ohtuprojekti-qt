@@ -4,16 +4,8 @@ var allAndUniqueEmails = getAllAndUniqueEmails(jsons);
 var allEmails = allAndUniqueEmails[0],
     uniqueEmails = allAndUniqueEmails[1];
 var data = createJsonArrayForPieChart(allEmails, uniqueEmails);
-var postdata = getPostCountsByUsers(jsons);
-//console.log(postdata)
-//var postdata2 = $("#postcount").data().postcounts;
-//console.log("dfsf")
-//console.log(postdata2)
-
-function drawAllCharts() {
-    drawPieChart("emails", data, true, "#chart svg");
-    drawPieChart("posts", postdata, true, "#chart2 svg");
-}
+var asd = $("#emails").data().emails;
+console.log(asd);
 
 function drawEmailChartOnly() {
     document.getElementById("title").innerHTML = "Sähköpostien palveluntarjoajat";
@@ -25,7 +17,7 @@ function drawPosterChartOnly() {
     document.getElementById("emails").innerHTML = "";
     document.getElementById("title").innerHTML = "Viimeiset ~5000 viestiä käyttäjien mukaan";
     d3.selectAll("#chart svg > *").remove();
-    drawPieChart("posts", postdata, true, "#chart svg");
+    drawPieChart("posts", objectSorter($("#postcount").data().postcounts), true, "#chart svg");
 }
 
 // Haetaan tekstifilu jesarilla. Tää korvataan kun saadaan joku
@@ -74,41 +66,6 @@ function getAllAndUniqueEmails(jsons) {
     var allAndUniqueEmails = new Array();
     allAndUniqueEmails.push(allEmails.sort()), allAndUniqueEmails.push(uniqueEmails.sort());
     return allAndUniqueEmails;
-}
-
-//Hakee erikseen postausmäärät käyttäjiltä joilla on yli 10 postia ja laskee
-//myös yhteen alle 10-postisten käyttäjien postausmäärän.
-function getPostCountsByUsers(jsons) {
-    var usernames = new Array();
-    for (var i = 0; i < jsons.length - 1; i++) {
-        var currentJson = jsons[i];
-        if (currentJson.posts == null) continue;
-        for (var j = 0; j < currentJson.posts.length; j++) {
-            usernames.push(currentJson.posts[j].user.username);
-        }
-    }
-    usernames.sort();
-    var userNamesAndPosts = new Array(),
-        smallPostCountUserPostCount = 0;
-    for (var i = 0; i < usernames.length; i++) {
-        var count = usernames.filter(function(x) {
-            return x == usernames[i];
-        }).length
-        if (count > 10) {
-            userNamesAndPosts.push({
-                "label": usernames[i],
-                "value": count
-            });
-        } else {
-            smallPostCountUserPostCount += count;
-        }
-        i += count - 1;
-    }
-    userNamesAndPosts.push({
-        "label": "users w/ <10 posts",
-        "value": smallPostCountUserPostCount
-    });
-    return objectSorter(userNamesAndPosts);
 }
 
 //Luodaan lista json-muodossa olevista sähköposteista jotka annetaan sitten

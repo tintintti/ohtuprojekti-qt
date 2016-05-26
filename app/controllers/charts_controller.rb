@@ -4,6 +4,7 @@ class ChartsController < ApplicationController
 
   def view
     @postcounts = UserHandler.user_postcounts
+    @emails = UserHandler.user_emails
   end
 
 end
