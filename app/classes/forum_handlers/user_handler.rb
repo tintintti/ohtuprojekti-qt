@@ -13,7 +13,7 @@ class UserHandler
       #   next
       # end
 
-      entry = { "label" => user.username, "value" => user.postcount }
+      entry = { label: user.username, value: user.postcount }
 
       arr.push(entry)
     end
@@ -22,27 +22,7 @@ class UserHandler
     arr
   end
 
-  def self.count_emails
-    emails = emails_and_users
-    data = []
-    emails.each do |item|
-      data << {label: item[:label], value: item[:value]}
-    end
-    data
-  end
-
   def self.users_by_email_provider
-    emails = emails_and_users
-    data = {}
-    emails.each do |item|
-      data[item[:label]] = []
-      item[:users].each { |user| data[item[:label]] << user }
-    end
-    data
-  end
-
-
-  def self.emails_and_users
     users = User.all
     emails = {}
     users.each do |user|
@@ -51,17 +31,20 @@ class UserHandler
       if email == nil
         next
       end
-      email = email.split("@")
-      email = email[1]
+      email = format_email(email)
       if !emails.key? email
-        emails[email] = {label:email, value:0, users:[]}
+        emails[email] = []
       end
-      emails[email][:value] += 1
-      emails[email][:users] << {user: user.username, slug: user.userslug}
+      emails[email] << {user: user.username, slug: user.userslug}
     end
-    data = []
-    emails.each_value { |value| data << value }
-    sorted_data = data.sort_by { |item| item[:value] }
+    emails
+  end
+
+  def self.format_email(email)
+    email = email.split("@")
+    email = email[1]
+    email = email.split(".")
+    email = email[-2]
   end
 
 

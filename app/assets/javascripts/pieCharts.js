@@ -5,7 +5,9 @@ var allEmails = allAndUniqueEmails[0],
     uniqueEmails = allAndUniqueEmails[1];
 var data = createJsonArrayForPieChart(allEmails, uniqueEmails);
 //console.log(postdata)
-var postdata2 = $("#postcount").data().postcounts;
+var postdata2 = $("#user_data").data().postCounts;
+var users = $("#user_data").data().usersByEmail;
+console.log(users)
 console.log("dfsf")
 console.log(postdata2)
 
