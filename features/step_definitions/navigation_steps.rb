@@ -66,6 +66,7 @@ end
 Then /^there should be a piechart$/ do
   # all(".nv-slice")[1].hover
   expect(page).to have_css(".nvd3-svg")
+  find(:xpath, '//div[@id="chart"]')
   # page.should have_content(find(".key").text)
 end
 
@@ -110,7 +111,6 @@ Then /^I should be on user's forum page$/ do
   visit path_to("charts")
   click_button("Viestien lähettäjät")
   all(".nv-slice")[1].hover
-  sleep 1
   forumPage.should == "http://forum.qt.io/user/" + find(".key").text
 end
 
