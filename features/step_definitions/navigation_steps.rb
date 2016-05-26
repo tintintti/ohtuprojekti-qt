@@ -10,18 +10,11 @@ end
 
 When /^I press "([^\"]*)"$/ do |button|
   click_button(button)
-  # find("button", :text=> button).trigger("click")
-  # find("button", :text=> button).click
 end
 
 When /^I click "([^\"]*)"$/ do |link|
-  click_link(link)
-end
-
-When /^I click user on piechart$/ do
-  all(".nv-slice")[1].click
-  switch_to_window(windows.first)
-  all(".nv-slice")[1].click
+  # click_link(link)
+  all(".nv-slice").click
 end
 
 When /^I click "([^\"]*)" with text "([^\"]*)"$/ do |link, text|
@@ -63,13 +56,6 @@ Then /^I should see "([^\"]*)"$/ do |text|
   page.should have_content(text)
 end
 
-Then /^there should be a piechart$/ do
-  # all(".nv-slice")[1].hover
-  expect(page).to have_css(".nvd3-svg")
-  find(:xpath, '//div[@id="chart"]')
-  # page.should have_content(find(".key").text)
-end
-
 Then /^I should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
   page.should have_content(regexp)
@@ -104,16 +90,44 @@ Then /^I should be on page (.+)$/ do |page_name|
   current_path.should == path_to(page_name)
 end
 
+Then /^page should have (.+) message "([^\"]*)"$/ do |type, text|
+  page.has_css?("p.#{type}", :text => text, :visible => true)
+end
+
+When /^I hover mouse over a slice on piechart$/ do
+  all(".nv-slice").each do |slice|
+    slice.hover
+  end
+end
+
+When /^I click a slice on piechart$/ do
+  all(".nv-slice")[2].click
+  # page.execute_script("$('.nv-slice').first().click()")
+end
+
+Then /^there should be a piechart$/ do
+  expect(page).to have_css(".nvd3-svg")
+  find(:xpath, '//div[@id="chart"]')
+end
+
+Then /^I should see some user emails$/ do
+  # all(".nv-slice")[2].click
+  page.all("p", :text => 'gmail').count.should be > 3
+  # page.should have_content(all(:xpath, '//div[@id="emails"]//p')[0].text)
+end
+
+Then /^I should see user emails$/ do
+  # all(".nv-slice")[2].click
+  page.should have_content("Osoitteet tarjoajalta ")
+  # page.should have_content(all(:xpath, '//div[@id="emails"]//p')[0].text)
+end
+
 Then /^I should be on user's forum page$/ do
-  switch_to_window(windows.last)
+  switch_to_window(window_opened_by { all(".nv-slice")[2].click })
   forumPage = current_url
   switch_to_window(windows.first)
   visit path_to("charts")
   click_button("Viestien lähettäjät")
-  all(".nv-slice")[1].hover
+  all(".nv-slice")[2].hover
   forumPage.should == "http://forum.qt.io/user/" + find(".key").text
-end
-
-Then /^page should have (.+) message "([^\"]*)"$/ do |type, text|
-  page.has_css?("p.#{type}", :text => text, :visible => true)
 end
