@@ -13,7 +13,7 @@ class UserHandler
       #   next
       # end
 
-      entry = { "label" => user.username, "postcount" => user.postcount }
+      entry = { "label" => user.username, "value" => user.postcount }
 
       arr.push(entry)
     end
