@@ -4,12 +4,12 @@ var allAndUniqueEmails = getAllAndUniqueEmails(jsons);
 var allEmails = allAndUniqueEmails[0],
     uniqueEmails = allAndUniqueEmails[1];
 var data = createJsonArrayForPieChart(allEmails, uniqueEmails);
-var asd = $("#emails").data().emails;
-console.log(asd);
+var postdata = getPostCountsByUsers(jsons, 10);
+
 
 function drawEmailChartOnly() {
-    document.getElementById("title").innerHTML = "Sähköpostien palveluntarjoajat";
-    d3.selectAll("#chart svg > *").remove();
+    emptyContainers();
+    insertTitle("Sähköpostien palveluntarjoajat");
     drawPieChart("emails", data, true, "#chart svg");
 }
 
@@ -18,6 +18,13 @@ function drawPosterChartOnly() {
     document.getElementById("title").innerHTML = "Viimeiset ~5000 viestiä käyttäjien mukaan";
     d3.selectAll("#chart svg > *").remove();
     drawPieChart("posts", objectSorter($("#postcount").data().postcounts), true, "#chart svg");
+}
+
+function drawWithMinPosts(minPosts) {
+    if (minPosts > 0) {
+        var postdata = getPostCountsByUsers(jsons, minPosts);
+        drawPieChart("posts", postdata, true, "#chart svg");
+    }
 }
 
 // Haetaan tekstifilu jesarilla. Tää korvataan kun saadaan joku
@@ -68,6 +75,41 @@ function getAllAndUniqueEmails(jsons) {
     return allAndUniqueEmails;
 }
 
+//Hakee erikseen postausmäärät käyttäjiltä joilla on yli 10 postia ja laskee
+//myös yhteen alle 10-postisten käyttäjien postausmäärän.
+function getPostCountsByUsers(jsons, minPosts) {
+    var usernames = new Array();
+    for (var i = 0; i < jsons.length - 1; i++) {
+        var currentJson = jsons[i];
+        if (currentJson.posts == null) continue;
+        for (var j = 0; j < currentJson.posts.length; j++) {
+            usernames.push(currentJson.posts[j].user.username);
+        }
+    }
+    usernames.sort();
+    var userNamesAndPosts = new Array(),
+        smallPostCountUserPostCount = 0;
+    for (var i = 0; i < usernames.length; i++) {
+        var count = usernames.filter(function(x) {
+            return x == usernames[i];
+        }).length
+        if (count >= minPosts) {
+            userNamesAndPosts.push({
+                "label": usernames[i],
+                "value": count
+            });
+        } else {
+            smallPostCountUserPostCount += count;
+        }
+        i += count - 1;
+    }
+    userNamesAndPosts.push({
+        "label": "users w/ <" + minPosts + " posts",
+        "value": smallPostCountUserPostCount
+    });
+    return objectSorter(userNamesAndPosts);
+}
+
 //Luodaan lista json-muodossa olevista sähköposteista jotka annetaan sitten
 //piirakanluonti-metodille. Lasketaan myös monta eri käyttäjää on yhteensä
 //eri palveluntarjoajilla (gmail, yahoo, hotmail jne.)
@@ -87,6 +129,7 @@ function createJsonArrayForPieChart(allEmails, uniqueEmails) {
 
 //Piirakka luodaan tässä.
 function drawPieChart(type, data, showlegend, divName) {
+    d3.selectAll("#chart svg > *").remove();
     var height = setPieChartHeight(data);
     nv.addGraph(function() {
             d3.select(divName).attr('height', height);
@@ -156,7 +199,7 @@ function setPieChartHeight(data) {
 
 //Ohjaa haettavan Qt:n foorumin käyttäjän sivuille
 function redirectToQtUserPage(name) {
-    if (name != "users w/ <10 posts") {
+    if (!name.includes("users w/")) {
         window.open("http://forum.qt.io/user/" + name);
     }
 
@@ -165,7 +208,7 @@ function redirectToQtUserPage(name) {
 //Listaa sivulla kaikki yhden palveluntarjoajan osoitteet
 function listEmailsOfProvider(name) {
     document.getElementById("emails").innerHTML = "";
-    document.getElementById("emails").innerHTML += "<h2>Emails by provider " + name + "</h2>";
+    document.getElementById("emails").innerHTML += "<h2>Osoitteet tarjoajalta " + name + "</h2>";
 
     var emailArray = [];
     for (var i = 0; i < allEmails.length; i++) {
@@ -191,4 +234,18 @@ function makeUL(array) {
     }
 
     return list;
+}
+
+function insertTitle(title) {
+  document.getElementById("title").innerHTML = title + "";
+}
+
+function insertMinButton() {
+    document.getElementById("minButton").innerHTML =
+        "<input type=number value=10 id='minimum'/><p><input type = button value = 'Aseta viestien minimimäärä' onclick = 'drawWithMinPosts(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
+}
+
+function emptyContainers() {
+  document.getElementById("minButton").innerHTML = "";
+  document.getElementById("emails").innerHTML = "";
 }
