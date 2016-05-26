@@ -12,11 +12,15 @@ class UserHandler
 
     users = {}
     posts.each do |post|
-      user = post.ret_user.username
-      if !users.key? user
-        users[user] = 0
+      user = post.ret_user
+      name = "removed user"
+      if user != nil
+        name = user.username
       end
-      users[user] += 1
+      if !users.key? name
+        users[name] = 0
+      end
+      users[name] += 1
     end
 
     users.each do |key, value|
