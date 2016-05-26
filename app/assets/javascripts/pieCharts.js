@@ -3,12 +3,12 @@ function drawEmailChartOnly() {
     insertTitle("Sähköpostien palveluntarjoajat");
     drawPieChart("emails", $("#user_data").data().emailcounts, true, "#chart svg");
 }
-
+console.log($("#user_data").data().emailcounts)
 function drawPosterChartOnly() {
     document.getElementById("emails").innerHTML = "";
     document.getElementById("title").innerHTML = "Viimeiset ~5000 viestiä käyttäjien mukaan";
     d3.selectAll("#chart svg > *").remove();
-    drawPieChart("posts", objectSorter($("#user_data").data().postcounts), true, "#chart svg");
+    drawPieChart("posts", objectSorter($("#user_data").data().postcounts), false, "#chart svg");
 }
 
 function drawWithMinPosts(minPosts) {
@@ -36,7 +36,7 @@ function drawPieChart(type, data, showlegend, divName) {
             if (type == "emails") {
                 chart.showLabels(true).showLegend(showlegend).tooltipContent(function(key, y, e, graph) {
                     var wantedEmailForTooltip = $("#user_data").data().usersbyemail[key.data.label],
-                        tooltipcontent = "<p>" + key.data.label + ": " + wantedEmailForTooltip.length + "</p>",
+                        tooltipcontent = "<p><b>" + key.data.label + ": " + wantedEmailForTooltip.length + "</b></p>",
                         length = 10;
                     if (wantedEmailForTooltip.length < 10) length = wantedEmailForTooltip.length;
                     for (var i = 0; i < length; i++) {
@@ -79,7 +79,7 @@ function objectSorter(array) {
 function setPieChartHeight(data) {
     var height = 800;
     height += data.length * 3;
-    if (height > 1800) height = 1800;
+    if (height > 1500) height = 1500;
     return height;
 }
 

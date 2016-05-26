@@ -24,7 +24,7 @@ class UserHandler
     emails = emails_and_users
     data = []
     emails.each do |item|
-      data << {label: item[:label], value: item[:value]}
+      data << {label: item[:label].split(".")[0], value: item[:value]}
     end
     data
   end
@@ -49,8 +49,7 @@ class UserHandler
       if email == nil
         next
       end
-      email = email.split("@")
-      email = email[1]
+      email = email.split("@")[1].split(".")[0]
       if !emails.key? email
         emails[email] = {label:email, value:0, users:[]}
       end
