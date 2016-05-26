@@ -15,6 +15,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
+  gem 'byebug'
   gem "capybara-webkit"
 end
 
@@ -55,9 +56,8 @@ gem 'httparty'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+group :test do
+  gem 'webmock'
 end
 
 group :development do

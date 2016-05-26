@@ -1,8 +1,13 @@
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Users</h1>
+<div class = "container">
 
-<table>
+<h1>Käyttäjien listaaminen</h1>
+
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Username</th>
@@ -43,7 +48,4 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New User', new_user_path %>
+</div>

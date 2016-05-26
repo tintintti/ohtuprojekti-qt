@@ -11,12 +11,6 @@ console.log(postdata2)
 
 var postdata = getPostCountsByUsers(jsons, 10);
 
-function drawAllCharts() {
-    emptyContainers();
-    drawPieChart("emails", data, true, "#chart svg");
-    drawPieChart("posts", postdata, true, "#chart2 svg");
-}
-
 function drawEmailChartOnly() {
     emptyContainers();
     insertTitle("Sähköpostien palveluntarjoajat");
