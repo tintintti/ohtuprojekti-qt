@@ -33,6 +33,12 @@ class ParseTopics
     i = 0
 
     while i < n
+
+      # just to make sure there's no infinite loop
+      if first - i < 0
+        break
+      end
+
       url = url_base + "/topic/" + (first - i).to_s
       slug = HTTParty.get(url).parsed_response
 
