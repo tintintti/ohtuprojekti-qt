@@ -2,11 +2,25 @@ class UserHandler
 
   def self.user_postcounts
     arr = Array.new
-    users = User.all
+    # users = User.all
+    #
+    # users.each do |user|
+    #   entry = { label: user.username, value: user.postcount }
+    #   arr.push(entry)
+    # end
+    posts = Post.all
 
-    users.each do |user|
-      entry = { label: user.username, value: user.postcount }
-      arr.push(entry)
+    users = {}
+    posts.each do |post|
+      user = post.ret_user.username
+      if !users.key? user
+        users[user] = 0
+      end
+      users[user] += 1
+    end
+
+    users.each do |key, value|
+      arr << {label: key, value: value}
     end
     arr
   end
