@@ -7,6 +7,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'webmock/rspec'
+require 'database_helpers'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 

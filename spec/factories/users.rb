@@ -10,7 +10,7 @@ FactoryGirl.define do
     postcount 1
     banned false
     status "MyString"
-    did 1
-    lastonline 1
+    uid 1
+    lastonline "string?"
   end
 end
