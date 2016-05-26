@@ -1,6 +1,3 @@
-
-
-
 function drawEmailChartOnly() {
     emptyContainers();
     insertTitle("Sähköpostien palveluntarjoajat");
@@ -38,13 +35,14 @@ function drawPieChart(type, data, showlegend, divName) {
                 .showLabels(true).showLegend(showlegend);
             if (type == "emails") {
                 chart.showLabels(true).showLegend(showlegend).tooltipContent(function(key, y, e, graph) {
-                    var emailsAndCounts = $("#user_data").data().usersbyemail
-                    var emails = Object.keys(emailsAndCounts)
-                    var tooltipcontent = "<p>" + key.data.label + "</p>"
-                    var wantedEmailForTooltip = emailsAndCounts[key.data.label]
-                    for (var i = 0; i < wantedEmailForTooltip.length; i++) {
-                      tooltipcontent = tooltipcontent + "<p>" + wantedEmailForTooltip[i].user + "</p>"
+                    var wantedEmailForTooltip = $("#user_data").data().usersbyemail[key.data.label],
+                        tooltipcontent = "<p>" + key.data.label + ": " + wantedEmailForTooltip.length + "</p>",
+                        length = 10;
+                    if (wantedEmailForTooltip.length < 10) length = wantedEmailForTooltip.length;
+                    for (var i = 0; i < length; i++) {
+                        tooltipcontent = tooltipcontent + "<p>" + wantedEmailForTooltip[i].user + "</p>"
                     }
+                    if (wantedEmailForTooltip.length > 10) tooltipcontent = tooltipcontent + "<p>" + "..." + "</p>";
                     return tooltipcontent;
                 });
             }
@@ -59,7 +57,6 @@ function drawPieChart(type, data, showlegend, divName) {
                 .style({
                     "font-size": "1em"
                 });
-
             return chart;
         },
         function() {
@@ -78,7 +75,6 @@ function objectSorter(array) {
         return parseInt(a.value) - parseInt(b.value);
     });
 }
-
 
 function setPieChartHeight(data) {
     var height = 800;
@@ -120,7 +116,7 @@ function makeUL(array) {
 }
 
 function insertTitle(title) {
-  document.getElementById("title").innerHTML = title + "";
+    document.getElementById("title").innerHTML = title + "";
 }
 
 function insertMinButton() {
@@ -129,6 +125,6 @@ function insertMinButton() {
 }
 
 function emptyContainers() {
-  document.getElementById("minButton").innerHTML = "";
-  document.getElementById("emails").innerHTML = "";
+    document.getElementById("minButton").innerHTML = "";
+    document.getElementById("emails").innerHTML = "";
 }
