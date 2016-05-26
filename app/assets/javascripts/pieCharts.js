@@ -17,7 +17,7 @@ function drawPosterChartOnly() {
     document.getElementById("emails").innerHTML = "";
     document.getElementById("title").innerHTML = "Viimeiset ~5000 viestiä käyttäjien mukaan";
     d3.selectAll("#chart svg > *").remove();
-    drawPieChart("posts", objectSorter($("#postcount").data().postcounts), true, "#chart svg");
+    drawPieChart("posts", objectSorter($("#user_data").data().postCounts), true, "#chart svg");
 }
 
 function drawWithMinPosts(minPosts) {
