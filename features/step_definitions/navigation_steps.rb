@@ -109,7 +109,7 @@ When /^I hover mouse over a slice on piechart$/ do
 end
 
 When /^I click a slice on piechart$/ do
-  all(".nv-slice")[0].click
+  all(".nv-slice")[1].click
 end
 
 Then /^there should be a piechart$/ do
@@ -122,9 +122,10 @@ Then /^I should see some email provider users$/ do
 end
 
 Then /^I should see email users as a list$/ do
-  emailProvider = all(".nv-slice")[0].text
-  page.should have_content("Osoitteet tarjoajalta " + emailProvider)
-  all(:xpath, '//div[@id="emails"]//ul//li')[0].text.should == "testUser3"
+  emailProvider = all(".nv-slice")[1].text
+  page.should have_content("Käyttäjät tarjoajalla " + emailProvider)
+  all(:xpath, '//div[@id="usernames"]//ul//li')[0].text.should == "testUser1"
+  all(:xpath, '//div[@id="usernames"]//ul//li')[1].text.should == "testUser2"
 end
 
 Then /^I should be on user's forum page$/ do
