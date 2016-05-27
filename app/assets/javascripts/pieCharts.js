@@ -5,16 +5,76 @@ function drawEmailChartOnly() {
     drawPieChart("emails", $("#user_data").data().emailcounts, true, "#chart svg");
 }
 function drawPosterChartOnly() {
-    document.getElementById("emails").innerHTML = "";
-    document.getElementById("title").innerHTML = "Viimeiset ~5000 viestiä käyttäjien mukaan";
-    d3.selectAll("#chart svg > *").remove();
-    drawPieChart("posts", objectSorter($("#user_data").data().postcounts), false, "#chart svg");
+    emptyContainers();
+    insertTitle("Viimeiset ~5000 viestiä käyttäjien mukaan");
+    insertMinButton();
+    drawWithMinPosts(10);
 }
 
 function drawWithMinPosts(minPosts) {
-    drawWithMinPosts($("#user_data").data().postCounts, 10);
+    if (minPosts > 0) {
+        var postdata = getPostCountsByUsers($("#user_data").data().postcounts, minPosts);
+        drawPieChart("posts", postdata, true, "#chart svg");
+    }
 }
 
+// Haetaan tekstifilu jesarilla. Tää korvataan kun saadaan joku
+// db pyörimään mistä se data haetaan
+function getTextFile() {
+    var file = "/file";
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function() {
+        var allText = rawFile.responseText;
+        file = allText.toString();
+    };
+    rawFile.send(null);
+    return file;
+}
+
+//Tekstitiedosto pilkotaan yksittäisiksi json-objekteiksi.
+function jsonStringToArrayOfJsons(rawfiles) {
+    var files = rawfiles.split("split123");
+    var jsons = new Array();
+    for (var i = 0; i < files.length - 1; i++) {
+        jsons.push(JSON.parse(files[i]));
+    }
+    return jsons;
+}
+
+//Hakee erikseen postausmäärät käyttäjiltä joilla on yli n postia ja laskee
+//myös yhteen alle n-postisten käyttäjien postausmäärän.
+function getPostCountsByUsers(postCounts, minPosts) {
+  var data = []
+  var postCountForGroupedUsers = 0;
+  for (var postCount in postCounts) {
+    if (postCounts[postCount].value < minPosts) {
+      postCountForGroupedUsers++;
+    } else {
+      data.push(postCounts[postCount])
+    }
+  }
+  data.push({"label": "users w/ <" + minPosts + " posts", "value": postCountForGroupedUsers})
+  console.log(data)
+    return objectSorter(data);
+}
+
+//Luodaan lista json-muodossa olevista sähköposteista jotka annetaan sitten
+//piirakanluonti-metodille. Lasketaan myös monta eri käyttäjää on yhteensä
+//eri palveluntarjoajilla (gmail, yahoo, hotmail jne.)
+function createJsonArrayForPieChart(allEmails, uniqueEmails) {
+    var jsonArray = new Array();
+    for (var i = 0; i < uniqueEmails.length - 1; i++) {
+        var count = allEmails.filter(function(x) {
+            return x.split("@")[1].split(".")[0] == uniqueEmails[i];
+        }).length
+        jsonArray.push({
+            "label": uniqueEmails[i],
+            "value": count
+        });
+    }
+    return objectSorter(jsonArray);
+}
 
 //Piirakka luodaan tässä.
 function drawPieChart(type, data, showlegend, divName) {
