@@ -1,5 +1,7 @@
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 
+# These are default commands
+
 Given /^I am on (.+)$/ do |page_name|
   visit path_to(page_name)
 end
@@ -13,8 +15,7 @@ When /^I press "([^\"]*)"$/ do |button|
 end
 
 When /^I click "([^\"]*)"$/ do |link|
-  # click_link(link)
-  all(".nv-slice").click
+  click_link(link)
 end
 
 When /^I click "([^\"]*)" with text "([^\"]*)"$/ do |link, text|
@@ -94,13 +95,20 @@ Then /^page should have (.+) message "([^\"]*)"$/ do |type, text|
   page.has_css?("p.#{type}", :text => text, :visible => true)
 end
 
+# Here starts own tests
+
+Given /^there is data in the database$/ do
+  FactoryGirl.create(:user)
+  FactoryGirl.create(:user2)
+  FactoryGirl.create(:user3)
+end
+
 When /^I hover mouse over a slice on piechart$/ do
-  all(".nv-slice")[1].hover
+  all(".nv-slice")[0].hover
 end
 
 When /^I click a slice on piechart$/ do
-  all(".nv-slice")[2].click
-  # page.execute_script("$('.nv-slice').first().click()")
+  all(".nv-slice")[1].click
 end
 
 Then /^there should be a piechart$/ do
@@ -108,14 +116,8 @@ Then /^there should be a piechart$/ do
   find(:xpath, '//div[@id="chart"]')
 end
 
-Then /^I should see some user emails$/ do
-  # all(".nv-slice")[2].click
-  all(".nv-slice")[1].hover
-  text = first(:xpath, '//div[@class="nvtooltip xy-tooltip nv-pointer-events-none"]//p').text
-  puts text
-  puts page.all("p", :text => text).count
-  page.all(:xpath, '//div//p', :text => text).count.should be >= 2
-  page.all(:xpath, '//div//p', :text => '@').count.should be >= 1
+Then /^I should see some email provider users$/ do
+  page.all(:xpath, '//div[@class="nvtooltip xy-tooltip nv-pointer-events-none"]//p').count.should be >= 2
 end
 
 Then /^I should see user emails$/ do
@@ -125,11 +127,11 @@ Then /^I should see user emails$/ do
 end
 
 Then /^I should be on user's forum page$/ do
-  switch_to_window(window_opened_by { all(".nv-slice")[2].click })
+  switch_to_window(window_opened_by { all(".nv-slice")[1].click })
   forumPage = current_url
   switch_to_window(windows.first)
   visit path_to("charts")
   click_button("Viestien lähettäjät")
-  all(".nv-slice")[2].hover
+  all(".nv-slice")[1].hover
   forumPage.should == "http://forum.qt.io/user/" + find(".key").text
 end

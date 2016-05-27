@@ -1,4 +1,3 @@
-
 function drawEmailChartOnly() {
     emptyContainers();
     insertTitle("Sähköpostien palveluntarjoajat");
@@ -14,6 +13,17 @@ function drawPosterChartOnly() {
 
 function drawWithMinPosts(minPosts) {
     drawWithMinPosts($("#user_data").data().postCounts, minPosts);
+    emptyContainers();
+    insertTitle("Viimeiset ~5000 viestiä käyttäjien mukaan");
+    insertMinButton();
+    drawWithMinPosts(10);
+}
+
+function drawWithMinPosts(minPosts) {
+    if (minPosts > 0) {
+        var postdata = getPostCountsByUsers($("#user_data").data().postcounts, minPosts);
+        drawPieChart("posts", postdata, true, "#chart svg");
+    }
 }
 
 
