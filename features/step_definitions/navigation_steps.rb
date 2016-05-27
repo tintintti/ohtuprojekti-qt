@@ -95,9 +95,7 @@ Then /^page should have (.+) message "([^\"]*)"$/ do |type, text|
 end
 
 When /^I hover mouse over a slice on piechart$/ do
-  all(".nv-slice").each do |slice|
-    slice.hover
-  end
+  all(".nv-slice")[1].hover
 end
 
 When /^I click a slice on piechart$/ do
@@ -112,8 +110,12 @@ end
 
 Then /^I should see some user emails$/ do
   # all(".nv-slice")[2].click
-  page.all("p", :text => 'gmail').count.should be > 3
-  # page.should have_content(all(:xpath, '//div[@id="emails"]//p')[0].text)
+  all(".nv-slice")[1].hover
+  text = first(:xpath, '//div[@class="nvtooltip xy-tooltip nv-pointer-events-none"]//p').text
+  puts text
+  puts page.all("p", :text => text).count
+  page.all(:xpath, '//div//p', :text => text).count.should be >= 2
+  page.all(:xpath, '//div//p', :text => '@').count.should be >= 1
 end
 
 Then /^I should see user emails$/ do

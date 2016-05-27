@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  describe "user is created correctly" do
-    it 'creates user with correct parameters' do
+  describe "post" do
+    it 'is created correctly with correct parameters' do
       params = DatabaseHelpers.get_posts
       post = Post.create(
           pid:params["pid"],
@@ -29,6 +29,17 @@ RSpec.describe Post, type: :model do
       expect(post.deleted).to eq(false)
       expect(post.index).to eq(0)
     end
+  end
 
+  it 'validates correctly by post id' do
+    Post.create pid:2
+    Post.create pid:2
+    expect(Post.all.count).to eq(1)
+  end
+
+  it 'isnt created without post id' do
+    post = Post.create content:"lol"
+    expect(post).not_to be_valid
+    expect(Post.count).to eq(0)
   end
 end
