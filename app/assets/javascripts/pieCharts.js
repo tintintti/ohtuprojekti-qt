@@ -16,30 +16,6 @@ function drawWithMinPosts(minPosts) {
 }
 
 
-// Haetaan tekstifilu jesarilla. Tää korvataan kun saadaan joku
-// db pyörimään mistä se data haetaan
-function getTextFile() {
-    var file = "/file";
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function() {
-        var allText = rawFile.responseText;
-        file = allText.toString();
-    };
-    rawFile.send(null);
-    return file;
-}
-
-//Tekstitiedosto pilkotaan yksittäisiksi json-objekteiksi.
-function jsonStringToArrayOfJsons(rawfiles) {
-    var files = rawfiles.split("split123");
-    var jsons = new Array();
-    for (var i = 0; i < files.length - 1; i++) {
-        jsons.push(JSON.parse(files[i]));
-    }
-    return jsons;
-}
-
 //Piirakka luodaan tässä.
 function drawPieChart(type, data, showlegend, divName) {
     d3.selectAll("#chart svg > *").remove();
