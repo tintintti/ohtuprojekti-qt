@@ -37,6 +37,9 @@ RSpec.configure do |config|
     #     # => "be bigger than 2"
     Capybara.javascript_driver = :webkit
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+    Capybara.app_host = "http://localhost:3000"
+    Capybara.server_host = "localhost"
+    Capybara.server_port = "3000"
   end
 
   # rspec-mocks config goes here. You can use an alternate test double

@@ -3,8 +3,8 @@ require 'httparty'
 #include DatabaseHelpers
 
 RSpec.describe User, type: :model do
-  describe "user is created correctly" do
-    it 'creates user with correct parameters' do
+  describe "User" do
+    it 'is created correctly with correct parameters' do
       params = DatabaseHelpers.get_user
       user = User.create(
         username:params["username"],
@@ -38,10 +38,16 @@ RSpec.describe User, type: :model do
       expect(user.lastonline).to eq("1464159234766")
     end
 
-    it 'validates user correctly by username' do
-      User.create username:"Ola"
-      User.create username:"Ola"
+    it 'validates correctly by user id' do
+      User.create uid:2
+      User.create uid:2
       expect(User.all.count).to eq(1)
+    end
+
+    it 'isnt created without user id' do
+      user = User.create userslug:"www.http.com"
+      expect(user).not_to be_valid
+      expect(User.count).to eq(0)
     end
   end
 end
