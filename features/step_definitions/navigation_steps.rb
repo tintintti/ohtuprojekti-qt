@@ -104,11 +104,11 @@ Given /^there is data in the database$/ do
 end
 
 When /^I hover mouse over a slice on piechart$/ do
-  all(".nv-slice")[0].hover
+  all('//div[@class="nv-slice"]')[0].hover
 end
 
 When /^I click a slice on piechart$/ do
-  all(".nv-slice")[1].click
+  all(:xpath, '//div[@class="nv-slice"]')[1].click
 end
 
 Then /^there should be a piechart$/ do
@@ -121,8 +121,9 @@ Then /^I should see some email provider users$/ do
 end
 
 Then /^I should see email users as a list$/ do
-  emailProvider = all(".nv-slice")[1].text
+  emailProvider = all(:xpath, '//div[@class="nv-slice"]')[1].text
   page.should have_content("Osoitteet tarjoajalta " + emailProvider)
+  all(:xpath, '//div[@id="emails"]//ul//li')[0].should == "testuser2"
 end
 
 Then /^I should be on user's forum page$/ do
