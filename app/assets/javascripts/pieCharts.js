@@ -1,3 +1,5 @@
+var totalPosts = 0;
+
 function drawEmailChartOnly() {
     emptyContainers();
     insertTitle("Sähköpostien palveluntarjoajat");
@@ -6,7 +8,7 @@ function drawEmailChartOnly() {
 
 function drawPosterChartOnly() {
     emptyContainers();
-    insertTitle("Viimeiset ~5000 viestiä käyttäjien mukaan");
+    insertTitle("Käyttäjien viestit");
     insertMinButton();
     drawWithMinPosts(10);
 }
@@ -15,6 +17,7 @@ function drawWithMinPosts(minPosts) {
     if (minPosts > 0) {
         var postdata = getPostCountsByUsers($("#user_data").data().postcounts, minPosts);
         drawPieChart("posts", postdata, true, "#chart svg");
+        insertTitle("Viimeiset " + totalPosts + " viestiä käyttäjien mukaan");
     }
 }
 
@@ -93,9 +96,11 @@ function redirectToQtUserPage(name) {
 //Hakee erikseen postausmäärät käyttäjiltä joilla on yli n postia ja laskee
 //myös yhteen alle n-postisten käyttäjien postausmäärän.
 function getPostCountsByUsers(postCounts, minPosts) {
+    totalPosts = 0;
     var data = []
     var postCountForGroupedUsers = 0;
     for (var postCount in postCounts) {
+        totalPosts += postCounts[postCount].value;
         if (postCounts[postCount].value < minPosts) {
             postCountForGroupedUsers++;
         } else {
