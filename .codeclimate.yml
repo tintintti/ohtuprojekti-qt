@@ -45,3 +45,4 @@ exclude_paths:
 - vendor/
 - "app/assets/javascripts/d3.v3.min.js"
 - "app/assets/javascripts/nv3d.js"
+- "app/assets/stylesheets/nvcss.css"
