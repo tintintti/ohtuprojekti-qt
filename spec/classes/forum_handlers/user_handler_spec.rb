@@ -25,7 +25,7 @@ RSpec.describe UserHandler do
 
   it "users_by_email_provider return a hash with right values" do
     User.stubs(:all).returns([FactoryGirl.build(:user), FactoryGirl.build(:user2), FactoryGirl.build(:user3)])
-    expect(UserHandler.users_by_email_provider["test"][0]).to eq({user:"MyString", slug:"MyString"})
+    expect(UserHandler.users_by_email_provider["test"][0]).to eq({user:"testUser1", slug:"testuser1"})
     expect(UserHandler.users_by_email_provider["test"][1]).to eq({user:"testUser2", slug:"testuser2"})
   end
 
