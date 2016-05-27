@@ -3,8 +3,8 @@ require 'rails_helper'
 include DatabaseHelpers
 
 RSpec.describe Topic, type: :model do
-  describe "topic is created correctly" do
-    it 'creates user with correct parameters' do
+  describe "topic" do
+    it 'is created correctly with correct parameters' do
       params = DatabaseHelpers.get_topic
       topic = Topic.create(
         tid:params["tid"],
@@ -43,6 +43,18 @@ RSpec.describe Topic, type: :model do
       expect(topic.relativeTime).to eq("2016-05-25T06:55:58.372Z")
       expect(topic.lastposttimeISO).to eq("2016-05-25T07:35:40.934Z")
 
+    end
+
+    it 'validates correctly by user id' do
+      Topic.create tid:2
+      Topic.create tid:2
+      expect(Topic.all.count).to eq(1)
+    end
+
+    it 'isnt created without user id' do
+      topic = Topic.create cid:10
+      expect(topic).not_to be_valid
+      expect(Topic.count).to eq(0)
     end
   end
 end

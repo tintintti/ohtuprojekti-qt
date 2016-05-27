@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  validates :uid, uniqueness: true
+  validates :uid, uniqueness: true, presence: true
 
   def ret_posts
     Post.where("uid = ?", self.uid)
