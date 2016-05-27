@@ -120,10 +120,9 @@ Then /^I should see some email provider users$/ do
   page.all(:xpath, '//div[@class="nvtooltip xy-tooltip nv-pointer-events-none"]//p').count.should be >= 2
 end
 
-Then /^I should see user emails$/ do
-  # all(".nv-slice")[2].click
-  page.should have_content("Osoitteet tarjoajalta ")
-  # page.should have_content(all(:xpath, '//div[@id="emails"]//p')[0].text)
+Then /^I should see email users as a list$/ do
+  emailProvider = all(".nv-slice")[1].text
+  page.should have_content("Osoitteet tarjoajalta " + emailProvider)
 end
 
 Then /^I should be on user's forum page$/ do
