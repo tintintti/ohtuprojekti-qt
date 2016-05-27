@@ -1,6 +1,7 @@
 require 'rails_helper'
 require Rails.root.to_s + '/app/classes/forum_handlers/user_handler.rb'
 
+
 RSpec.describe UserHandler do
 
   it "user_postcounts returns an array" do
@@ -33,8 +34,5 @@ RSpec.describe UserHandler do
     expect(UserHandler.users_by_email_provider["test"].length).to be(3)
   end
 
-  it "format_email returns same for two emails with same provider but different tld" do
-    expect(UserHandler.format_email("testing@test.fi")).to eq(UserHandler.format_email("asd@test.com"))
-  end
 
 end

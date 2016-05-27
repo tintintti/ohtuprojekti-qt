@@ -1,113 +1,20 @@
-//tähän vois sit tulla se data sieltä backendilta joka korvais ton getTextFile()
-var jsons = jsonStringToArrayOfJsons(getTextFile());
-var allAndUniqueEmails = getAllAndUniqueEmails(jsons);
-var allEmails = allAndUniqueEmails[0],
-    uniqueEmails = allAndUniqueEmails[1];
-var data = createJsonArrayForPieChart(allEmails, uniqueEmails);
-
-var postdata = getPostCountsByUsers(jsons, 10);
 
 function drawEmailChartOnly() {
     emptyContainers();
     insertTitle("Sähköpostien palveluntarjoajat");
-    drawPieChart("emails", data, true, "#chart svg");
+    drawPieChart("emails", $("#user_data").data().emailcounts, true, "#chart svg");
 }
-
 function drawPosterChartOnly() {
     document.getElementById("emails").innerHTML = "";
     document.getElementById("title").innerHTML = "Viimeiset ~5000 viestiä käyttäjien mukaan";
     d3.selectAll("#chart svg > *").remove();
+    drawPieChart("posts", objectSorter($("#user_data").data().postcounts), false, "#chart svg");
+}
+
+function drawWithMinPosts(minPosts) {
     drawWithMinPosts($("#user_data").data().postCounts, 10);
 }
 
-function drawWithMinPosts(data, minPosts) {
-    if (minPosts > 0) {
-        var postdata = getPostCountsByUsers(data, minPosts);
-        drawPieChart("posts", postdata, true, "#chart svg");
-    }
-}
-
-// Haetaan tekstifilu jesarilla. Tää korvataan kun saadaan joku
-// db pyörimään mistä se data haetaan
-function getTextFile() {
-    var file = "/file";
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function() {
-        var allText = rawFile.responseText;
-        file = allText.toString();
-    };
-    rawFile.send(null);
-    return file;
-}
-
-//Tekstitiedosto pilkotaan yksittäisiksi json-objekteiksi.
-function jsonStringToArrayOfJsons(rawfiles) {
-    var files = rawfiles.split("split123");
-    var jsons = new Array();
-    for (var i = 0; i < files.length - 1; i++) {
-        jsons.push(JSON.parse(files[i]));
-    }
-    return jsons;
-}
-
-
-function getAllAndUniqueEmails(jsons) {
-    var uniqueEmails = new Array(),
-        allEmails = new Array();
-    for (var i = 0; i < jsons.length - 1; i++) {
-        var currentJson = jsons[i];
-        if (currentJson.posts == null) continue;
-        for (var j = 0; j < currentJson.posts.length; j++) {
-            var email = currentJson.posts[j].user.email;
-            if (email == null) continue;
-            if (allEmails.indexOf(email) == -1) {
-                allEmails.push(email);
-                email = email.split("@")[1].split(".");
-                if (uniqueEmails.indexOf(email[email.length - 2]) == -1) {
-                    uniqueEmails.push(email[email.length - 2]);
-                }
-            }
-        }
-    }
-    var allAndUniqueEmails = new Array();
-    allAndUniqueEmails.push(allEmails.sort()), allAndUniqueEmails.push(uniqueEmails.sort());
-    return allAndUniqueEmails;
-}
-
-//Hakee erikseen postausmäärät käyttäjiltä joilla on yli n postia ja laskee
-//myös yhteen alle n-postisten käyttäjien postausmäärän.
-function getPostCountsByUsers(postCounts, minPosts) {
-  var data = []
-  var postCountForGroupedUsers = 0;
-  for (var postCount in postCounts) {
-    if (postCounts[postCount].value < minPosts) {
-      postCountForGroupedUsers++;
-    } else {
-      data.push(postCounts[postCount])
-    }
-  }
-  data.push({"label": "users w/ <" + minPosts + " posts", "value": postCountForGroupedUsers})
-  console.log(data)
-    return objectSorter(data);
-}
-
-//Luodaan lista json-muodossa olevista sähköposteista jotka annetaan sitten
-//piirakanluonti-metodille. Lasketaan myös monta eri käyttäjää on yhteensä
-//eri palveluntarjoajilla (gmail, yahoo, hotmail jne.)
-function createJsonArrayForPieChart(allEmails, uniqueEmails) {
-    var jsonArray = new Array();
-    for (var i = 0; i < uniqueEmails.length - 1; i++) {
-        var count = allEmails.filter(function(x) {
-            return x.split("@")[1].split(".")[0] == uniqueEmails[i];
-        }).length
-        jsonArray.push({
-            "label": uniqueEmails[i],
-            "value": count
-        });
-    }
-    return objectSorter(jsonArray);
-}
 
 //Piirakka luodaan tässä.
 function drawPieChart(type, data, showlegend, divName) {
@@ -126,21 +33,17 @@ function drawPieChart(type, data, showlegend, divName) {
                 .showLabels(true).showLegend(showlegend);
             if (type == "emails") {
                 chart.showLabels(true).showLegend(showlegend).tooltipContent(function(key, y, e, graph) {
-                    var tooltipcontent = "<p>" + key.data.label + "</p>",
-                        count = 0;
-                    for (var i = 0; i < allEmails.length; i++) {
-                        if (allEmails[i].split("@")[1].split(".")[0] == key.data.label) {
-                            tooltipcontent = tooltipcontent + "<p>" + allEmails[i] + "</p>";
-                            count++;
-                        }
-                        if (count > 10) {
-                            break;
-                        }
+                    var wantedEmailForTooltip = $("#user_data").data().usersbyemail[key.data.label],
+                        tooltipcontent = "<p><b>" + key.data.label + ": " + wantedEmailForTooltip.length + "</b></p>",
+                        length = 10;
+                    if (wantedEmailForTooltip.length < 10) length = wantedEmailForTooltip.length;
+                    for (var i = 0; i < length; i++) {
+                        tooltipcontent = tooltipcontent + "<p>" + wantedEmailForTooltip[i].user + "</p>"
                     }
+                    if (wantedEmailForTooltip.length > 10) tooltipcontent = tooltipcontent + "<p>" + "..." + "</p>";
                     return tooltipcontent;
                 });
             }
-
             d3.select(divName)
                 .datum(data)
                 .transition().duration(1200)
@@ -152,7 +55,6 @@ function drawPieChart(type, data, showlegend, divName) {
                 .style({
                     "font-size": "1em"
                 });
-
             return chart;
         },
         function() {
@@ -164,8 +66,6 @@ function drawPieChart(type, data, showlegend, divName) {
         });
 }
 
-
-
 function objectSorter(array) {
     return array.sort(function(a, b) {
         return parseInt(a.value) - parseInt(b.value);
@@ -175,7 +75,7 @@ function objectSorter(array) {
 function setPieChartHeight(data) {
     var height = 800;
     height += data.length * 3;
-    if (height > 1800) height = 1800;
+    if (height > 1500) height = 1500;
     return height;
 }
 
@@ -191,8 +91,8 @@ function redirectToQtUserPage(name) {
 function listEmailsOfProvider(name) {
     document.getElementById("emails").innerHTML = "";
     document.getElementById("emails").innerHTML += "<h2>Osoitteet tarjoajalta " + name + "</h2>";
-
     var emailArray = [];
+
     for (var i = 0; i < allEmails.length; i++) {
         if (allEmails[i].split("@")[1].split(".")[0] == name) {
             emailArray.push(allEmails[i]);
@@ -203,23 +103,17 @@ function listEmailsOfProvider(name) {
 }
 
 function makeUL(array) {
-
     var list = document.createElement('ul');
-
     for (var i = 0; i < array.length; i++) {
-
         var item = document.createElement('li');
-
         item.appendChild(document.createTextNode(array[i]));
-
         list.appendChild(item);
     }
-
     return list;
 }
 
 function insertTitle(title) {
-  document.getElementById("title").innerHTML = title + "";
+    document.getElementById("title").innerHTML = title + "";
 }
 
 function insertMinButton() {
@@ -228,6 +122,6 @@ function insertMinButton() {
 }
 
 function emptyContainers() {
-  document.getElementById("minButton").innerHTML = "";
-  document.getElementById("emails").innerHTML = "";
+    document.getElementById("minButton").innerHTML = "";
+    document.getElementById("emails").innerHTML = "";
 }
