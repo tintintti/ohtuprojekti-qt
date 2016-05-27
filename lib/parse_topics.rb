@@ -39,7 +39,6 @@ class ParseTopics
 
       url = url_base + "/topic/" + (first - i).to_s
       slug = HTTParty.get(url).parsed_response
-
       # skips to the next id if the topic doesn't exist
       if (slug.class != String)
         first -= 1

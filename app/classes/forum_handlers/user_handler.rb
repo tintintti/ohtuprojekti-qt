@@ -1,13 +1,7 @@
 class UserHandler
 
   def self.user_postcounts
-    arr = Array.new
-    # users = User.all
-    #
-    # users.each do |user|
-    #   entry = { label: user.username, value: user.postcount }
-    #   arr.push(entry)
-    # end
+    arr = []
     posts = Post.all
 
     users = {}
@@ -29,7 +23,28 @@ class UserHandler
     arr
   end
 
+  def self.count_emails
+    emails = emails_and_users
+    data = []
+    emails.each do |item|
+      data << {label: item[:label].split(".")[0], value: item[:value]}
+    end
+    data
+  end
+
   def self.users_by_email_provider
+    emails = emails_and_users
+    data = {}
+    emails.each do |item|
+      data[item[:label]] = []
+      item[:users].each { |user| data[item[:label]] << user }
+    end
+    data
+  end
+
+
+  def self.emails_and_users
+
     users = User.all
     emails = {}
     users.each do |user|
@@ -38,20 +53,16 @@ class UserHandler
       if email == nil
         next
       end
-      email = format_email(email)
+      email = email.split("@")[1].split(".")[0]
       if !emails.key? email
-        emails[email] = []
+        emails[email] = {label:email, value:0, users:[]}
       end
-      emails[email] << {user: user.username, slug: user.userslug}
+      emails[email][:value] += 1
+      emails[email][:users] << {user: user.username, slug: user.userslug}
     end
-    emails
-  end
-
-  def self.format_email(email)
-    email = email.split("@")
-    email = email[1]
-    email = email.split(".")
-    email = email[-2]
+    data = []
+    emails.each_value { |value| data << value }
+    sorted_data = data.sort_by { |item| item[:value] }
   end
 
 end
