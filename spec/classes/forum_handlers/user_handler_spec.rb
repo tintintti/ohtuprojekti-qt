@@ -8,4 +8,8 @@ RSpec.describe UserHandler do
     expect(UserHandler.user_postcounts).to be_instance_of(Array)
   end
 
+  it "users_by_email returns a hash" do
+    expect(UserHandler.users_by_email_provider).to be_instance_of(Hash)
+  end
+
 end

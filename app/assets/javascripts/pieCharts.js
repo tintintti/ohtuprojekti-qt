@@ -4,10 +4,6 @@ var allAndUniqueEmails = getAllAndUniqueEmails(jsons);
 var allEmails = allAndUniqueEmails[0],
     uniqueEmails = allAndUniqueEmails[1];
 var data = createJsonArrayForPieChart(allEmails, uniqueEmails);
-//console.log(postdata)
-var postdata2 = $("#postcount").data().postcounts;
-console.log("dfsf")
-console.log(postdata2)
 
 var postdata = getPostCountsByUsers(jsons, 10);
 
@@ -18,10 +14,10 @@ function drawEmailChartOnly() {
 }
 
 function drawPosterChartOnly() {
-    emptyContainers();
-    insertMinButton();
-    insertTitle("Viimeiset ~5000 viestiä käyttäjien mukaan");
-    drawPieChart("posts", postdata, true, "#chart svg");
+    document.getElementById("emails").innerHTML = "";
+    document.getElementById("title").innerHTML = "Viimeiset ~5000 viestiä käyttäjien mukaan";
+    d3.selectAll("#chart svg > *").remove();
+    drawPieChart("posts", objectSorter($("#postcount").data().postcounts), true, "#chart svg");
 }
 
 function drawWithMinPosts(minPosts) {

@@ -19,7 +19,6 @@ class ParseTopics
   # returns the topics from api/recent in a hash
   def self.recent_topics
     url = 'http://forum.qt.io/api/recent'
-
     response = HTTParty.get(url)
     topics = response.parsed_response["topics"]
   end
@@ -31,7 +30,6 @@ class ParseTopics
     topics = []
     strings = 0
     i = 0
-
     while i < n
 
       # just to make sure there's no infinite loop
@@ -49,13 +47,13 @@ class ParseTopics
       end
 
       #skips to the next id if the topic can't be accessed
-      if (slug == "not-authorized")
+      if (slug == "not-authorized" || slug == "<html>")
         first -= 1
         next
       end
 
       real_url = url_base + slug
-
+      puts(real_url)
       topic = HTTParty.get(real_url).parsed_response
       topics << topic
       i += 1
