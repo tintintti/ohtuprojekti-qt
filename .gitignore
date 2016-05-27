@@ -18,7 +18,3 @@
 
 # Ignore byebug history
 .byebug_history
-
-# Coveralls
-/coverage/*
-.coveralls.yml
