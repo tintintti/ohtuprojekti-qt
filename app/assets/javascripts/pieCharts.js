@@ -42,10 +42,39 @@ function jsonStringToArrayOfJsons(rawfiles) {
     return jsons;
 }
 
-function drawWithMinPosts(minPosts) {
-    drawWithMinPosts($("#user_data").data().postCounts, 10);
+//Hakee erikseen postausmäärät käyttäjiltä joilla on yli n postia ja laskee
+//myös yhteen alle n-postisten käyttäjien postausmäärän.
+function getPostCountsByUsers(postCounts, minPosts) {
+  var data = []
+  var postCountForGroupedUsers = 0;
+  for (var postCount in postCounts) {
+    if (postCounts[postCount].value < minPosts) {
+      postCountForGroupedUsers++;
+    } else {
+      data.push(postCounts[postCount])
+    }
+  }
+  data.push({"label": "users w/ <" + minPosts + " posts", "value": postCountForGroupedUsers})
+  console.log(data)
+    return objectSorter(data);
 }
 
+//Luodaan lista json-muodossa olevista sähköposteista jotka annetaan sitten
+//piirakanluonti-metodille. Lasketaan myös monta eri käyttäjää on yhteensä
+//eri palveluntarjoajilla (gmail, yahoo, hotmail jne.)
+function createJsonArrayForPieChart(allEmails, uniqueEmails) {
+    var jsonArray = new Array();
+    for (var i = 0; i < uniqueEmails.length - 1; i++) {
+        var count = allEmails.filter(function(x) {
+            return x.split("@")[1].split(".")[0] == uniqueEmails[i];
+        }).length
+        jsonArray.push({
+            "label": uniqueEmails[i],
+            "value": count
+        });
+    }
+    return objectSorter(jsonArray);
+}
 
 //Piirakka luodaan tässä.
 function drawPieChart(type, data, showlegend, divName) {
