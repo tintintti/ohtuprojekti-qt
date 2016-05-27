@@ -17,6 +17,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'byebug'
   gem "capybara-webkit"
+  gem 'mocha'
 end
 
 group :production do

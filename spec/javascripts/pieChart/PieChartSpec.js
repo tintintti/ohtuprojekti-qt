@@ -1,7 +1,7 @@
 describe('Test piechart with jasmine ', function() {
 
     beforeEach(function() {
-
+      data = [{"label":"testUser1", "value":14}, {"label":"testUser2", "value":9}]
     });
 
     afterEach(function() {
@@ -10,7 +10,7 @@ describe('Test piechart with jasmine ', function() {
 
 
     it('svg should be created', function() {
-        drawWithMinPosts(10);
+        drawWithMinPosts(data,10)
         expect(getSvg()).not.toBeNull();
     });
 
