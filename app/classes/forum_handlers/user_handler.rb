@@ -1,22 +1,25 @@
 class UserHandler
 
   def self.user_postcounts
-    arr = Array.new
-    users = User.all
+    arr = []
+    posts = Post.all
 
-    # lowPostCount = 0
-
-    users.each do |user|
-
-      # if (user.postcount < n)
-      #   lowPostCount += 1
-      #   next
-      # end
-      entry = { "label" => user.username, "value" => user.postcount }
-      arr.push(entry)
+    users = {}
+    posts.each do |post|
+      user = post.ret_user
+      name = "removed user"
+      if user != nil
+        name = user.username
+      end
+      if !users.key? name
+        users[name] = 0
+      end
+      users[name] += 1
     end
-    # entry = { "label" => "users with < #{n} posts", "postcount" => lowPostCount }
-    # arr.push(entry)
+
+    users.each do |key, value|
+      arr << {label: key, value: value}
+    end
     arr
   end
 
@@ -41,6 +44,7 @@ class UserHandler
 
 
   def self.emails_and_users
+
     users = User.all
     emails = {}
     users.each do |user|

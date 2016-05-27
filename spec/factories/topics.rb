@@ -6,8 +6,8 @@ FactoryGirl.define do
     mainPid 1
     title "MyString"
     slug "MyString"
-    timestamp 1
-    lastposttime 1
+    timestamp "anotherString"
+    lastposttime "stringAgain"
     postcount 1
     viewcount 1
     locked false
