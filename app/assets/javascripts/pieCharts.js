@@ -3,14 +3,12 @@ function drawEmailChartOnly() {
     insertTitle("Sähköpostien palveluntarjoajat");
     drawPieChart("emails", $("#user_data").data().emailcounts, true, "#chart svg");
 }
-console.log($("#user_data").data().emailcounts)
 function drawPosterChartOnly() {
     document.getElementById("emails").innerHTML = "";
     document.getElementById("title").innerHTML = "Viimeiset ~5000 viestiä käyttäjien mukaan";
     d3.selectAll("#chart svg > *").remove();
     drawPieChart("posts", objectSorter($("#user_data").data().postcounts), false, "#chart svg");
 }
-
 function drawWithMinPosts(minPosts) {
     if (minPosts > 0) {
         var postdata = getPostCountsByUsers(jsons, minPosts);
@@ -68,8 +66,6 @@ function drawPieChart(type, data, showlegend, divName) {
         });
 }
 
-
-
 function objectSorter(array) {
     return array.sort(function(a, b) {
         return parseInt(a.value) - parseInt(b.value);
@@ -96,6 +92,7 @@ function listEmailsOfProvider(name) {
     document.getElementById("emails").innerHTML = "";
     document.getElementById("emails").innerHTML += "<h2>Osoitteet tarjoajalta " + name + "</h2>";
     var emailArray = [];
+
     for (var i = 0; i < allEmails.length; i++) {
         if (allEmails[i].split("@")[1].split(".")[0] == name) {
             emailArray.push(allEmails[i]);
