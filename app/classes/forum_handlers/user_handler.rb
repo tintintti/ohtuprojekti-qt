@@ -6,7 +6,7 @@ class UserHandler
 
     users = {}
     posts.each do |post|
-      user = post.ret_user
+      user = User.find_by_uid(post.uid)
       name = "removed user"
       if user != nil
         name = user.username
