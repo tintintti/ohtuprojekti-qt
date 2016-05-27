@@ -42,6 +42,10 @@ RSpec.configure do |config|
     Capybara.app_host = "http://localhost:3000"
     Capybara.server_host = "localhost"
     Capybara.server_port = "3000"
+    # whitelist codeclimate.com so test coverage can be reported
+    config.after(:suite) do
+    WebMock.disable_net_connect!(:allow => 'codeclimate.com')
+end
   end
 
   # rspec-mocks config goes here. You can use an alternate test double
