@@ -7,12 +7,13 @@ function drawEmailChartOnly() {
 function drawPosterChartOnly() {
     document.getElementById("emails").innerHTML = "";
     document.getElementById("title").innerHTML = "Viimeiset ~5000 viestiä käyttäjien mukaan";
+    insertMinButton();
     d3.selectAll("#chart svg > *").remove();
     drawPieChart("posts", objectSorter($("#user_data").data().postcounts), false, "#chart svg");
 }
 
 function drawWithMinPosts(minPosts) {
-    drawWithMinPosts($("#user_data").data().postCounts, 10);
+    drawWithMinPosts($("#user_data").data().postCounts, minPosts);
 }
 
 
@@ -88,18 +89,14 @@ function redirectToQtUserPage(name) {
 }
 
 //Listaa sivulla kaikki yhden palveluntarjoajan osoitteet
-function listEmailsOfProvider(name) {
+function listEmailsOfProvider(emailprovider) {
     document.getElementById("emails").innerHTML = "";
     document.getElementById("emails").innerHTML += "<h2>Osoitteet tarjoajalta " + name + "</h2>";
-    var emailArray = [];
-
-    for (var i = 0; i < allEmails.length; i++) {
-        if (allEmails[i].split("@")[1].split(".")[0] == name) {
-            emailArray.push(allEmails[i]);
-        }
+    var objectArray = $("#user_data").data().usersbyemail[emailprovider], userArray = [];
+    for (var i = 0; i < objectArray.length; i++) {
+      userArray.push(objectArray[i].user)
     }
-
-    document.getElementById("emails").appendChild(makeUL(emailArray));
+    document.getElementById("emails").appendChild(makeUL(userArray));
 }
 
 function makeUL(array) {
