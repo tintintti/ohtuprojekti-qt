@@ -3,16 +3,8 @@ function drawEmailChartOnly() {
     insertTitle("Sähköpostien palveluntarjoajat");
     drawPieChart("emails", $("#user_data").data().emailcounts, true, "#chart svg");
 }
-function drawPosterChartOnly() {
-    document.getElementById("emails").innerHTML = "";
-    document.getElementById("title").innerHTML = "Viimeiset ~5000 viestiä käyttäjien mukaan";
-    insertMinButton();
-    d3.selectAll("#chart svg > *").remove();
-    drawPieChart("posts", objectSorter($("#user_data").data().postcounts), false, "#chart svg");
-}
 
-function drawWithMinPosts(minPosts) {
-    drawWithMinPosts($("#user_data").data().postCounts, minPosts);
+function drawPosterChartOnly() {
     emptyContainers();
     insertTitle("Viimeiset ~5000 viestiä käyttäjien mukaan");
     insertMinButton();
@@ -71,7 +63,7 @@ function drawPieChart(type, data, showlegend, divName) {
         function() {
             d3.select("#chart svg").selectAll(".nv-slice").on('click',
                 function(d) {
-                    if (type == "emails") listEmailsOfProvider(d.data.label);
+                    if (type == "emails") listUsersOfProvider(d.data.label);
                     if (type == "posts") redirectToQtUserPage(d.data.label);
                 });
         });
@@ -98,15 +90,36 @@ function redirectToQtUserPage(name) {
 
 }
 
-//Listaa sivulla kaikki yhden palveluntarjoajan osoitteet
-function listEmailsOfProvider(emailprovider) {
-    document.getElementById("emails").innerHTML = "";
-    document.getElementById("emails").innerHTML += "<h2>Osoitteet tarjoajalta " + name + "</h2>";
-    var objectArray = $("#user_data").data().usersbyemail[emailprovider], userArray = [];
-    for (var i = 0; i < objectArray.length; i++) {
-      userArray.push(objectArray[i].user)
+//Hakee erikseen postausmäärät käyttäjiltä joilla on yli n postia ja laskee
+//myös yhteen alle n-postisten käyttäjien postausmäärän.
+function getPostCountsByUsers(postCounts, minPosts) {
+    var data = []
+    var postCountForGroupedUsers = 0;
+    for (var postCount in postCounts) {
+        if (postCounts[postCount].value < minPosts) {
+            postCountForGroupedUsers++;
+        } else {
+            data.push(postCounts[postCount])
+        }
     }
-    document.getElementById("emails").appendChild(makeUL(userArray));
+    data.push({
+        "label": "users w/ <" + minPosts + " posts",
+        "value": postCountForGroupedUsers
+    })
+    console.log(data)
+    return objectSorter(data);
+}
+
+//Listaa sivulla kaikki yhden palveluntarjoajan käyttäjät
+function listUsersOfProvider(emailprovider) {
+    document.getElementById("usernames").innerHTML = "";
+    document.getElementById("usernames").innerHTML += "<h2>Käyttäjät tarjoajalla " + emailprovider + "</h2>";
+    var objectArray = $("#user_data").data().usersbyemail[emailprovider],
+        userArray = [];
+    for (var i = 0; i < objectArray.length; i++) {
+        userArray.push(objectArray[i].user)
+    }
+    document.getElementById("usernames").appendChild(makeUL(userArray));
 }
 
 function makeUL(array) {
@@ -130,5 +143,5 @@ function insertMinButton() {
 
 function emptyContainers() {
     document.getElementById("minButton").innerHTML = "";
-    document.getElementById("emails").innerHTML = "";
+    document.getElementById("usernames").innerHTML = "";
 }
