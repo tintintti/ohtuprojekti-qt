@@ -61,19 +61,28 @@ class ParseTopics
   end
 
   # Adds n amount of newest topics to the database
-  def self.add_newest_topics(n)
-    topics = newest_topics(n)
-    topics.each do |topic|
-      posts = topic["posts"]
-      continue if (posts.nil?)
-      posts.each do |post|
+  def self.add_newest_topics(topics)
+      topics.each do |topic|
+        posts = topic["posts"]
+        continue if (posts.nil?)
+        self.add_posts_and_users(posts)
+
+        Topic.create(tid:topic["tid"], slug:topic["slug"], uid:topic["uid"], cid:topic["cid"], mainPid:topic["mainPid"], title:topic["title"], timestamp:topic["timestamp"], postcount:topic["postcount"], viewcount:topic["viewcount"], locked:topic["locked"], pinned:topic["pinned"], isQuestion:topic["isQuestion"], isSolved:topic["isSolved"], relativeTime:topic["relativeTime"], lastposttime:topic["lastposttime"] )
+      end
+    end
+
+    def self.add_posts_and_users(posts_with_users)
+      posts_with_users.each do |post|
         user = post["user"]
         Post.create(pid:post["pid"], uid:post["uid"], tid:post["tid"], content:post["content"], timestamp:post["timestamp"], reputation:post["reputation"], votes:post["votes"], edited:post["edited"], deleted:post["deleted"], index:post["index"])
         User.create(username:user["username"], userslug:user["userslug"], email:user["email"], picture:user["picture"], fullname:user["fullname"], signature:user["signature"], reputation:user["reputation"], postcount:user["postcount"], banned:user["banned"], status:user["status"], lastonline:user["lastonline"], uid:user["uid"])
       end
-      Topic.create(tid:topic["tid"], slug:topic["slug"], uid:topic["uid"], cid:topic["cid"], mainPid:topic["mainPid"], title:topic["title"], timestamp:topic["timestamp"], postcount:topic["postcount"], viewcount:topic["viewcount"], locked:topic["locked"], pinned:topic["pinned"], isQuestion:topic["isQuestion"], isSolved:topic["isSolved"], relativeTime:topic["relativeTime"], lastposttime:topic["lastposttime"] )
     end
-  end
+
+    def self.fetch_and_save_newest_topics(n)
+      topics = newest_topics(n)
+      self.add_newest_topics(topics)
+    end
 
   def self.add_postcount_reputation_topics
     topics = recent_topics
