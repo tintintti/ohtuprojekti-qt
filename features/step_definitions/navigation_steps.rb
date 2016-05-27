@@ -105,6 +105,7 @@ end
 
 When /^I hover mouse over a slice on piechart$/ do
   all(".nv-slice")[0].hover
+  # all('//div[@class="nv-slice"]')[0].hover
 end
 
 When /^I click a slice on piechart$/ do
@@ -120,18 +121,19 @@ Then /^I should see some email provider users$/ do
   page.all(:xpath, '//div[@class="nvtooltip xy-tooltip nv-pointer-events-none"]//p').count.should be >= 2
 end
 
-Then /^I should see user emails$/ do
-  # all(".nv-slice")[2].click
-  page.should have_content("Osoitteet tarjoajalta ")
-  # page.should have_content(all(:xpath, '//div[@id="emails"]//p')[0].text)
+Then /^I should see email users as a list$/ do
+  emailProvider = all(".nv-slice")[1].text
+  page.should have_content("Käyttäjät tarjoajalla " + emailProvider)
+  all(:xpath, '//div[@id="usernames"]//ul//li')[0].text.should == "testUser1"
+  all(:xpath, '//div[@id="usernames"]//ul//li')[1].text.should == "testUser2"
 end
 
 Then /^I should be on user's forum page$/ do
-  switch_to_window(window_opened_by { all(".nv-slice")[1].click })
+  switch_to_window(window_opened_by { all(".nv-slice")[0].click })
   forumPage = current_url
   switch_to_window(windows.first)
   visit path_to("charts")
   click_button("Viestien lähettäjät")
-  all(".nv-slice")[1].hover
+  all(".nv-slice")[0].hover
   forumPage.should == "http://forum.qt.io/user/" + find(".key").text
 end

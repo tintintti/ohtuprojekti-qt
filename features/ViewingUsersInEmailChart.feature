@@ -9,9 +9,10 @@ When I press "Sähköpostien palveluntarjoajat"
 When I hover mouse over a slice on piechart
 Then I should see some email provider users
 
-#@javascript
-#Scenario: Community manager clicks an email provider chart slice
-#When I go to charts
-#When I press "Sähköpostien palveluntarjoajat"
-#When I click a slice on piechart
-#Then I should see user emails
+@javascript
+Scenario: Community manager clicks an email provider chart slice
+Given there is data in the database
+When I go to charts
+When I press "Sähköpostien palveluntarjoajat"
+When I click a slice on piechart
+Then I should see email users as a list
