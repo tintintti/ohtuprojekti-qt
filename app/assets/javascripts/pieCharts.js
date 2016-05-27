@@ -14,15 +14,15 @@ function drawEmailChartOnly() {
 }
 
 function drawPosterChartOnly() {
-    document.getElementById("emails").innerHTML = "";
-    document.getElementById("title").innerHTML = "Viimeiset ~5000 viestiä käyttäjien mukaan";
-    d3.selectAll("#chart svg > *").remove();
-    drawWithMinPosts($("#user_data").data().postCounts, 10);
+    emptyContainers();
+    insertTitle("Viimeiset ~5000 viestiä käyttäjien mukaan");
+    insertMinButton();
+    drawWithMinPosts(10);
 }
 
-function drawWithMinPosts(data, minPosts) {
+function drawWithMinPosts(minPosts) {
     if (minPosts > 0) {
-        var postdata = getPostCountsByUsers(data, minPosts);
+        var postdata = getPostCountsByUsers($("#user_data").data().post_counts, minPosts);
         drawPieChart("posts", postdata, true, "#chart svg");
     }
 }
