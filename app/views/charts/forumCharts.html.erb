@@ -10,7 +10,7 @@
         <%= content_tag "div", id: "user_data", data: {postcounts: @post_counts, emailcounts: @email_counts, usersbyemail: @users_by_email } do %>
         <% end %>
         <%= javascript_include_tag "d3.v3.min.js" %>
-        <%= javascript_include_tag "nv3d.js" %>
+        <%= javascript_include_tag "nvd3.js" %>
         <%= javascript_include_tag "forumCharts.js" %>
         <%= stylesheet_link_tag "nvcss.css" %>
 
@@ -20,7 +20,7 @@
             <h2 id="title"></h2>
         </div>
 
-        <div class="container" id="featureButton"></div>
+        <div class="container" id="buttonFeature"></div>
 
         <div id="chart">
             <svg></svg>
