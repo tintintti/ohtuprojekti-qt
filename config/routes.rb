@@ -12,7 +12,9 @@ Rails.application.routes.draw do
 
   get 'file' => 'download#download'
 
-  get 'charts' => 'charts#view'
+  get 'forum_charts' => 'charts#forumCharts'
+
+  get 'git_charts' => 'charts#gitCharts'
 
   get 'emails' => 'download#emails'
 

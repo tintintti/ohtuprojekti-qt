@@ -132,7 +132,7 @@ Then /^I should be on user's forum page$/ do
   switch_to_window(window_opened_by { all(".nv-slice")[0].click })
   forumPage = current_url
   switch_to_window(windows.first)
-  visit path_to("charts")
+  visit path_to("forum_charts")
   click_button("Viestien lähettäjät")
   all(".nv-slice")[0].hover
   forumPage.should == "http://forum.qt.io/user/" + find(".key").text
