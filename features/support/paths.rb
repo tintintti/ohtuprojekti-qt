@@ -4,10 +4,10 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
-    when /charts/
-      '/charts'
+    when /forum\s?charts/
+      '/forum_charts'
     else
-    
+
       begin
         page_name =~ /the (.*) page/
         path_components = $1.split(/\s+/)

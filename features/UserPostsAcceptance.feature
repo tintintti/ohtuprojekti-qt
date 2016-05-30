@@ -8,7 +8,7 @@ Then page should have text message "Qt Software Project"
 
 @javascript
 Scenario: User checks user post chart
-When I go to charts
+When I go to forum charts
 When I press "Viestien lähettäjät"
 Given there is data in the database
 Then there should be a piechart

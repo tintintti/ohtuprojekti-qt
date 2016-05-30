@@ -1,12 +1,12 @@
 var totalPosts = 0;
 
-function drawEmailChartOnly() {
+function drawEmailPieChartOnly() {
     emptyContainers();
     insertTitle("Sähköpostien palveluntarjoajat");
     drawPieChart("emails", $("#user_data").data().emailcounts, true, "#chart svg");
 }
 
-function drawPosterChartOnly() {
+function drawPosterPieChartOnly() {
     emptyContainers();
     insertTitle("Käyttäjien viestit");
     insertMinButton();
@@ -19,6 +19,10 @@ function drawWithMinPosts(minPosts) {
         drawPieChart("posts", postdata, true, "#chart svg");
         insertTitle("Viimeiset " + totalPosts + " viestiä käyttäjien mukaan");
     }
+}
+
+function drawPosterBarChartOnly() {
+
 }
 
 
@@ -142,11 +146,11 @@ function insertTitle(title) {
 }
 
 function insertMinButton() {
-    document.getElementById("minButton").innerHTML =
+    document.getElementById("featureButton").innerHTML =
         "<input type=number value=10 id='minimum'/><p><input type = button value = 'Aseta viestien minimimäärä' onclick = 'drawWithMinPosts(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
 }
 
 function emptyContainers() {
-    document.getElementById("minButton").innerHTML = "";
+    document.getElementById("featureButton").innerHTML = "";
     document.getElementById("usernames").innerHTML = "";
 }
