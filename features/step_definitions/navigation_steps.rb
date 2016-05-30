@@ -98,9 +98,10 @@ end
 # Here starts own tests
 
 Given /^there is data in the database$/ do
+  FactoryGirl.reload
   FactoryGirl.create(:user)
-  FactoryGirl.create(:user2)
-  FactoryGirl.create(:user3)
+  FactoryGirl.create(:user)
+  FactoryGirl.create(:user)
 end
 
 When /^I hover mouse over a slice on piechart$/ do
@@ -109,7 +110,7 @@ When /^I hover mouse over a slice on piechart$/ do
 end
 
 When /^I click a slice on piechart$/ do
-  all(".nv-slice")[1].click
+  all(".nv-slice")[0].click
 end
 
 Then /^there should be a piechart$/ do
@@ -122,7 +123,7 @@ Then /^I should see some email provider users$/ do
 end
 
 Then /^I should see email users as a list$/ do
-  emailProvider = all(".nv-slice")[1].text
+  emailProvider = all(".nv-slice")[0].text
   page.should have_content("Käyttäjät tarjoajalla " + emailProvider)
   all(:xpath, '//div[@id="usernames"]//ul//li')[0].text.should == "testUser1"
   all(:xpath, '//div[@id="usernames"]//ul//li')[1].text.should == "testUser2"
