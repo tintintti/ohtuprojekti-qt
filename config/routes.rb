@@ -18,6 +18,13 @@ Rails.application.routes.draw do
 
   get 'emails' => 'download#emails'
 
+  get 'authors' => 'application#authors'
+  get 'index.html' => 'application#index'
+  get 'activity.html' => 'application#activity'
+  get 'files.html' => 'application#files'
+  get 'lines.html' => 'application#lines'
+  get 'tags.html' => 'application#tags'
+
   root 'charts#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
