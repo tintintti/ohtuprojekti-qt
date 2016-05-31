@@ -6,6 +6,8 @@ module NavigationHelpers
       '/'
     when /forum\s?charts/
       '/forum_charts'
+    when /login/
+      '/login'
     else
 
       begin

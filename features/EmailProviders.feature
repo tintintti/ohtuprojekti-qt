@@ -4,6 +4,7 @@ As a community manager I want to see the users of
 
  @javascript
  Scenario: Community manager checks email provider chart
+ Given I have logged in
  When I go to forum charts
  When I press "Sähköpostien palveluntarjoajat"
  Given there is data in the database

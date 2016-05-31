@@ -95,13 +95,20 @@ Then /^page should have (.+) message "([^\"]*)"$/ do |type, text|
   page.has_css?("p.#{type}", :text => text, :visible => true)
 end
 
-# Here starts own tests
+# Here be own tests
 
 Given /^there is data in the database$/ do
   FactoryGirl.reload
   FactoryGirl.create(:user)
   FactoryGirl.create(:user)
   FactoryGirl.create(:user)
+end
+
+Given /^I have logged in$/ do
+  visit path_to("login")
+  fill_in('username', :with => 'tunnus')
+  fill_in('password', :with => 'passu')
+  click_button('Kirjaudu sisään')
 end
 
 When /^I hover mouse over a slice on piechart$/ do
