@@ -1,4 +1,6 @@
 class ChartsController < ApplicationController
+  before_action :ensure_that_logged_in, except: [:index]
+
   def index
   end
 

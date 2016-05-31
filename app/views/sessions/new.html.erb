@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<div class="container">
+
+<p id="alert"><%= alert %></p>
+
+<h1>Sisäänkirjautuminen</h1>
+
+<%= form_tag session_path do %>
+  Nimi <%= text_field_tag :username, params[:username] %>
+  Salasana <%= password_field_tag :password, params[:password] %>
+  <%= submit_tag "Kirjaudu sisään" %>
+<% end %>
+
+</div>

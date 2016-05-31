@@ -10,6 +10,10 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
 
+  get 'login', to: 'sessions#new'
+
+  post 'session', to:'sessions#create'
+
   get 'file' => 'download#download'
 
   get 'forum_charts' => 'charts#forumCharts'
@@ -24,6 +28,8 @@ Rails.application.routes.draw do
   get 'files.html' => 'application#files'
   get 'lines.html' => 'application#lines'
   get 'tags.html' => 'application#tags'
+
+  delete 'logout', to:'sessions#destroy'
 
   root 'charts#index'
   # Example of regular route:

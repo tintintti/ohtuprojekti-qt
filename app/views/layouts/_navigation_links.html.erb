@@ -1,3 +1,5 @@
+<% if logged_in %>
+
 <li role="presentation" class="dropdown">
   <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Datakaaviot
     <span class="caret"></span>
@@ -18,3 +20,11 @@
     <li><%= link_to 'Käyttäjät', users_path %></li>
   </ul>
 </li>
+
+<li><%= link_to 'Kirjaudu ulos', logout_path, method: :delete %></li>
+
+<% else %>
+
+<li><%= link_to 'Kirjaudu sisään', login_path%></li>
+
+<% end %>

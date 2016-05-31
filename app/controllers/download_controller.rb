@@ -1,4 +1,6 @@
 class DownloadController < ApplicationController
+  before_action :ensure_that_logged_in
+  
   def download
     file = File.open(File.join(Rails.root, 'app/assets/textdata/theFile.txt'), "rb")
     contents = file.read
