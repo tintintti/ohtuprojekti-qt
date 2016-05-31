@@ -1,37 +1,17 @@
 FactoryGirl.define do
   factory :post do
-    pid 1
-    uid 1
+    sequence(:pid) { |n| n }
+    sequence(:uid) { |n| n }
     tid 1
-    content "post 1"
+    content "post"
     timestamp "a lot"
     reputation 1
     votes 1
     edited "stringToo"
     deleted false
+    sequence(:index) { |n| n - 1 }
   end
-  factory :post2, class:Post do
-    pid 2
-    uid 1
-    tid 1
-    content "post 2"
-    timestamp "a lot"
-    reputation 1
-    votes 1
-    edited "stringToo"
-    deleted false
-  end
-  factory :post3, class:Post do
-    pid 3
-    uid 2
-    tid 1
-    content "post 3"
-    timestamp "a lot"
-    reputation 1
-    votes 1
-    edited "stringToo"
-    deleted false
-  end
+
   factory :post_no_user, class:Post do
     pid 4
     uid 5
