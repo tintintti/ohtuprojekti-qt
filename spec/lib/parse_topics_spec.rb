@@ -6,12 +6,10 @@ describe "ParseTopics" do
 
   describe "add_newest_topics" do
 
-
     it "saves topics" do
       ParseTopics.add_newest_topics(topic_array)
       expect(Topic.all.count).to equal(5)
     end
-
   end
 
   describe "add_posts_and_users" do
@@ -20,7 +18,6 @@ describe "ParseTopics" do
       ParseTopics.add_newest_topics(topic_array)
       expect(User.all.count).to equal(6)
     end
-
   end
 
   describe "fetch_recent_topics" do
@@ -48,6 +45,36 @@ describe "ParseTopics" do
   end
 
   describe "fetch_newest_topics" do
+
+    before (:each) do
+
+      topic = IO.read("spec/fixtures/topic.json")
+      recent = IO.read("spec/fixtures/recent.json")
+      topic_slug = IO.read("spec/fixtures/topic_slug")
+
+      stub_request(:get, "http://forum.qt.io/api/topic/67699").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+         to_return(:status => 200, :body => topic_slug, :headers => {})
+      stub_request(:get, /.*recent/).to_return(body: recent, headers: {"Content-Type"=> "application/json"})
+      stub_request(:get, "http://forum.qt.io/api/topic/67699/qt-forum-mail-subscribtion").to_return(body: topic, headers: {"Content-Type"=> "application/json"})
+
+    end
+
+
+    it "returns an array" do
+      fetch_newest_topics_response = ParseTopics.fetch_newest_topics(1)
+      expect(fetch_newest_topics_response).to be_instance_of(Array)
+    end
+
+    it "returns an array containing hash instances" do
+      fetch_newest_topics_response = ParseTopics.fetch_newest_topics(1)
+      expect(fetch_newest_topics_response[0]).to be_instance_of(Hash)
+    end
+
+    it "returns a correct topic when called with '1'" do
+      fetch_newest_topics_response = ParseTopics.fetch_newest_topics(1)
+      expect(fetch_newest_topics_response[0]["tid"]).to eq(67699)
+    end
 
   end
 
