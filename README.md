@@ -7,3 +7,5 @@
 [product backlog] (https://docs.google.com/spreadsheets/d/1i8u4nV4QKqtlUKjJtBon5xgYCYruVzvzuO8uzfHm0q4/pubhtml)
 
 [heroku page] (http://qt-software-project.herokuapp.com/)
+
+käyttäjänimi on tunnus ja salasana passu
