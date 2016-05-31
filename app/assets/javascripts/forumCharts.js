@@ -1,14 +1,21 @@
 var totalPosts = 0;
 
+function drawEmailCharts() {
+  drawEmailPieChart();
+}
 
+function drawPosterCharts() {
+  // drawPosterBarChart("#chart2 svg");
+  drawPosterPieChart();
+}
 //nämä käyttävät chartDrawer.js:n drawPieChartia
-function drawEmailPieChartOnly() {
+function drawEmailPieChart() {
     emptyContainers();
     insertTitle("Sähköpostien palveluntarjoajat");
     drawPieChart("emails", $("#user_data").data().emailcounts, true, "#chart svg");
 }
 
-function drawPosterPieChartOnly() {
+function drawPosterPieChart() {
     emptyContainers();
     insertTitle("Käyttäjien viestit");
     insertMinButton();
@@ -19,20 +26,14 @@ function drawWithMinPosts(minPosts) {
     if (minPosts > 0) {
         var postdata = getPostCountsByUsers($("#user_data").data().postcounts, minPosts);
         drawPieChart("posts", postdata, true, "#chart svg");
+        drawPosterBarChart(postdata, "#chart2 svg");
         insertTitle("Viimeiset " + totalPosts + " viestiä käyttäjien mukaan");
     }
 }
 
-function drawPosterBarChartOnly() {
-
-}
-
 //Ohjaa haettavan Qt:n foorumin käyttäjän sivuille
 function redirectToQtUserPage(name) {
-    if (!name.includes("users w/")) {
-        window.open("http://forum.qt.io/user/" + name);
-    }
-
+    if (!name.includes("users w/")) window.open("http://forum.qt.io/user/" + name);
 }
 
 //Hakee erikseen postausmäärät käyttäjiltä joilla on yli n postia ja laskee
@@ -53,7 +54,6 @@ function getPostCountsByUsers(postCounts, minPosts) {
         "label": "users w/ <" + minPosts + " posts",
         "value": postCountForGroupedUsers
     })
-    console.log(data)
     return objectSorter(data);
 }
 
