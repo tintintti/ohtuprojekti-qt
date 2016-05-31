@@ -44,5 +44,5 @@ exclude_paths:
 - spec/
 - vendor/
 - "app/assets/javascripts/d3.v3.min.js"
-- "app/assets/javascripts/nv3d.js"
+- "app/assets/javascripts/nvd3.js"
 - "app/assets/stylesheets/nvcss.css"
