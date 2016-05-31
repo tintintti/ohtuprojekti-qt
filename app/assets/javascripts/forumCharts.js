@@ -1,14 +1,21 @@
 var totalPosts = 0;
 
+function drawEmailCharts() {
+  drawEmailPieChart();
+}
 
+function drawPosterCharts() {
+  drawPosterBarChart(divideUsersIntoPostCountGroups(), "#chart2 svg");
+  drawPosterPieChart();
+}
 //nämä käyttävät chartDrawer.js:n drawPieChartia
-function drawEmailPieChartOnly() {
+function drawEmailPieChart() {
     emptyContainers();
     insertTitle("Sähköpostien palveluntarjoajat");
     drawPieChart("emails", $("#user_data").data().emailcounts, true, "#chart svg");
 }
 
-function drawPosterPieChartOnly() {
+function drawPosterPieChart() {
     emptyContainers();
     insertTitle("Käyttäjien viestit");
     insertMinButton();
@@ -23,16 +30,9 @@ function drawWithMinPosts(minPosts) {
     }
 }
 
-function drawPosterBarChartOnly() {
-
-}
-
 //Ohjaa haettavan Qt:n foorumin käyttäjän sivuille
 function redirectToQtUserPage(name) {
-    if (!name.includes("users w/")) {
-        window.open("http://forum.qt.io/user/" + name);
-    }
-
+    if (!name.includes("users w/")) window.open("http://forum.qt.io/user/" + name);
 }
 
 //Hakee erikseen postausmäärät käyttäjiltä joilla on yli n postia ja laskee
@@ -53,7 +53,6 @@ function getPostCountsByUsers(postCounts, minPosts) {
         "label": "users w/ <" + minPosts + " posts",
         "value": postCountForGroupedUsers
     })
-    console.log(data)
     return objectSorter(data);
 }
 
@@ -77,4 +76,40 @@ function insertMinButton() {
 function emptyContainers() {
     document.getElementById("buttonFeature").innerHTML = "";
     document.getElementById("usernames").innerHTML = "";
+}
+
+function divideUsersIntoPostCountGroups() {
+  var dataMap = new Map();
+  dataMap.set("1", 0);
+  dataMap.set("2", 0);
+  dataMap.set("3-5", 0);
+  dataMap.set("6-9", 0);
+  dataMap.set("10-19", 0);
+  dataMap.set("20-49", 0);
+  dataMap.set("50-99", 0);
+  dataMap.set("100+", 0);
+
+  var data = [];
+  var postCounts = objectSorter($("#user_data").data().postcounts);
+  for (i in postCounts) {
+    var posts = postCounts[i].value
+    if (posts === 1) dataMap.set("1", dataMap.get("1")+1);
+    if (posts === 2) dataMap.set("2", dataMap.get("2")+1);
+    if (posts >= 3 && posts <= 5) dataMap.set("3-5", dataMap.get("3-5")+1);
+    if (posts >= 6 && posts <= 9) dataMap.set("6-9", dataMap.get("6-9")+1);
+    if (posts >= 10 && posts <= 19) dataMap.set("10-19", dataMap.get("10-19")+1);
+    if (posts >= 20 && posts <= 49) dataMap.set("20-49", dataMap.get("20-49")+1);
+    if (posts >= 50 && posts <= 99) dataMap.set("50-99", dataMap.get("50-99")+1);
+
+    if(posts >=100) dataMap.set("100+", dataMap.get("100+")+1);
+
+  }
+
+  for (var [key, value] of dataMap) {
+    data.push({
+      "label": key,
+      "value": value
+    })
+  }
+  return data;
 }

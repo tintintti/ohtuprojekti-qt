@@ -82,3 +82,30 @@ function objectSorter(array) {
         return parseInt(a.value) - parseInt(b.value);
     });
 }
+
+function drawPosterBarChart(data, divName) {
+  var barChartData = [{
+    key: "Cumulative Return",
+    values:data
+  }]
+
+  nv.addGraph(function() {
+    var height = 600;
+    d3.select(divName).attr('height', height);
+    var chart = nv.models.discreteBarChart()
+        .x(function(d) { return d.label })    //Specify the data accessors.
+        .y(function(d) { return d.value })
+        .staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
+        .tooltips(false)        //Don't show tooltips
+        .showValues(true)       //...instead, show the bar value right on top of each bar.
+        .height(height)
+        ;
+    d3.select(divName)
+        .datum(barChartData)
+        .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+}
