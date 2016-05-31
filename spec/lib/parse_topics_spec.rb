@@ -58,22 +58,62 @@ describe "ParseTopics" do
       stub_request(:get, /.*recent/).to_return(body: recent, headers: {"Content-Type"=> "application/json"})
       stub_request(:get, "http://forum.qt.io/api/topic/67699/qt-forum-mail-subscribtion").to_return(body: topic, headers: {"Content-Type"=> "application/json"})
 
+      stub_request(:get, "http://forum.qt.io/api/topic/0").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+         to_return(:status => 200, :body => "/topic/0/slug", :headers => {})
+
+      stub_request(:get, "http://forum.qt.io/api/topic/0/slug").to_return(body: topic, headers: {"Content-Type"=> "application/json"})
+
+      stub_request(:get, "http://forum.qt.io/api/topic/1").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+         to_return(:status => 200, :body => "not-authorized", :headers => {})
+
+      stub_request(:get, "http://forum.qt.io/api/topic/2").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+         to_return(:status => 200, :body => "<html>", :headers => {})
+
     end
 
 
     it "returns an array" do
-      fetch_newest_topics_response = ParseTopics.fetch_newest_topics(1)
-      expect(fetch_newest_topics_response).to be_instance_of(Array)
+        fetch_newest_topics_response = ParseTopics.fetch_newest_topics(1)
+        expect(fetch_newest_topics_response).to be_instance_of(Array)
     end
 
     it "returns an array containing hash instances" do
-      fetch_newest_topics_response = ParseTopics.fetch_newest_topics(1)
-      expect(fetch_newest_topics_response[0]).to be_instance_of(Hash)
+        fetch_newest_topics_response = ParseTopics.fetch_newest_topics(1)
+        expect(fetch_newest_topics_response[0]).to be_instance_of(Hash)
     end
 
     it "returns a correct topic when called with '1'" do
-      fetch_newest_topics_response = ParseTopics.fetch_newest_topics(1)
-      expect(fetch_newest_topics_response[0]["tid"]).to eq(67699)
+        fetch_newest_topics_response = ParseTopics.fetch_newest_topics(1)
+        expect(fetch_newest_topics_response[0]["tid"]).to eq(67699)
+    end
+
+    it "breaks the loop if trying to fetch more than the total amount of topics" do
+        ParseTopics.stubs(:newest_topic).returns(0)
+        topics = ParseTopics.fetch_newest_topics(2)
+        expect(topics.length).to be(1)
+    end
+
+    it "skips topics where slug is 'not-authorized'" do
+        ParseTopics.stubs(:newest_topic).returns(1)
+        topics = ParseTopics.fetch_newest_topics(2)
+        expect(topics.length).to be(1)
+    end
+
+    it "skips topics where slug is '<html>'" do
+        ParseTopics.stubs(:newest_topic).returns(2)
+        topics = ParseTopics.fetch_newest_topics(3)
+        expect(topics.length).to be(1)
+    end
+
+    it "skips topic where fetched slug is not a string" do
+        ParseTopics.stubs(:newest_topic).returns(1)
+        HTTParty.stubs(:parsed_response).returns({})
+
+        topics = ParseTopics.fetch_newest_topics(2)
+        expect(topics.length).to be(1)
     end
 
   end
