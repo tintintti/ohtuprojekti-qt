@@ -49,5 +49,30 @@ RSpec.describe User, type: :model do
       expect(user).not_to be_valid
       expect(User.count).to eq(0)
     end
+
+    it "returns the right amount of posts with ret_posts" do
+      FactoryGirl.reload
+      user = FactoryGirl.create(:user)
+      FactoryGirl.create(:post)
+      post2 = FactoryGirl.build(:post)
+      post2.uid = 1
+      post2.save
+      expect(user.ret_posts.length).to be(2)
+    end
+
+    it "returns the right posts with ret_posts" do
+      FactoryGirl.reload
+      user = FactoryGirl.create(:user)
+      post = FactoryGirl.create(:post)
+      expect(user.ret_posts).to include(post)
+    end
+
+    it "returns the right topics with ret_topics" do
+      FactoryGirl.reload
+      user  = FactoryGirl.create(:user)
+      topic = FactoryGirl.create(:topic)
+      expect(user.ret_topics).to include(topic)
+    end
+
   end
 end
