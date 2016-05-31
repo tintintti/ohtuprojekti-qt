@@ -4,7 +4,7 @@ class ParseTopics
 
   # returns the topic id (tid) of the newest topic
   def self.newest_topic
-    topics = recent_topics()
+    topics = fetch_recent_topics()
 
     newest = -1
 
@@ -17,14 +17,14 @@ class ParseTopics
   end
 
   # returns the topics from api/recent in a hash
-  def self.recent_topics
+  def self.fetch_recent_topics
     url = 'http://forum.qt.io/api/recent'
     response = HTTParty.get(url)
     topics = response.parsed_response["topics"]
   end
 
   # returns n amount of newest topics in a list
-  def self.newest_topics(n)
+  def self.fetch_newest_topics(n)
     url_base = "http://forum.qt.io/api"
     first = newest_topic
     topics = []
@@ -60,13 +60,16 @@ class ParseTopics
     topics
   end
 
+  def self.check_slug?(slug)
+    slug == "not-authorized" || slug == "<html>"
+  end
+
   # Adds n amount of newest topics to the database
   def self.add_newest_topics(topics)
       topics.each do |topic|
         posts = topic["posts"]
         continue if (posts.nil?)
         self.add_posts_and_users(posts)
-
         Topic.create(tid:topic["tid"], slug:topic["slug"], uid:topic["uid"], cid:topic["cid"], mainPid:topic["mainPid"], title:topic["title"], timestamp:topic["timestamp"], postcount:topic["postcount"], viewcount:topic["viewcount"], locked:topic["locked"], pinned:topic["pinned"], isQuestion:topic["isQuestion"], isSolved:topic["isSolved"], relativeTime:topic["relativeTime"], lastposttime:topic["lastposttime"] )
       end
     end
@@ -80,20 +83,9 @@ class ParseTopics
     end
 
     def self.fetch_and_save_newest_topics(n)
-      topics = newest_topics(n)
+      topics = fetch_newest_topics(n)
       self.add_newest_topics(topics)
     end
-
-  def self.add_postcount_reputation_topics
-    topics = recent_topics
-    topics.each do |topic|
-      user = topic["user"]
-      category = topic["category"]
-      ReputationPostTopic.create(tid:topic["tid"], reputation:user["reputation"], postcount:user["postcount"], email:user["email"], timestamp:topic["timestamp"].to_i, category:category["name"])
-    end
-
-  end
-
 
   # Adds the topics from api/recent to the database.
   def self.add_topics_from_recent
