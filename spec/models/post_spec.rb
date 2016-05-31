@@ -42,4 +42,12 @@ RSpec.describe Post, type: :model do
     expect(post).not_to be_valid
     expect(Post.count).to eq(0)
   end
+
+  it "returns the right user" do
+    FactoryGirl.reload
+    user = FactoryGirl.create(:user)
+    post = FactoryGirl.create(:post)
+    expect(post.ret_user).to eq(user)
+  end
+
 end

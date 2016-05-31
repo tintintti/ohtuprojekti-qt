@@ -56,5 +56,23 @@ RSpec.describe Topic, type: :model do
       expect(topic).not_to be_valid
       expect(Topic.count).to eq(0)
     end
+
+    it "returns the first post with first_post" do
+      FactoryGirl.reload
+      topic = FactoryGirl.create(:topic)
+      post = FactoryGirl.create(:post)
+      FactoryGirl.create(:post)
+      FactoryGirl.create(:post)
+      expect(topic.first_post).to eq(post)
+    end
+
+    it "returns the right amount on posts with ret_posts" do
+      FactoryGirl.reload
+      topic = FactoryGirl.create(:topic)
+      FactoryGirl.create(:post)
+      FactoryGirl.create(:post)
+      expect(topic.ret_posts.length).to eq(2)
+    end
+
   end
 end
