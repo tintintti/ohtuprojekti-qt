@@ -25,7 +25,7 @@ function makeUL(array) {
 // pitkät piirtometodit tänne
 
 function drawPieChart(type, data, showlegend, divName) {
-    var height = setPieChartHeight(data);
+    var height = setPieChartHeight(data.length);
     nv.addGraph(function() {
             d3.select(divName).attr('height', height);
             var chart = nv.models.pieChart()
@@ -72,9 +72,9 @@ function drawPieChart(type, data, showlegend, divName) {
         });
 }
 
-function setPieChartHeight(data) {
+function setPieChartHeight(length) {
     var height = 800;
-    height += data.length * 3;
+    height += length * 3;
     if (height > 1500) height = 1500;
     return height;
 }
