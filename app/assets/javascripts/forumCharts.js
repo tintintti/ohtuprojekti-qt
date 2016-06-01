@@ -1,22 +1,26 @@
 var totalPosts = 0;
 
 function drawEmailCharts() {
+  emptyContainers();
   drawEmailPieChart();
 }
 
 function drawPosterCharts() {
-  drawPosterBarChart(divideUsersIntoPostCountGroups(), "#chart2 svg");
+  emptyContainers();
+  drawPosterBarChart();
   drawPosterPieChart();
 }
 //nämä käyttävät chartDrawer.js:n drawPieChartia
 function drawEmailPieChart() {
-    emptyContainers();
     insertTitle("Sähköpostien palveluntarjoajat");
     drawPieChart("emails", $("#user_data").data().emailcounts, true, "#chart svg");
 }
 
+function drawPosterBarChart() {
+  drawBarChart(divideUsersIntoPostCountGroups(), "#chart2 svg");
+}
+
 function drawPosterPieChart() {
-    emptyContainers();
     insertTitle("Käyttäjien viestit");
     insertMinButton();
     drawWithMinPosts(10);
@@ -76,6 +80,8 @@ function insertMinButton() {
 function emptyContainers() {
     document.getElementById("buttonFeature").innerHTML = "";
     document.getElementById("usernames").innerHTML = "";
+    if (document.getElementById("barChartTitle")) document.getElementById("barChartTitle").innerHTML = "";
+    emptyCharts();
 }
 
 function divideUsersIntoPostCountGroups() {
@@ -102,7 +108,6 @@ function divideUsersIntoPostCountGroups() {
     if (posts >= 50 && posts <= 99) dataMap.set("50-99", dataMap.get("50-99")+1);
 
     if(posts >=100) dataMap.set("100+", dataMap.get("100+")+1);
-
   }
 
   for (var [key, value] of dataMap) {

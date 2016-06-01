@@ -1,6 +1,13 @@
 
 // HTML:ään lisäämistä
 
+function emptyCharts() {
+  d3.selectAll("#chart svg > *").remove()
+  d3.selectAll("#chart2 svg > *").remove()
+  d3.select("#chart svg").attr('height', 0);
+  d3.select("#chart2 svg").attr('height', 0);
+}
+
 function insertTitle(title) {
     document.getElementById("title").innerHTML = title + "";
 }
@@ -18,7 +25,6 @@ function makeUL(array) {
 // pitkät piirtometodit tänne
 
 function drawPieChart(type, data, showlegend, divName) {
-    d3.selectAll("#chart svg > *").remove();
     var height = setPieChartHeight(data);
     nv.addGraph(function() {
             d3.select(divName).attr('height', height);
@@ -73,17 +79,16 @@ function setPieChartHeight(data) {
     return height;
 }
 
-function drawBarChart() {
-
-}
-
 function objectSorter(array) {
     return array.sort(function(a, b) {
         return parseInt(a.value) - parseInt(b.value);
     });
 }
 
-function drawPosterBarChart(data, divName) {
+function drawBarChart(data, divName) {
+
+  addTitle(divName, "barChartTitle", "Käyttäjät viestimäärien mukaan");
+
   var barChartData = [{
     key: "Cumulative Return",
     values:data
@@ -91,15 +96,17 @@ function drawPosterBarChart(data, divName) {
 
   nv.addGraph(function() {
     var height = 600;
+
     d3.select(divName).attr('height', height);
+
     var chart = nv.models.discreteBarChart()
         .x(function(d) { return d.label })    //Specify the data accessors.
         .y(function(d) { return d.value })
         .staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
         .tooltips(false)        //Don't show tooltips
         .showValues(true)       //...instead, show the bar value right on top of each bar.
-        .height(height)
-        ;
+        .height(height);
+
     d3.select(divName)
         .datum(barChartData)
         .call(chart);
@@ -108,4 +115,9 @@ function drawPosterBarChart(data, divName) {
 
     return chart;
   });
+}
+
+function addTitle(divName, id, title) {
+  var $div = $(divName).parent();
+  $div.prepend('<h2 id='+id+'>'+title+'</h2>');
 }
