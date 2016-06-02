@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :topics
-  resources :categories
   resources :users
   resources :posts
   # get 'welcome/index'
