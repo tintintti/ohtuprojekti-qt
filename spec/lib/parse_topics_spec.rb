@@ -51,6 +51,7 @@ describe "ParseTopics" do
       topic = IO.read("spec/fixtures/topic.json")
       recent = IO.read("spec/fixtures/recent.json")
       topic_slug = IO.read("spec/fixtures/topic_slug")
+      topic_67698 = IO.read("spec/fixtures/topic_67698.json")
 
       stub_request(:get, "http://forum.qt.io/api/topic/67699").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
@@ -72,8 +73,15 @@ describe "ParseTopics" do
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
          to_return(:status => 200, :body => "<html>", :headers => {})
 
-    end
+      stub_request(:get, "http://forum.qt.io/api/topic/67698").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+         to_return(:status => 200, :body => "/topic/67698/editing-a-spreadsheet", :headers => {})
 
+      stub_request(:get, "http://forum.qt.io/api/topic/67698/editing-a-spreadsheet").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+        to_return(:status => 200, :body => topic_67698, :headers => {"Content-Type"=> "application/json"})
+
+    end
 
     it "returns an array" do
         fetch_newest_topics_response = ParseTopics.fetch_newest_topics(1)
@@ -88,6 +96,13 @@ describe "ParseTopics" do
     it "returns a correct topic when called with '1'" do
         fetch_newest_topics_response = ParseTopics.fetch_newest_topics(1)
         expect(fetch_newest_topics_response[0]["tid"]).to eq(67699)
+    end
+
+    it "returns an array with right topics when called with '2'" do
+        fetch_newest_topics_response = ParseTopics.fetch_newest_topics(2)
+        expect(fetch_newest_topics_response[0]["tid"]).to eq(67699)
+        expect(fetch_newest_topics_response[1]["tid"]).to eq(67698)
+
     end
 
     it "breaks the loop if trying to fetch more than the total amount of topics" do

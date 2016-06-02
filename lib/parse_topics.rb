@@ -40,13 +40,9 @@ class ParseTopics
       url = url_base + "/topic/" + (first - i).to_s
       slug = HTTParty.get(url).parsed_response
       # skips to the next id if the topic doesn't exist
-      if (slug.class != String)
-        first -= 1
-        next
-      end
+      # skips to the next id if the topic can't be accessed
 
-      #skips to the next id if the topic can't be accessed
-      if (slug == "not-authorized" || slug == "<html>")
+      if check_slug?(slug)
         first -= 1
         next
       end
@@ -61,7 +57,7 @@ class ParseTopics
   end
 
   def self.check_slug?(slug)
-    slug == "not-authorized" || slug == "<html>"
+    slug == "not-authorized" || slug == "<html>" || slug.class != String
   end
 
   # Adds n amount of newest topics to the database
