@@ -87,7 +87,7 @@ Then /^the "([^\"]*)" checkbox should not be checked$/ do |label|
   find_field(label).should_not be_checked
 end
 
-Then /^I should be on page (.+)$/ do |page_name|
+Then /^I should be on (.+)$/ do |page_name|
   current_path.should == path_to(page_name)
 end
 
@@ -108,9 +108,23 @@ Given /^there is data in the database$/ do
 end
 
 Given /^I have logged in$/ do
-  visit path_to("login")
+  visit path_to("the login page")
   fill_in('username', :with => 'tunnus')
   fill_in('password', :with => 'passu')
+  click_button('Kirjaudu sisään')
+end
+
+When /^I log in successfully$/ do
+  visit path_to("the login page")
+  fill_in('username', :with => 'tunnus')
+  fill_in('password', :with => 'passu')
+  click_button('Kirjaudu sisään')
+end
+
+When /^I try to log in with wrong password$/ do
+  visit path_to("the login page")
+  fill_in('username', :with => 'tunnus')
+  fill_in('password', :with => 'salis')
   click_button('Kirjaudu sisään')
 end
 

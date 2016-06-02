@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def new
-    
+
   end
 
   def create
@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       session[0] = 1
       redirect_to :root, notice: "Tervetuloa!"
     else
-      redirect_to :back, alert: "Nimi tai salasana väärin"
+      redirect_to :back, alert: "Nimi tai salasana väärin."
     end
   end
 
