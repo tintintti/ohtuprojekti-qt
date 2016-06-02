@@ -110,10 +110,10 @@ function divideUsersIntoPostCountGroups() {
     if(posts >=100) dataMap.set("100+", dataMap.get("100+")+1);
   }
 
-  for (var [key, value] of dataMap) {
+  for (var key of dataMap.keys()) {
     data.push({
       "label": key,
-      "value": value
+      "value": dataMap.get(key)
     })
   }
   return data;
