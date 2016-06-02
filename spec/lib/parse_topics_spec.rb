@@ -116,6 +116,15 @@ describe "ParseTopics" do
         expect(topics.length).to be(1)
     end
 
+    it "adds the topics to database" do
+      topics_amount = Topic.all.count
+
+      ParseTopics.fetch_and_save_newest_topics 1
+      expect(Topic.all.count).to be(topics_amount + 1)
+    end
+
+    
+
   end
 
 end
