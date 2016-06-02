@@ -28,7 +28,7 @@ function drawPosterPieChart() {
 
 function drawWithMinPosts(minPosts) {
     if (minPosts > 0) {
-        var postdata = getPostCountsByUsers($("#user_data").data().postcounts, minPosts);
+        var postdata = getPostCountsByUsers($("#user_data").data().postcounts[0], minPosts);
         drawPieChart("posts", postdata, true, "#chart svg");
         insertTitle("Viimeiset " + totalPosts + " viestiä käyttäjien mukaan");
     }
@@ -36,7 +36,7 @@ function drawWithMinPosts(minPosts) {
 
 //Ohjaa haettavan Qt:n foorumin käyttäjän sivuille
 function redirectToQtUserPage(name) {
-    if (!name.includes("users w/")) window.open("http://forum.qt.io/user/" + name);
+    if (!name.includes("users w/")) window.open("http://forum.qt.io/user/" + $("#user_data").data().postcounts[1][name]);
 }
 
 //Hakee erikseen postausmäärät käyttäjiltä joilla on yli n postia ja laskee
@@ -96,7 +96,7 @@ function divideUsersIntoPostCountGroups() {
   dataMap.set("100+", 0);
 
   var data = [];
-  var postCounts = objectSorter($("#user_data").data().postcounts);
+  var postCounts = objectSorter($("#user_data").data().postcounts[0]);
   for (i in postCounts) {
     var posts = postCounts[i].value
     if (posts === 1) dataMap.set("1", dataMap.get("1")+1);

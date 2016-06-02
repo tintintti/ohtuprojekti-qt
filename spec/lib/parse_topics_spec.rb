@@ -138,7 +138,7 @@ describe "ParseTopics" do
       expect(Topic.all.count).to be(topics_amount + 1)
     end
 
-    
+
 
   end
 

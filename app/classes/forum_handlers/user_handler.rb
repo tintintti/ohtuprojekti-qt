@@ -1,15 +1,17 @@
 class UserHandler
 
   def self.user_postcounts
-    arr = []
+    postcounts = []
     posts = Post.all
 
     users = {}
+    slugs = {}
     posts.each do |post|
       user = post.ret_user
       name = "removed user"
       if user != nil
         name = user.username
+        slugs[user.username] = user.userslug
       end
       if !users.key? name
         users[name] = 0
@@ -18,9 +20,9 @@ class UserHandler
     end
 
     users.each do |key, value|
-      arr << {label: key, value: value}
+      postcounts << {label: key, value: value}
     end
-    arr
+    [postcounts, slugs]
   end
 
   def self.count_emails
