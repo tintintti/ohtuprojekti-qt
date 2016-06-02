@@ -14,3 +14,4 @@ When I go to forum charts
 When I press "Viestien lähettäjät"
 Given there is data in the database
 Then there should be a piechart
+Then I should see "Käyttäjät viestimäärien mukaan"
