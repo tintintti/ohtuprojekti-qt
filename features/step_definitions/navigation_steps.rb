@@ -99,9 +99,12 @@ end
 
 Given /^there is data in the database$/ do
   FactoryGirl.reload
-  FactoryGirl.create(:user)
-  FactoryGirl.create(:user)
-  FactoryGirl.create(:user)
+  FactoryGirl.create(:category)
+  FactoryGirl.create(:topic)
+  for i in 0..6
+    FactoryGirl.create(:user)
+    FactoryGirl.create(:post)
+  end
 end
 
 Given /^I have logged in$/ do
