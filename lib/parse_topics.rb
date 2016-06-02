@@ -83,17 +83,4 @@ class ParseTopics
       self.add_newest_topics(topics)
     end
 
-  # Adds the topics from api/recent to the database.
-  def self.add_topics_from_recent
-    topics = recent_topics
-
-    topics.each do |topic|
-      posts = topic["posts"]
-      posts.each do |post|
-        puts post["content"]
-      end
-     # Topic.create(tid:topic["tid"], slug:topic["slug"], raw_json:ActiveSupport::JSON.encode(topic))
-    end
-
-  end
 end

@@ -43,6 +43,7 @@ exclude_paths:
 - script/
 - spec/
 - vendor/
+- public/
 - "app/assets/javascripts/d3.v3.min.js"
 - "app/assets/javascripts/nvd3.js"
 - "app/assets/stylesheets/nvcss.css"
