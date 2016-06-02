@@ -119,5 +119,5 @@ function drawBarChart(data, divName) {
 
 function addTitle(divName, id, title) {
   var $div = $(divName).parent();
-  $div.prepend('<h2 id='+id+'>'+title+'</h2>');
+  $div.prepend('<h2 id='+id+' class="container">'+title+'</h2>');
 }
