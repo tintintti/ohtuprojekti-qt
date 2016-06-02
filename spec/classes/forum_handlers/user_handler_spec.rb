@@ -58,12 +58,12 @@ RSpec.describe UserHandler do
 
   it "user_postcounts sets the username correctly if the user isn't nil" do
     Post.stubs(:all).returns([FactoryGirl.build(:post)])
-    expect(UserHandler.user_postcounts).to include({label: "testUser1", value: 1})
+    expect(UserHandler.user_postcounts[0]).to include({label: "testUser1", value: 1})
   end
 
   it "user_postcounts sets 'removed user' if post's user is nil" do
     Post.stubs(:all).returns([FactoryGirl.create(:post_no_user)])
-    expect(UserHandler.user_postcounts[0][:label]).to eq("removed user")
+    expect(UserHandler.user_postcounts[0][0][:label]).to eq("removed user")
   end
 
 end
