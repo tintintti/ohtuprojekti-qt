@@ -5,6 +5,7 @@ ruby '2.3.0'
 gem 'rails', '4.2.6'
 
 group :development, :test do
+  gem 'phantomjs', '1.9.8.0'
   gem 'better_errors'
   gem 'sqlite3'
   gem 'rspec-rails', '~> 3.0'
