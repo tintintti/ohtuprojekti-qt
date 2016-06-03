@@ -22,7 +22,6 @@ function makeUL(array) {
 // pitkät piirtometodit tänne
 
 function drawPieChart(type, data, showlegend, divName) {
-    addTitle(divName, "pieChartTitle", "Sähköpostien palveluntarjoajat");
     addSvg(divName, "pieChart");
     var height = setPieChartHeight(data.length);
     nv.addGraph(function() {

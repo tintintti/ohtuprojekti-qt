@@ -23,7 +23,6 @@ describe('Test chartDrawer ', function() {
       expect($("#chart")).toBeInDOM();
     });
 
-
     describe("long asynchronous specs", function() {
 
       var originalTimeout;
@@ -59,7 +58,6 @@ describe('Test chartDrawer ', function() {
         jasmine.clock().uninstall();
         jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
       });
-
 
       it('testDrawBarChart', function() {
         drawBarChart(postBarData, "title");

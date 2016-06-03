@@ -2,6 +2,7 @@ var totalPosts = 0;
 
 function drawEmailCharts() {
   emptyContainers();
+  addTitle("#charts", "pieChartTitle", "Sähköpostien palveluntarjoajat");
   drawEmailPieChart();
 }
 
@@ -26,7 +27,7 @@ function drawPosterPieChart() {
 
 function drawWithMinPosts(minPosts) {
     if (minPosts > 0) {
-        var postdata = getPostCountsByUsers($("#user_data").data().postcounts, minPosts);
+        var postdata = getPostCountsByUsers($("#user_data").data().postcounts[0], minPosts);
         drawPieChart("posts", postdata, true, "#charts");
         insertTitle("Viimeiset " + totalPosts + " viestiä käyttäjien mukaan");
     }
@@ -129,4 +130,21 @@ function addToPostCountDataMap(dataMap, posts) {
   if (posts >= 20 && posts <= 49) dataMap.set("20-49", dataMap.get("20-49")+1);
   if (posts >= 50 && posts <= 99) dataMap.set("50-99", dataMap.get("50-99")+1);
   if(posts >=100) dataMap.set("100+", dataMap.get("100+")+1);
+}
+
+function addToPostCountDataMapWell(dataMap, posts, labelArray) {
+    if (posts >= a && posts <= b) dataMap.set(label, dataMap.get(label)+1);
+}
+
+function createPostBarChartDataLabels() {
+  var labels = [
+    ["1", 1, 1],
+    ["2", 2, 2],
+    ["3-5", 3, 5],
+    ["6-9", 6, 9],
+    ["10-19", 10, 19],
+    ["20-49", 20, 49],
+    ["50-99", 50, 99],
+    ["100+", 100, Number.MAX_SAFE_INTEGER]
+  ]
 }
