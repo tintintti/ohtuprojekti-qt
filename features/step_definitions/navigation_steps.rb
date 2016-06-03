@@ -139,7 +139,12 @@ end
 
 Then /^there should be a piechart$/ do
   expect(page).to have_css(".nvd3-svg")
-  find(:xpath, '//div[@id="chart"]')
+  find(:xpath, '//*[@class="nvd3 nv-wrap nv-pieChart"]')
+end
+
+Then /^there should be a barchart$/ do
+  expect(page).to have_css(".nvd3-svg")
+  find(:xpath, '//*[@class="nvd3 nv-wrap nv-discreteBarWithAxes"]')
 end
 
 Then /^I should see some email provider users$/ do
