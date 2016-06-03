@@ -73,7 +73,6 @@ describe('Test chartDrawer ', function() {
       it('test drawing piechart', function() {
         drawPieChart("email", emailChartData, true, "title");
         jasmine.clock().tick(1000);
-        expect($('#pieChartTitle')).toHaveText("Sähköpostien palveluntarjoajat");
         expect($('#pieChart')).toContainText('email');
         expect($('#pieChart')).toContainText('anotherEmail');
       });
