@@ -10,6 +10,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails', '~> 3.0'
   gem 'jasmine'
+  gem 'jasmine-jquery-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'

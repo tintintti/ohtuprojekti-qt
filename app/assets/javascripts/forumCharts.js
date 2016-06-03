@@ -7,29 +7,27 @@ function drawEmailCharts() {
 
 function drawPosterCharts() {
   emptyContainers();
-  drawPosterBarChart();
   drawPosterPieChart();
+  drawPosterBarChart();
 }
 //nämä käyttävät chartDrawer.js:n drawPieChartia
 function drawEmailPieChart() {
-    insertTitle("Sähköpostien palveluntarjoajat");
-    drawPieChart("emails", $("#user_data").data().emailcounts, true, "#chart svg");
+    drawPieChart("emails", $("#user_data").data().emailcounts, true, "#charts");
 }
 
 function drawPosterBarChart() {
-  drawBarChart(divideUsersIntoPostCountGroups(), "#chart2 svg");
+  drawBarChart(divideUsersIntoPostCountGroups(), "#charts");
 }
 
 function drawPosterPieChart() {
-    insertTitle("Käyttäjien viestit");
     insertMinButton();
     drawWithMinPosts(10);
 }
 
 function drawWithMinPosts(minPosts) {
     if (minPosts > 0) {
-        var postdata = getPostCountsByUsers($("#user_data").data().postcounts[0], minPosts);
-        drawPieChart("posts", postdata, true, "#chart svg");
+        var postdata = getPostCountsByUsers($("#user_data").data().postcounts, minPosts);
+        drawPieChart("posts", postdata, true, "#charts");
         insertTitle("Viimeiset " + totalPosts + " viestiä käyttäjien mukaan");
     }
 }
@@ -78,6 +76,7 @@ function insertMinButton() {
 }
 
 function emptyContainers() {
+    document.getElementById("title").innerHTML = "";
     document.getElementById("buttonFeature").innerHTML = "";
     document.getElementById("usernames").innerHTML = "";
     if (document.getElementById("barChartTitle")) document.getElementById("barChartTitle").innerHTML = "";

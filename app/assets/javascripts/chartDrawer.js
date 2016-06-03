@@ -2,10 +2,7 @@
 // HTML:ään lisäämistä
 
 function emptyCharts() {
-  d3.selectAll("#chart svg > *").remove()
-  d3.selectAll("#chart2 svg > *").remove()
-  d3.select("#chart svg").attr('height', 0);
-  d3.select("#chart2 svg").attr('height', 0);
+  d3.selectAll("#charts > *").remove();
 }
 
 function insertTitle(title) {
@@ -25,9 +22,11 @@ function makeUL(array) {
 // pitkät piirtometodit tänne
 
 function drawPieChart(type, data, showlegend, divName) {
+    addTitle(divName, "pieChartTitle", "Sähköpostien palveluntarjoajat");
+    addSvg(divName, "pieChart");
     var height = setPieChartHeight(data.length);
     nv.addGraph(function() {
-            d3.select(divName).attr('height', height);
+            d3.select('#pieChart').attr('height', height);
             var chart = nv.models.pieChart()
                 .x(function(d) {
                     return d.label
@@ -50,7 +49,7 @@ function drawPieChart(type, data, showlegend, divName) {
                     return tooltipcontent;
                 });
             }
-            d3.select(divName)
+            d3.select('#pieChart')
                 .datum(data)
                 .transition().duration(1200)
                 .call(chart);
@@ -64,7 +63,7 @@ function drawPieChart(type, data, showlegend, divName) {
             return chart;
         },
         function() {
-            d3.select("#chart svg").selectAll(".nv-slice").on('click',
+            d3.select(divName).selectAll(".nv-slice").on('click',
                 function(d) {
                     if (type == "emails") listUsersOfProvider(d.data.label);
                     if (type == "posts") redirectToQtUserPage(d.data.label);
@@ -86,8 +85,8 @@ function objectSorter(array) {
 }
 
 function drawBarChart(data, divName) {
-
   addTitle(divName, "barChartTitle", "Käyttäjät viestimäärien mukaan");
+  addSvg(divName, "barChart");
 
   var barChartData = [{
     key: "Cumulative Return",
@@ -97,8 +96,7 @@ function drawBarChart(data, divName) {
   nv.addGraph(function() {
     var height = 600;
 
-    d3.select(divName).attr('height', height);
-
+    d3.select("#barChart").attr('height', height);
     var chart = nv.models.discreteBarChart()
         .x(function(d) { return d.label })    //Specify the data accessors.
         .y(function(d) { return d.value })
@@ -109,17 +107,21 @@ function drawBarChart(data, divName) {
         .height(height)
         chart.yAxis.tickFormat(d3.format(',f'));
 
-    d3.select(divName)
+    d3.select("#barChart")
         .datum(barChartData)
         .call(chart);
 
     nv.utils.windowResize(chart.update);
-
     return chart;
   });
 }
 
 function addTitle(divName, id, title) {
-  var $div = $(divName).parent();
-  $div.prepend('<h2 id='+id+' class="container">'+title+'</h2>');
+  var $div = $(divName);
+  $div.append('<h2 id='+id+' class="container">'+title+'</h2>');
+}
+
+function addSvg(divName, id) {
+  var $div = $(divName);
+  $div.append('<svg id='+id+'></svg>');
 }
