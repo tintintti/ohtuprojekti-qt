@@ -99,7 +99,6 @@ end
 
 Given /^there is data in the database$/ do
   FactoryGirl.reload
-  FactoryGirl.create(:category)
   FactoryGirl.create(:topic)
   for i in 0..6
     FactoryGirl.create(:user)
