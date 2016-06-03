@@ -8,17 +8,17 @@ describe('Test chartDrawer ', function() {
 
     });
 
-    it('testAddTitle', function() {
+    it('test adding title', function() {
       addTitle("title", "id", "asd")
       expect($("#id")).toHaveText("asd");
     });
 
-    it('height won\'t be set higher than 1500', function() {
+    it('height shouldn\'t be set higher than 1500', function() {
         var height = setPieChartHeight(300);
         expect(height).toEqual(1500);
     });
 
-    it('testAddSvg', function() {
+    it('test adding svg', function() {
       addSvg("title", "chart")
       expect($("#chart")).toBeInDOM();
     });
@@ -61,7 +61,7 @@ describe('Test chartDrawer ', function() {
       });
 
 
-      it('testDrawBarChart', function() {
+      it('test drawing barchart', function() {
         drawBarChart(postBarData, "title");
         jasmine.clock().tick(1000);
         expect($('#barChartTitle')).toHaveText("Käyttäjät viestimäärien mukaan");
@@ -71,7 +71,7 @@ describe('Test chartDrawer ', function() {
         expect($('#barChart')).not.toContainText('100+');
       });
 
-      it('testDrawPieChart', function() {
+      it('test drawing piechart', function() {
         drawPieChart("email", emailChartData, true, "title");
         jasmine.clock().tick(1000);
         expect($('#pieChartTitle')).toHaveText("Sähköpostien palveluntarjoajat");
@@ -79,11 +79,5 @@ describe('Test chartDrawer ', function() {
         expect($('#pieChart')).toContainText('anotherEmail');
       });
     });
-
-
-    //it('users will be sorted by post count', function() {
-      //  var list = getPostCountsByUsers(data, 5);
-      //  expect(list[3]).toEqual(data[1]);
-    //});
 
 });
