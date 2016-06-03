@@ -23,7 +23,6 @@ describe('Test chartDrawer ', function() {
       expect($("#chart")).toBeInDOM();
     });
 
-
     describe("long asynchronous specs", function() {
 
       var originalTimeout;
