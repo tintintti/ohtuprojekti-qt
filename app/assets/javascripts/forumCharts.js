@@ -84,30 +84,18 @@ function emptyContainers() {
     emptyCharts();
 }
 
+//Viestien ryhmittely määrien mukaan
+
 function divideUsersIntoPostCountGroups() {
-  var dataMap = new Map();
-  dataMap.set("1", 0);
-  dataMap.set("2", 0);
-  dataMap.set("3-5", 0);
-  dataMap.set("6-9", 0);
-  dataMap.set("10-19", 0);
-  dataMap.set("20-49", 0);
-  dataMap.set("50-99", 0);
-  dataMap.set("100+", 0);
+
+  var dataMap = initializePostCountDataMap();
 
   var data = [];
   var postCounts = objectSorter($("#user_data").data().postcounts[0]);
+
   for (i in postCounts) {
     var posts = postCounts[i].value
-    if (posts === 1) dataMap.set("1", dataMap.get("1")+1);
-    if (posts === 2) dataMap.set("2", dataMap.get("2")+1);
-    if (posts >= 3 && posts <= 5) dataMap.set("3-5", dataMap.get("3-5")+1);
-    if (posts >= 6 && posts <= 9) dataMap.set("6-9", dataMap.get("6-9")+1);
-    if (posts >= 10 && posts <= 19) dataMap.set("10-19", dataMap.get("10-19")+1);
-    if (posts >= 20 && posts <= 49) dataMap.set("20-49", dataMap.get("20-49")+1);
-    if (posts >= 50 && posts <= 99) dataMap.set("50-99", dataMap.get("50-99")+1);
-
-    if(posts >=100) dataMap.set("100+", dataMap.get("100+")+1);
+    addToPostCountDataMap(dataMap, posts);
   }
 
   dataMap.forEach(function (value, key, map){
@@ -118,4 +106,28 @@ function divideUsersIntoPostCountGroups() {
   });
 
   return data;
+}
+
+function initializePostCountDataMap() {
+  var dataMap = new Map();
+  dataMap.set("1", 0);
+  dataMap.set("2", 0);
+  dataMap.set("3-5", 0);
+  dataMap.set("6-9", 0);
+  dataMap.set("10-19", 0);
+  dataMap.set("20-49", 0);
+  dataMap.set("50-99", 0);
+  dataMap.set("100+", 0);
+  return dataMap;
+}
+
+function addToPostCountDataMap(dataMap, posts) {
+  if (posts === 1) dataMap.set("1", dataMap.get("1")+1);
+  if (posts === 2) dataMap.set("2", dataMap.get("2")+1);
+  if (posts >= 3 && posts <= 5) dataMap.set("3-5", dataMap.get("3-5")+1);
+  if (posts >= 6 && posts <= 9) dataMap.set("6-9", dataMap.get("6-9")+1);
+  if (posts >= 10 && posts <= 19) dataMap.set("10-19", dataMap.get("10-19")+1);
+  if (posts >= 20 && posts <= 49) dataMap.set("20-49", dataMap.get("20-49")+1);
+  if (posts >= 50 && posts <= 99) dataMap.set("50-99", dataMap.get("50-99")+1);
+  if(posts >=100) dataMap.set("100+", dataMap.get("100+")+1);
 }

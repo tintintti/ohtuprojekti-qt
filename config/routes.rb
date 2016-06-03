@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  resources :topics
-  resources :users
-  resources :posts
   # get 'welcome/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -11,15 +8,9 @@ Rails.application.routes.draw do
 
   get 'login', to: 'sessions#new'
 
-  post 'session', to:'sessions#create'
-
-  get 'file' => 'download#download'
-
   get 'forum_charts' => 'charts#forumCharts'
 
   get 'git_charts' => 'charts#gitCharts'
-
-  get 'emails' => 'download#emails'
 
   get 'authors' => 'application#authors'
   get 'index.html' => 'application#index'
@@ -27,6 +18,8 @@ Rails.application.routes.draw do
   get 'files.html' => 'application#files'
   get 'lines.html' => 'application#lines'
   get 'tags.html' => 'application#tags'
+
+  post 'session', to:'sessions#create'
 
   delete 'logout', to:'sessions#destroy'
 

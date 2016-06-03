@@ -105,7 +105,9 @@ function drawBarChart(data, divName) {
         .staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
         .tooltips(false)        //Don't show tooltips
         .showValues(true)       //...instead, show the bar value right on top of each bar.
-        .height(height);
+        .valueFormat(d3.format(".0f"))
+        .height(height)
+        chart.yAxis.tickFormat(d3.format(',f'));
 
     d3.select(divName)
         .datum(barChartData)
