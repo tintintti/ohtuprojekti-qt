@@ -8,4 +8,4 @@ Given there is data in the database
 When I go to forum charts
 When I press "Viestien lähettäjät"
 Then I should see "Käyttäjät viestimäärien mukaan"
-Then there should be a barchart
+Then there should be a barchart with data

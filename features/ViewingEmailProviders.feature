@@ -8,3 +8,4 @@ When I go to forum charts
 When I press "Sähköpostien palveluntarjoajat"
 Then I should see "Sähköpostien palveluntarjoajat"
 Then there should be a piechart
+Then I should see "test"
