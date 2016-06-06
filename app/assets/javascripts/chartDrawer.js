@@ -104,7 +104,11 @@ function drawBarChart(data, divName) {
         .showValues(true)       //...instead, show the bar value right on top of each bar.
         .valueFormat(d3.format(".0f"))
         .height(height)
-        chart.yAxis.tickFormat(d3.format(',f'));
+        chart.yAxis.tickFormat(d3.format(',f'))
+        chart.yAxis.axisLabel('Käyttäjien määrä')
+        .axisLabelDistance(-14)
+        chart.xAxis.axisLabel('Viestien määrä')
+        .axisLabelDistance(-14);
 
     d3.select("#barChart")
         .datum(barChartData)
