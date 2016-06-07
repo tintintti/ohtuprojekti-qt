@@ -20,6 +20,8 @@ group :development, :test do
   gem 'byebug'
   gem "capybara-webkit"
   gem 'mocha'
+  gem 'railroady'
+  gem "rails-erd"
 end
 
 group :production do
