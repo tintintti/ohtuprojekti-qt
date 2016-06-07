@@ -145,10 +145,14 @@ end
 Then /^there should be a barchart with data$/ do
   expect(page).to have_css(".nvd3-svg")
   find(:xpath, '//*[@class="nvd3 nv-wrap nv-discreteBarWithAxes"]')
-  expect(page).to have_content("Käyttäjien määrä") #labels
   expect(page).to have_content("Käyttäjät viestimäärien mukaan") #title
   expect(page).to have_content("12")
   expect(page).to have_content("3-5")
+end
+
+Then /^there should be labels on the barchart$/ do
+  expect(page).to have_content("Käyttäjien määrä") #labels
+  expect(page).to have_content("Viestien määrä")
 end
 
 Then /^I should see some email provider users$/ do

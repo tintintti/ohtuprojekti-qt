@@ -1,4 +1,4 @@
-Feature: As a community manager I want to sign in to access the data
+Feature: As a community manager I want to sign in to access the data.
 
  @javascript
  Scenario: User tries to access charts without logging in

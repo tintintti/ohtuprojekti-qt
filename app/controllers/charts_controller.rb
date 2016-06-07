@@ -2,6 +2,7 @@ class ChartsController < ApplicationController
   before_action :ensure_that_logged_in, except: [:index]
 
   def index
+    
   end
 
   def forumCharts
@@ -13,5 +14,10 @@ class ChartsController < ApplicationController
   def gitCharts
 
   end
+
+  def gerritCharts
+
+  end
+
 
 end
