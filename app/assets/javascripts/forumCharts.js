@@ -18,11 +18,6 @@ function drawEmailPieChart() {
     drawPieChart("emails", emailData, true, "#charts");
 }
 
-function drawPosterBarChart() {
-    addTitle("#charts", "barChartTitle", "Käyttäjät viestimäärien mukaan");
-    drawBarChart(divideUsersIntoPostCountGroups(), "#charts");
-}
-
 function drawPosterPieChart() {
     insertMinButton();
     var totalPosts = getTotalPostCount(postData);
@@ -35,6 +30,11 @@ function drawWithMinPosts(minPosts) {
         var postsByMin = getPostCountsByUsers(postData, minPosts);
         drawPieChart("posts", postsByMin, true, "#charts");
     }
+}
+
+function drawPosterBarChart() {
+    addTitle("#charts", "barChartTitle", "Käyttäjät viestimäärien mukaan");
+    drawBarChart(divideUsersIntoPostCountGroups(), "#charts");
 }
 
 //Ohjaa haettavan Qt:n foorumin käyttäjän sivuille
@@ -99,64 +99,53 @@ function emptyContainers() {
 //Viestien ryhmittely määrien mukaan
 
 function divideUsersIntoPostCountGroups() {
+  var labels = createPostBarChartLabels();
+  var labelValues = initializePostCountMap(labels);
 
-    var dataMap = initializePostCountDataMap();
+  var postCounts = objectSorter(postData);
 
-    var data = [];
-    var postCounts = objectSorter(postData);
+  for (i in postCounts) {
+    var posts = postCounts[i].value
+    mapPosts(labelValues, posts, labels);
+  }
+  return mapToArrayForNvd3(labelValues);
+}
 
-    for (i in postCounts) {
-        var posts = postCounts[i].value
-        addToPostCountDataMap(dataMap, posts);
-    }
+function mapToArrayForNvd3(dataMap) {
+  var data = [];
+  dataMap.forEach(function (value, key, map){
+   data.push({
+     "label": key,
+     "value": value
+   });
+  });
+  return data;
+}
 
-    dataMap.forEach(function(value, key, map) {
-        data.push({
-            "label": key,
-            "value": value
-        });
+function initializePostCountMap(labels) {
+  var dataMap = new Map();
+  labels.forEach(function(label) {
+    dataMap.set(label[0], 0);
+  });
+  return dataMap;
+}
+
+function mapPosts(dataMap, posts, labels) {
+    labels.forEach(function(label) {
+      if (posts >= label[1] && posts <= label[2]) dataMap.set(label[0], dataMap.get(label[0])+1);
     });
-
-    return data;
 }
 
-function initializePostCountDataMap() {
-    var dataMap = new Map();
-    dataMap.set("1", 0);
-    dataMap.set("2", 0);
-    dataMap.set("3-5", 0);
-    dataMap.set("6-9", 0);
-    dataMap.set("10-19", 0);
-    dataMap.set("20-49", 0);
-    dataMap.set("50-99", 0);
-    dataMap.set("100+", 0);
-    return dataMap;
-}
-
-function addToPostCountDataMap(dataMap, posts) {
-    if (posts === 1) dataMap.set("1", dataMap.get("1") + 1);
-    if (posts === 2) dataMap.set("2", dataMap.get("2") + 1);
-    if (posts >= 3 && posts <= 5) dataMap.set("3-5", dataMap.get("3-5") + 1);
-    if (posts >= 6 && posts <= 9) dataMap.set("6-9", dataMap.get("6-9") + 1);
-    if (posts >= 10 && posts <= 19) dataMap.set("10-19", dataMap.get("10-19") + 1);
-    if (posts >= 20 && posts <= 49) dataMap.set("20-49", dataMap.get("20-49") + 1);
-    if (posts >= 50 && posts <= 99) dataMap.set("50-99", dataMap.get("50-99") + 1);
-    if (posts >= 100) dataMap.set("100+", dataMap.get("100+") + 1);
-}
-
-function addToPostCountDataMapWell(dataMap, posts, labelArray) {
-    if (posts >= a && posts <= b) dataMap.set(label, dataMap.get(label) + 1);
-}
-
-function createPostBarChartDataLabels() {
-    var labels = [
-        ["1", 1, 1],
-        ["2", 2, 2],
-        ["3-5", 3, 5],
-        ["6-9", 6, 9],
-        ["10-19", 10, 19],
-        ["20-49", 20, 49],
-        ["50-99", 50, 99],
-        ["100+", 100, Number.MAX_SAFE_INTEGER]
-    ]
+function createPostBarChartLabels() {
+  var labels = [
+    ["1", 1, 1],
+    ["2", 2, 2],
+    ["3-5", 3, 5],
+    ["6-9", 6, 9],
+    ["10-19", 10, 19],
+    ["20-49", 20, 49],
+    ["50-99", 50, 99],
+    ["100+", 100, Number.MAX_SAFE_INTEGER]
+  ]
+  return labels;
 }
