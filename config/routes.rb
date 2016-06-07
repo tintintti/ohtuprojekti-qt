@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   get 'git_charts' => 'charts#gitCharts'
 
+  get 'gerrit_charts' => 'charts#gerritCharts'
+
   get 'authors' => 'application#authors'
   get 'index.html' => 'application#index'
   get 'activity.html' => 'application#activity'

@@ -1,5 +1,5 @@
 Feature: As a community manager I want to define how to group users by post
-amounts (with less/more than x posts)
+amounts (with less/more than x posts).
 
 @javascript
 Scenario: User sets the minimum amount of posts in the post chart

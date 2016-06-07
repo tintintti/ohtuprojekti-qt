@@ -6,6 +6,10 @@ module NavigationHelpers
       '/'
     when /forum\s?charts/
       '/forum_charts'
+    when /git\s?charts/
+      '/git_charts'
+    when /gerrit\s?charts/
+      '/gerrit_charts'
     when /the login\s?page/
       '/login'
     else
