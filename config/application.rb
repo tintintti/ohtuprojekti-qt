@@ -24,5 +24,6 @@ module QtSoftwareProject
     config.active_record.raise_in_transactional_callbacks = true
     config.autoload_paths += Dir["#{Rails.root}/lib"]
     config.autoload_paths += Dir["#{Rails.root}/app/classes/forum_handlers"]
+    config.autoload_paths += Dir["#{Rails.root}/app/classes/gerrit_handlers"]
   end
 end
