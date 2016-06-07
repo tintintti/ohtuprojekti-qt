@@ -3,18 +3,22 @@ class GerritDownloader
   base_uri 'https://codereview.qt-project.org'
 
   def projects
-    projects = self.class.get("/projects/").body.lines.to_a[1..-1].join
+    projects = body_no_first_line(self.class.get("/projects/"))
     JSON.parse(projects)
   end
 
   def changes
-    change = self.class.get("/changes/").body.lines.to_a[1..-1].join
+    change = body_no_first_line(self.class.get("/changes/"))
     JSON.parse(change)
   end
 
   def change(id)
-    details = self.class.get("/changes/#{id}/detail").body.lines.to_a[1..-1].join
+    details = body_no_first_line(self.class.get("/changes/#{id}/detail"))
     JSON.parse(details)
+  end
+
+  def body_no_first_line(response)
+    response.body.lines.to_a[1..-1].join
   end
 
 end
