@@ -59,7 +59,6 @@ describe('Test chartDrawer ', function() {
         jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
       });
 
-
       it('test drawing barchart', function() {
         drawBarChart(postBarData, "title");
         jasmine.clock().tick(1000);
@@ -70,6 +69,13 @@ describe('Test chartDrawer ', function() {
         expect($('#barChart')).not.toContainText('100+');
       });
 
+      it('test barchart has labels', function() {
+        drawBarChart(postBarData, "title");
+        jasmine.clock().tick(1000);
+        expect($('#barChart')).toContainText('Käyttäjien määrä');
+        expect($('#barChart')).toContainText('Viestien määrä');
+      });
+
       it('test drawing piechart', function() {
         drawPieChart("email", emailChartData, true, "title");
         jasmine.clock().tick(1000);
@@ -77,5 +83,4 @@ describe('Test chartDrawer ', function() {
         expect($('#pieChart')).toContainText('anotherEmail');
       });
     });
-
 });

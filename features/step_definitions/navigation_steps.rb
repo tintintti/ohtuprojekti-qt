@@ -100,9 +100,10 @@ end
 Given /^there is data in the database$/ do
   FactoryGirl.reload
   FactoryGirl.create(:topic)
-  for i in 0..6
+  for i in 0..12
     FactoryGirl.create(:user)
     FactoryGirl.create(:post)
+    FactoryGirl.create(:post_user_one)
   end
 end
 
@@ -141,9 +142,13 @@ Then /^there should be a piechart$/ do
   find(:xpath, '//*[@class="nvd3 nv-wrap nv-pieChart"]')
 end
 
-Then /^there should be a barchart$/ do
+Then /^there should be a barchart with data$/ do
   expect(page).to have_css(".nvd3-svg")
   find(:xpath, '//*[@class="nvd3 nv-wrap nv-discreteBarWithAxes"]')
+  expect(page).to have_content("Käyttäjien määrä") #labels
+  expect(page).to have_content("Käyttäjät viestimäärien mukaan") #title
+  expect(page).to have_content("12")
+  expect(page).to have_content("3-5")
 end
 
 Then /^I should see some email provider users$/ do

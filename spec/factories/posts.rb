@@ -23,4 +23,17 @@ FactoryGirl.define do
     edited "stringToo"
     deleted false
   end
+  
+  factory :post_user_one, class:Post do
+    sequence(:pid) { |n| n + 100 }
+    uid 1
+    tid 1
+    content "post"
+    timestamp "a lot"
+    reputation 1
+    votes 1
+    edited "stringToo"
+    deleted false
+    sequence(:index) { |n| n - 1 }
+  end
 end

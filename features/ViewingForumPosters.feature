@@ -8,3 +8,4 @@ When I go to forum charts
 When I press "Viestien lähettäjät"
 Then I should see "viestiä käyttäjien mukaan"
 Then there should be a piechart
+Then I should see "testUser"
