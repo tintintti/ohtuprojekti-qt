@@ -5,10 +5,6 @@ function emptyCharts() {
   d3.selectAll("#charts > *").remove();
 }
 
-function insertTitle(title) {
-    document.getElementById("title").innerHTML = title + "";
-}
-
 function makeUL(array) {
     var list = document.createElement('ul');
     for (var i = 0; i < array.length; i++) {
@@ -84,7 +80,6 @@ function objectSorter(array) {
 }
 
 function drawBarChart(data, divName) {
-  addTitle(divName, "barChartTitle", "Käyttäjät viestimäärien mukaan");
   addSvg(divName, "barChart");
 
   var barChartData = [{

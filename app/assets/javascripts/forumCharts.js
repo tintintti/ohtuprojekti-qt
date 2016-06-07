@@ -1,35 +1,39 @@
-var totalPosts = 0;
+var emailData = $("#user_data").data().emailcounts;
+var postData =  $("#user_data").data().postcounts[0];
 
 function drawEmailCharts() {
-  emptyContainers();
-  addTitle("#charts", "pieChartTitle", "Sähköpostien palveluntarjoajat");
-  drawEmailPieChart();
+    emptyContainers();
+    drawEmailPieChart();
 }
 
 function drawPosterCharts() {
-  emptyContainers();
-  drawPosterPieChart();
-  drawPosterBarChart();
+    emptyContainers();
+    drawPosterPieChart();
+    drawPosterBarChart();
 }
+
 //nämä käyttävät chartDrawer.js:n drawPieChartia
 function drawEmailPieChart() {
-    drawPieChart("emails", $("#user_data").data().emailcounts, true, "#charts");
+    addTitle("#charts", "pieChartTitle", "Sähköpostien palveluntarjoajat");
+    drawPieChart("emails", emailData, true, "#charts");
 }
 
 function drawPosterBarChart() {
-  drawBarChart(divideUsersIntoPostCountGroups(), "#charts");
+    addTitle("#charts", "barChartTitle", "Käyttäjät viestimäärien mukaan");
+    drawBarChart(divideUsersIntoPostCountGroups(), "#charts");
 }
 
 function drawPosterPieChart() {
     insertMinButton();
+    var totalPosts = getTotalPostCount(postData);
+    addTitle("#charts", "pieChartTitle", "Viimeiset " + totalPosts + " viestiä käyttäjien mukaan");
     drawWithMinPosts(10);
 }
 
 function drawWithMinPosts(minPosts) {
     if (minPosts > 0) {
-        var postdata = getPostCountsByUsers($("#user_data").data().postcounts[0], minPosts);
-        drawPieChart("posts", postdata, true, "#charts");
-        insertTitle("Viimeiset " + totalPosts + " viestiä käyttäjien mukaan");
+        var postsByMin = getPostCountsByUsers(postData, minPosts);
+        drawPieChart("posts", postsByMin, true, "#charts");
     }
 }
 
@@ -41,11 +45,9 @@ function redirectToQtUserPage(name) {
 //Hakee erikseen postausmäärät käyttäjiltä joilla on yli n postia ja laskee
 //myös yhteen alle n-postisten käyttäjien postausmäärän.
 function getPostCountsByUsers(postCounts, minPosts) {
-    totalPosts = 0;
     var data = []
     var postCountForGroupedUsers = 0;
     for (var postCount in postCounts) {
-        totalPosts += postCounts[postCount].value;
         if (postCounts[postCount].value < minPosts) {
             postCountForGroupedUsers++;
         } else {
@@ -57,6 +59,16 @@ function getPostCountsByUsers(postCounts, minPosts) {
         "value": postCountForGroupedUsers
     })
     return objectSorter(data);
+}
+
+function getTotalPostCount(postCounts) {
+    totalPosts = 0;
+
+    for (var postCount in postCounts) {
+        totalPosts += postCounts[postCount].value;
+    }
+
+    return totalPosts;
 }
 
 //Listaa sivulla kaikki yhden palveluntarjoajan käyttäjät
@@ -88,63 +100,63 @@ function emptyContainers() {
 
 function divideUsersIntoPostCountGroups() {
 
-  var dataMap = initializePostCountDataMap();
+    var dataMap = initializePostCountDataMap();
 
-  var data = [];
-  var postCounts = objectSorter($("#user_data").data().postcounts[0]);
+    var data = [];
+    var postCounts = objectSorter(postData);
 
-  for (i in postCounts) {
-    var posts = postCounts[i].value
-    addToPostCountDataMap(dataMap, posts);
-  }
+    for (i in postCounts) {
+        var posts = postCounts[i].value
+        addToPostCountDataMap(dataMap, posts);
+    }
 
-  dataMap.forEach(function (value, key, map){
-   data.push({
-     "label": key,
-     "value": value
-   });
-  });
+    dataMap.forEach(function(value, key, map) {
+        data.push({
+            "label": key,
+            "value": value
+        });
+    });
 
-  return data;
+    return data;
 }
 
 function initializePostCountDataMap() {
-  var dataMap = new Map();
-  dataMap.set("1", 0);
-  dataMap.set("2", 0);
-  dataMap.set("3-5", 0);
-  dataMap.set("6-9", 0);
-  dataMap.set("10-19", 0);
-  dataMap.set("20-49", 0);
-  dataMap.set("50-99", 0);
-  dataMap.set("100+", 0);
-  return dataMap;
+    var dataMap = new Map();
+    dataMap.set("1", 0);
+    dataMap.set("2", 0);
+    dataMap.set("3-5", 0);
+    dataMap.set("6-9", 0);
+    dataMap.set("10-19", 0);
+    dataMap.set("20-49", 0);
+    dataMap.set("50-99", 0);
+    dataMap.set("100+", 0);
+    return dataMap;
 }
 
 function addToPostCountDataMap(dataMap, posts) {
-  if (posts === 1) dataMap.set("1", dataMap.get("1")+1);
-  if (posts === 2) dataMap.set("2", dataMap.get("2")+1);
-  if (posts >= 3 && posts <= 5) dataMap.set("3-5", dataMap.get("3-5")+1);
-  if (posts >= 6 && posts <= 9) dataMap.set("6-9", dataMap.get("6-9")+1);
-  if (posts >= 10 && posts <= 19) dataMap.set("10-19", dataMap.get("10-19")+1);
-  if (posts >= 20 && posts <= 49) dataMap.set("20-49", dataMap.get("20-49")+1);
-  if (posts >= 50 && posts <= 99) dataMap.set("50-99", dataMap.get("50-99")+1);
-  if(posts >=100) dataMap.set("100+", dataMap.get("100+")+1);
+    if (posts === 1) dataMap.set("1", dataMap.get("1") + 1);
+    if (posts === 2) dataMap.set("2", dataMap.get("2") + 1);
+    if (posts >= 3 && posts <= 5) dataMap.set("3-5", dataMap.get("3-5") + 1);
+    if (posts >= 6 && posts <= 9) dataMap.set("6-9", dataMap.get("6-9") + 1);
+    if (posts >= 10 && posts <= 19) dataMap.set("10-19", dataMap.get("10-19") + 1);
+    if (posts >= 20 && posts <= 49) dataMap.set("20-49", dataMap.get("20-49") + 1);
+    if (posts >= 50 && posts <= 99) dataMap.set("50-99", dataMap.get("50-99") + 1);
+    if (posts >= 100) dataMap.set("100+", dataMap.get("100+") + 1);
 }
 
 function addToPostCountDataMapWell(dataMap, posts, labelArray) {
-    if (posts >= a && posts <= b) dataMap.set(label, dataMap.get(label)+1);
+    if (posts >= a && posts <= b) dataMap.set(label, dataMap.get(label) + 1);
 }
 
 function createPostBarChartDataLabels() {
-  var labels = [
-    ["1", 1, 1],
-    ["2", 2, 2],
-    ["3-5", 3, 5],
-    ["6-9", 6, 9],
-    ["10-19", 10, 19],
-    ["20-49", 20, 49],
-    ["50-99", 50, 99],
-    ["100+", 100, Number.MAX_SAFE_INTEGER]
-  ]
+    var labels = [
+        ["1", 1, 1],
+        ["2", 2, 2],
+        ["3-5", 3, 5],
+        ["6-9", 6, 9],
+        ["10-19", 10, 19],
+        ["20-49", 20, 49],
+        ["50-99", 50, 99],
+        ["100+", 100, Number.MAX_SAFE_INTEGER]
+    ]
 }
