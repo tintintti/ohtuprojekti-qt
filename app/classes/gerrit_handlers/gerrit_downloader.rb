@@ -26,7 +26,11 @@ class GerritDownloader
   end
 
   def download_and_parse(url)
-    change = body_no_first_line(self.class.get(url))
+    response = self.class.get(url)
+    if response.code != 200
+      return
+    end
+    change = body_no_first_line(response)
     JSON.parse(change)
   end
 

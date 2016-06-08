@@ -7,7 +7,9 @@ class OwnerHandler
       change_details = []
       changes.each do |change|
         details = @downloader.change(change['id'])
-        change_details << details
+        if details != nil
+          change_details << details
+        end
       end
 
       owners = {}
