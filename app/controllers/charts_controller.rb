@@ -16,8 +16,13 @@ class ChartsController < ApplicationController
   end
 
   def gerritCharts
-    @owners = OwnerHandler.get_data
+    download = params[:download]
 
+    if download.nil?
+    @owners = {}
+    else
+    @owners = OwnerHandler.changes_by_owner
+    end
   end
 
 
