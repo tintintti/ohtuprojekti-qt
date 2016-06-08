@@ -6,7 +6,7 @@
           <button type="button" class="btn btn-primary active" onclick=drawEmailCharts()>Sähköpostien palveluntarjoajat</button>
           <button type="button" class="btn btn-primary active" onclick=drawPosterCharts()>Viestien lähettäjät</button>
         </div>
-        <%= content_tag "div", id: "user_data", data: {postcounts: @post_counts, emailcounts: @email_counts, usersbyemail: @users_by_email } do %>
+        <%= content_tag "div", id: "forum_data", data: {postcounts: @post_counts, emailcounts: @email_counts, usersbyemail: @users_by_email } do %>
         <% end %>
         <%= javascript_include_tag "d3.v3.min.js" %>
         <%= javascript_include_tag "nvd3.js" %>

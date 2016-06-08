@@ -1,12 +1,14 @@
-var emailData = $("#user_data").data().emailcounts;
-var postData =  $("#user_data").data().postcounts[0];
+var emailData;
+var postData;
 
 function drawEmailCharts() {
+    emailData = $("#forum_data").data().emailcounts;
     emptyContainers();
     drawEmailPieChart();
 }
 
 function drawPosterCharts() {
+    postData =  $("#forum_data").data().postcounts[0];
     emptyContainers();
     drawPosterPieChart();
     drawPosterBarChart();
@@ -39,7 +41,7 @@ function drawPosterBarChart() {
 
 //Ohjaa haettavan Qt:n foorumin käyttäjän sivuille
 function redirectToQtUserPage(name) {
-    if (!name.includes("users w/")) window.open("http://forum.qt.io/user/" + $("#user_data").data().postcounts[1][name]);
+    if (!name.includes("users w/")) window.open("http://forum.qt.io/user/" + $("#forum_data").data().postcounts[1][name]);
 }
 
 //Hakee erikseen postausmäärät käyttäjiltä joilla on yli n postia ja laskee
@@ -75,7 +77,7 @@ function getTotalPostCount(postCounts) {
 function listUsersOfProvider(emailprovider) {
     document.getElementById("usernames").innerHTML = "";
     document.getElementById("usernames").innerHTML += "<h2>Käyttäjät tarjoajalla " + emailprovider + "</h2>";
-    var objectArray = $("#user_data").data().usersbyemail[emailprovider],
+    var objectArray = $("#forum_data").data().usersbyemail[emailprovider],
         userArray = [];
     for (var i = 0; i < objectArray.length; i++) {
         userArray.push(objectArray[i].user)

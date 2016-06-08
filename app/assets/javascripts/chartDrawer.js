@@ -33,7 +33,7 @@ function drawPieChart(type, data, showlegend, divName) {
                 .showLabels(true).showLegend(showlegend);
             if (type == "emails") {
                 chart.showLabels(true).showLegend(showlegend).tooltipContent(function(key, y, e, graph) {
-                    var wantedEmailForTooltip = $("#user_data").data().usersbyemail[key.data.label],
+                    var wantedEmailForTooltip = $("#forum_data").data().usersbyemail[key.data.label],
                         tooltipcontent = "<p><b>" + key.data.label + ": " + wantedEmailForTooltip.length + "</b></p>",
                         length = 10;
                     if (wantedEmailForTooltip.length < 10) length = wantedEmailForTooltip.length;
