@@ -1,0 +1,567 @@
+)]}'
+{
+  "installer-framework/installer-framework": {
+    "kind": "gerritcodereview#project",
+    "id": "installer-framework%2Finstaller-framework"
+  },
+  "ministro/ministro": {
+    "kind": "gerritcodereview#project",
+    "id": "ministro%2Fministro"
+  },
+  "playground/alignedtimer": {
+    "kind": "gerritcodereview#project",
+    "id": "playground%2Falignedtimer"
+  },
+  "playground/mimetypes": {
+    "kind": "gerritcodereview#project",
+    "id": "playground%2Fmimetypes"
+  },
+  "playground/qt-creator/plugin-gammaray": {
+    "kind": "gerritcodereview#project",
+    "id": "playground%2Fqt-creator%2Fplugin-gammaray"
+  },
+  "playground/qt-creator/plugin-scripting": {
+    "kind": "gerritcodereview#project",
+    "id": "playground%2Fqt-creator%2Fplugin-scripting"
+  },
+  "playground/qtaudio3d": {
+    "kind": "gerritcodereview#project",
+    "id": "playground%2Fqtaudio3d"
+  },
+  "playground/qtjsonstream": {
+    "kind": "gerritcodereview#project",
+    "id": "playground%2Fqtjsonstream"
+  },
+  "playground/qtmirserver": {
+    "kind": "gerritcodereview#project",
+    "id": "playground%2Fqtmirserver"
+  },
+  "playground/qtmock-ng": {
+    "kind": "gerritcodereview#project",
+    "id": "playground%2Fqtmock-ng"
+  },
+  "playground/qtprocessmanager": {
+    "kind": "gerritcodereview#project",
+    "id": "playground%2Fqtprocessmanager"
+  },
+  "playground/qtqmlandroid": {
+    "kind": "gerritcodereview#project",
+    "id": "playground%2Fqtqmlandroid"
+  },
+  "playground/qtremoteobjects": {
+    "kind": "gerritcodereview#project",
+    "id": "playground%2Fqtremoteobjects"
+  },
+  "playground/qtsystemtest": {
+    "kind": "gerritcodereview#project",
+    "id": "playground%2Fqtsystemtest"
+  },
+  "playground/scenegraph": {
+    "kind": "gerritcodereview#project",
+    "id": "playground%2Fscenegraph"
+  },
+  "playground/uihelpers": {
+    "kind": "gerritcodereview#project",
+    "id": "playground%2Fuihelpers"
+  },
+  "pyside/apiextractor": {
+    "kind": "gerritcodereview#project",
+    "id": "pyside%2Fapiextractor"
+  },
+  "pyside/generatorrunner": {
+    "kind": "gerritcodereview#project",
+    "id": "pyside%2Fgeneratorrunner"
+  },
+  "pyside/pyside": {
+    "kind": "gerritcodereview#project",
+    "id": "pyside%2Fpyside"
+  },
+  "pyside/pyside-setup": {
+    "kind": "gerritcodereview#project",
+    "id": "pyside%2Fpyside-setup"
+  },
+  "pyside/pyside-tools": {
+    "kind": "gerritcodereview#project",
+    "id": "pyside%2Fpyside-tools"
+  },
+  "pyside/shiboken": {
+    "kind": "gerritcodereview#project",
+    "id": "pyside%2Fshiboken"
+  },
+  "qt-apps/gammaray-plugin-qtivi": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-apps%2Fgammaray-plugin-qtivi"
+  },
+  "qt-apps/neptune-appstore": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-apps%2Fneptune-appstore"
+  },
+  "qt-apps/neptune-ui": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-apps%2Fneptune-ui"
+  },
+  "qt-apps/qmllive": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-apps%2Fqmllive"
+  },
+  "qt-apps/snowshoe": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-apps%2Fsnowshoe"
+  },
+  "qt-creator/binary-artifacts": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-creator%2Fbinary-artifacts"
+  },
+  "qt-creator/perfparser": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-creator%2Fperfparser"
+  },
+  "qt-creator/qt-creator": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-creator%2Fqt-creator"
+  },
+  "qt-labs/cinematic3d": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fcinematic3d"
+  },
+  "qt-labs/gimp-qmlexporter": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fgimp-qmlexporter"
+  },
+  "qt-labs/jira2gv": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fjira2gv"
+  },
+  "qt-labs/jom": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fjom"
+  },
+  "qt-labs/messagingframework": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fmessagingframework"
+  },
+  "qt-labs/photoshop-qmlexporter": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fphotoshop-qmlexporter"
+  },
+  "qt-labs/qbs": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fqbs"
+  },
+  "qt-labs/qml-presentation-system": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fqml-presentation-system"
+  },
+  "qt-labs/qsettings-refactor": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fqsettings-refactor"
+  },
+  "qt-labs/qt3d-editor": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fqt3d-editor"
+  },
+  "qt-labs/qt5-everywhere-demo": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fqt5-everywhere-demo"
+  },
+  "qt-labs/qtaddonmimetype": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fqtaddonmimetype"
+  },
+  "qt-labs/qtd3d12window": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fqtd3d12window"
+  },
+  "qt-labs/qtest-qml": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fqtest-qml"
+  },
+  "qt-labs/qtquickcl": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fqtquickcl"
+  },
+  "qt-labs/qtscriptgenerator": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fqtscriptgenerator"
+  },
+  "qt-labs/qtsensehat": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fqtsensehat"
+  },
+  "qt-labs/talk-schedule": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Ftalk-schedule"
+  },
+  "qt-labs/umlquick": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fumlquick"
+  },
+  "qt-labs/vstools": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fvstools"
+  },
+  "qt-labs/weather-app": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-labs%2Fweather-app"
+  },
+  "qt-learning/education-course-materials": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-learning%2Feducation-course-materials"
+  },
+  "qt-learning/learning-guides": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-learning%2Flearning-guides"
+  },
+  "qt-mobility/qt-mobility": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-mobility%2Fqt-mobility"
+  },
+  "qt-solutions/qt-solutions": {
+    "kind": "gerritcodereview#project",
+    "id": "qt-solutions%2Fqt-solutions"
+  },
+  "qt/qlalr": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqlalr"
+  },
+  "qt/qt": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqt"
+  },
+  "qt/qt3d": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqt3d"
+  },
+  "qt/qt5": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqt5"
+  },
+  "qt/qtactiveqt": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtactiveqt"
+  },
+  "qt/qtandroidextras": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtandroidextras"
+  },
+  "qt/qtapplicationmanager": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtapplicationmanager"
+  },
+  "qt/qtbase": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtbase"
+  },
+  "qt/qtcanvas3d": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtcanvas3d"
+  },
+  "qt/qtcharts": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtcharts"
+  },
+  "qt/qtchooser": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtchooser"
+  },
+  "qt/qtconnectivity": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtconnectivity"
+  },
+  "qt/qtdatavis3d": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtdatavis3d"
+  },
+  "qt/qtdeclarative": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtdeclarative"
+  },
+  "qt/qtdeclarative-render2d": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtdeclarative-render2d"
+  },
+  "qt/qtdeclarative-testsuites": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtdeclarative-testsuites"
+  },
+  "qt/qtdoc": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtdoc"
+  },
+  "qt/qtdocgallery": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtdocgallery"
+  },
+  "qt/qtenginio": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtenginio"
+  },
+  "qt/qtfeedback": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtfeedback"
+  },
+  "qt/qtftp": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtftp"
+  },
+  "qt/qtgamepad": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtgamepad"
+  },
+  "qt/qtgraphicaleffects": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtgraphicaleffects"
+  },
+  "qt/qthttp": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqthttp"
+  },
+  "qt/qtimageformats": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtimageformats"
+  },
+  "qt/qtivi": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtivi"
+  },
+  "qt/qtlocation": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtlocation"
+  },
+  "qt/qtmacextras": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtmacextras"
+  },
+  "qt/qtmodeling": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtmodeling"
+  },
+  "qt/qtmultimedia": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtmultimedia"
+  },
+  "qt/qtopcua": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtopcua"
+  },
+  "qt/qtpim": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtpim"
+  },
+  "qt/qtpurchasing": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtpurchasing"
+  },
+  "qt/qtqa": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtqa"
+  },
+  "qt/qtquick1": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtquick1"
+  },
+  "qt/qtquickcontrols": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtquickcontrols"
+  },
+  "qt/qtquickcontrols-tizen": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtquickcontrols-tizen"
+  },
+  "qt/qtquickcontrols2": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtquickcontrols2"
+  },
+  "qt/qtrepotools": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtrepotools"
+  },
+  "qt/qtscript": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtscript"
+  },
+  "qt/qtscxml": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtscxml"
+  },
+  "qt/qtsensors": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtsensors"
+  },
+  "qt/qtserialbus": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtserialbus"
+  },
+  "qt/qtserialport": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtserialport"
+  },
+  "qt/qtspeech": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtspeech"
+  },
+  "qt/qtstyleplugins": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtstyleplugins"
+  },
+  "qt/qtsvg": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtsvg"
+  },
+  "qt/qtsystems": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtsystems"
+  },
+  "qt/qttools": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqttools"
+  },
+  "qt/qttranslations": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqttranslations"
+  },
+  "qt/qtvirtualkeyboard": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtvirtualkeyboard"
+  },
+  "qt/qtwayland": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtwayland"
+  },
+  "qt/qtwebchannel": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtwebchannel"
+  },
+  "qt/qtwebengine": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtwebengine"
+  },
+  "qt/qtwebengine-chromium": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtwebengine-chromium"
+  },
+  "qt/qtwebkit": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtwebkit"
+  },
+  "qt/qtwebkit-examples": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtwebkit-examples"
+  },
+  "qt/qtwebsockets": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtwebsockets"
+  },
+  "qt/qtwebview": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtwebview"
+  },
+  "qt/qtwinextras": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtwinextras"
+  },
+  "qt/qtx11extras": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtx11extras"
+  },
+  "qt/qtx509": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtx509"
+  },
+  "qt/qtxmlpatterns": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtxmlpatterns"
+  },
+  "qt/qtxmlpatterns-testsuites": {
+    "kind": "gerritcodereview#project",
+    "id": "qt%2Fqtxmlpatterns-testsuites"
+  },
+  "qtonpi/mt-cross-tools": {
+    "kind": "gerritcodereview#project",
+    "id": "qtonpi%2Fmt-cross-tools"
+  },
+  "qtqa/gerrit": {
+    "kind": "gerritcodereview#project",
+    "id": "qtqa%2Fgerrit"
+  },
+  "qtqa/gerrit-plugin-replication": {
+    "kind": "gerritcodereview#project",
+    "id": "qtqa%2Fgerrit-plugin-replication"
+  },
+  "qtqa/release-testing": {
+    "kind": "gerritcodereview#project",
+    "id": "qtqa%2Frelease-testing"
+  },
+  "qtqa/sysadmin": {
+    "kind": "gerritcodereview#project",
+    "id": "qtqa%2Fsysadmin"
+  },
+  "qtqa/testconfig": {
+    "kind": "gerritcodereview#project",
+    "id": "qtqa%2Ftestconfig"
+  },
+  "qtsdk/qtsdk": {
+    "kind": "gerritcodereview#project",
+    "id": "qtsdk%2Fqtsdk"
+  },
+  "test/project": {
+    "kind": "gerritcodereview#project",
+    "id": "test%2Fproject"
+  },
+  "www/doctools": {
+    "kind": "gerritcodereview#project",
+    "id": "www%2Fdoctools"
+  },
+  "www/downloads": {
+    "kind": "gerritcodereview#project",
+    "id": "www%2Fdownloads"
+  },
+  "www/planetqt": {
+    "kind": "gerritcodereview#project",
+    "id": "www%2Fplanetqt"
+  },
+  "yocto/meta-mingw": {
+    "kind": "gerritcodereview#project",
+    "id": "yocto%2Fmeta-mingw"
+  },
+  "yocto/meta-qt5": {
+    "kind": "gerritcodereview#project",
+    "id": "yocto%2Fmeta-qt5"
+  },
+  "{graveyard}/qlogger": {
+    "kind": "gerritcodereview#project",
+    "id": "%7Bgraveyard%7D%2Fqlogger"
+  },
+  "{graveyard}/qtbinaryjson": {
+    "kind": "gerritcodereview#project",
+    "id": "%7Bgraveyard%7D%2Fqtbinaryjson"
+  },
+  "{graveyard}/qtjsbackend": {
+    "kind": "gerritcodereview#project",
+    "id": "%7Bgraveyard%7D%2Fqtjsbackend"
+  },
+  "{graveyard}/qtjsondb": {
+    "kind": "gerritcodereview#project",
+    "id": "%7Bgraveyard%7D%2Fqtjsondb"
+  },
+  "{graveyard}/qtmultimediakit": {
+    "kind": "gerritcodereview#project",
+    "id": "%7Bgraveyard%7D%2Fqtmultimediakit"
+  },
+  "{graveyard}/qtphonon": {
+    "kind": "gerritcodereview#project",
+    "id": "%7Bgraveyard%7D%2Fqtphonon"
+  },
+  "{graveyard}/qtx11support": {
+    "kind": "gerritcodereview#project",
+    "id": "%7Bgraveyard%7D%2Fqtx11support"
+  },
+  "{graveyard}/quick3d": {
+    "kind": "gerritcodereview#project",
+    "id": "%7Bgraveyard%7D%2Fquick3d"
+  },
+  "{graveyard}/v4vm": {
+    "kind": "gerritcodereview#project",
+    "id": "%7Bgraveyard%7D%2Fv4vm"
+  }
+}

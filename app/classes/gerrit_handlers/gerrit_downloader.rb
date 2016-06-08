@@ -4,30 +4,30 @@ class GerritDownloader
 
   # returns a hash
   def projects
-    projects = body_no_first_line(self.class.get("/projects/"))
-    JSON.parse(projects)
+    download_and_parse "/projects/"
   end
 
   # returns an array
   def changes
-    change = body_no_first_line(self.class.get("/changes/"))
-    JSON.parse(change)
+    download_and_parse "/changes/"
   end
 
   def n_changes(amount)
-    change = body_no_first_line(self.class.get("/changes/?n=#{amount}"))
-    JSON.parse(change)
+    download_and_parse "/changes/?n=#{amount}"
   end
 
   def n_changes_with_status(amount, status)
-      change = body_no_first_line(self.class.get("/changes/?q=status:#{status}&n=#{amount}"))
-      JSON.parse(change)
+    download_and_parse "/changes/?q=status:#{status}&n=#{amount}"
   end
 
   # returns a hash
   def change(id)
-    details = body_no_first_line(self.class.get("/changes/#{id}/detail"))
-    JSON.parse(details)
+    download_and_parse "/changes/#{id}/detail"
+  end
+
+  def download_and_parse(url)
+    change = body_no_first_line(self.class.get(url))
+    JSON.parse(change)
   end
 
   def body_no_first_line(response)
