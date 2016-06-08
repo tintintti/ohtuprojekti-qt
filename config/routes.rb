@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :authors
+  resources :commits
+  resources :repositories
   resources :topics
   resources :categories
   resources :users

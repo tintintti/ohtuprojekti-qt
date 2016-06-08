@@ -100,4 +100,5 @@ class ParseTopics
     end
 
   end
+
 end
