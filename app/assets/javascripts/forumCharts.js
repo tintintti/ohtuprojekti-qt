@@ -91,7 +91,6 @@ function insertMinButton() {
 }
 
 function emptyContainers() {
-    document.getElementById("title").innerHTML = "";
     document.getElementById("buttonFeature").innerHTML = "";
     document.getElementById("usernames").innerHTML = "";
     if (document.getElementById("barChartTitle")) document.getElementById("barChartTitle").innerHTML = "";
