@@ -1,0 +1,175 @@
+)]}'
+[
+  {
+    "kind": "gerritcodereview#change",
+    "id": "qt%2Fqtbase~dev~Ic2688e6b6b3e028a9c29f1a5eb01058375ef3fe9",
+    "project": "qt/qtbase",
+    "branch": "dev",
+    "topic": "qstringview",
+    "change_id": "Ic2688e6b6b3e028a9c29f1a5eb01058375ef3fe9",
+    "subject": "tst_qstringapisymmetry: cover QByteArray, const char*, too",
+    "status": "NEW",
+    "created": "2016-04-06 12:10:42.446000000",
+    "updated": "2016-06-08 08:05:14.688000000",
+    "mergeable": true,
+    "_sortkey": "003daf4500025cf8",
+    "_number": 154872,
+    "owner": {
+      "name": "Marc Mutz"
+    }
+  },
+  {
+    "kind": "gerritcodereview#change",
+    "id": "qt%2Fqtdeclarative~dev~I0f567cdcc9cc9728d019f17693f4a6007394a9c6",
+    "project": "qt/qtdeclarative",
+    "branch": "dev",
+    "change_id": "I0f567cdcc9cc9728d019f17693f4a6007394a9c6",
+    "subject": "V4: tighten up various casts to check also check type.",
+    "status": "STAGED",
+    "created": "2016-05-27 14:08:41.464000000",
+    "updated": "2016-06-08 08:04:53.484000000",
+    "mergeable": true,
+    "_sortkey": "003daf4400027390",
+    "_number": 160656,
+    "owner": {
+      "name": "Erik Verbruggen"
+    }
+  },
+  {
+    "kind": "gerritcodereview#change",
+    "id": "qt%2Fqtbase~dev~Ib7e5f1129dda664d81f8a59bfa851ae70ef04542",
+    "project": "qt/qtbase",
+    "branch": "dev",
+    "change_id": "Ib7e5f1129dda664d81f8a59bfa851ae70ef04542",
+    "subject": "Use built-ins for qPopulationCount on MSVC and recent Clang versions.",
+    "status": "STAGED",
+    "created": "2016-05-24 11:24:43.006000000",
+    "updated": "2016-06-08 08:03:32.955000000",
+    "mergeable": true,
+    "_sortkey": "003daf43000271c9",
+    "_number": 160201,
+    "owner": {
+      "name": "Erik Verbruggen"
+    }
+  },
+  {
+    "kind": "gerritcodereview#change",
+    "id": "qt%2Fqtbase~5.6~I6eaa0586501b9e780aaa3bb5dcec0e5c2f86a219",
+    "project": "qt/qtbase",
+    "branch": "5.6",
+    "change_id": "I6eaa0586501b9e780aaa3bb5dcec0e5c2f86a219",
+    "subject": "QDebug: fix streaming of QChars",
+    "status": "NEW",
+    "created": "2016-06-08 08:01:56.126000000",
+    "updated": "2016-06-08 08:02:05.562000000",
+    "mergeable": false,
+    "_sortkey": "003daf42000277e8",
+    "_number": 161768,
+    "owner": {
+      "name": "Marc Mutz"
+    }
+  },
+  {
+    "kind": "gerritcodereview#change",
+    "id": "qt%2Fqtwebengine~5.6~Ic773b082d26825758e8986e8d77f8f5bc7b80f83",
+    "project": "qt/qtwebengine",
+    "branch": "5.6",
+    "change_id": "Ic773b082d26825758e8986e8d77f8f5bc7b80f83",
+    "subject": "Fix PDB generation for prefix builds",
+    "status": "STAGED",
+    "created": "2016-06-06 16:15:53.281000000",
+    "updated": "2016-06-08 08:02:33.499000000",
+    "mergeable": true,
+    "_sortkey": "003daf4200027749",
+    "_number": 161609,
+    "owner": {
+      "name": "Joerg Bornemann"
+    }
+  },
+  {
+    "kind": "gerritcodereview#change",
+    "id": "qt%2Fqtbase~5.6~I3e63a5dd0259306a0b99145348d815899582f78e",
+    "project": "qt/qtbase",
+    "branch": "5.6",
+    "change_id": "I3e63a5dd0259306a0b99145348d815899582f78e",
+    "subject": "QDir::cd(): Handle UNC server paths correctly.",
+    "status": "NEW",
+    "created": "2016-06-08 08:01:10.032000000",
+    "updated": "2016-06-08 08:01:27.133000000",
+    "mergeable": false,
+    "_sortkey": "003daf41000277e7",
+    "_number": 161767,
+    "owner": {
+      "name": "Friedemann Kleint"
+    }
+  },
+  {
+    "kind": "gerritcodereview#change",
+    "id": "qt%2Fqtbase~5.6~Ibddacf06212b6fc86fa74a5e4078df6cfd5b66f5",
+    "project": "qt/qtbase",
+    "branch": "5.6",
+    "change_id": "Ibddacf06212b6fc86fa74a5e4078df6cfd5b66f5",
+    "subject": "QDir::cleanPath(): Do not cd above root paths (UNC, WinRT).",
+    "status": "NEW",
+    "created": "2016-06-08 08:01:10.032000000",
+    "updated": "2016-06-08 08:01:18.830000000",
+    "mergeable": false,
+    "_sortkey": "003daf41000277e6",
+    "_number": 161766,
+    "owner": {
+      "name": "Friedemann Kleint"
+    }
+  },
+  {
+    "kind": "gerritcodereview#change",
+    "id": "qt-labs%2Fqbs~master~I005f4b65963380a93cb14ea6421b9fb4a40a147a",
+    "project": "qt-labs/qbs",
+    "branch": "master",
+    "change_id": "I005f4b65963380a93cb14ea6421b9fb4a40a147a",
+    "subject": "Merge remote-tracking branch \u0027origin/1.5\u0027",
+    "status": "NEW",
+    "created": "2016-06-07 15:58:32.290000000",
+    "updated": "2016-06-08 07:58:58.430000000",
+    "mergeable": false,
+    "_sortkey": "003daf3e000277bf",
+    "_number": 161727,
+    "owner": {
+      "name": "Joerg Bornemann"
+    }
+  },
+  {
+    "kind": "gerritcodereview#change",
+    "id": "qt%2Fqtivi~dev~Iffc6abdfd10bfa58933347512fe7866f662ad0b6",
+    "project": "qt/qtivi",
+    "branch": "dev",
+    "change_id": "Iffc6abdfd10bfa58933347512fe7866f662ad0b6",
+    "subject": "Added a MediaPlayer example and a simulation backend",
+    "status": "NEW",
+    "created": "2016-05-30 11:07:26.696000000",
+    "updated": "2016-06-08 07:58:51.273000000",
+    "mergeable": true,
+    "_sortkey": "003daf3e00027428",
+    "_number": 160808,
+    "owner": {
+      "name": "Dominik Holland"
+    }
+  },
+  {
+    "kind": "gerritcodereview#change",
+    "id": "qt%2Fqtivi~dev~I109ab42ad302ba165fc9d211b4508f26ca7f4529",
+    "project": "qt/qtivi",
+    "branch": "dev",
+    "change_id": "I109ab42ad302ba165fc9d211b4508f26ca7f4529",
+    "subject": "Added APIs for the MediaPlayer and the PlayQueue handling",
+    "status": "NEW",
+    "created": "2016-05-25 13:03:39.049000000",
+    "updated": "2016-06-08 07:58:51.275000000",
+    "mergeable": true,
+    "_sortkey": "003daf3e0002727b",
+    "_number": 160379,
+    "owner": {
+      "name": "Dominik Holland"
+    },
+    "_more_changes": true
+  }
+]

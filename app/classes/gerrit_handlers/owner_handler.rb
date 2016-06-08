@@ -4,8 +4,8 @@ class OwnerHandler
   def self.changes_by_owner
       changes = @downloader.changes
       change_details = []
-      changes.each do |c|
-        details = @downloader.change(c['id'])
+      changes.each do |change|
+        details = @downloader.change(change['id'])
         change_details << details
       end
 
