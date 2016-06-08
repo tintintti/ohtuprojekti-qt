@@ -19,9 +19,11 @@ class ChartsController < ApplicationController
     download = params[:download]
 
     if download.nil?
-    @owners = {}
+      @owners = Rails.cache.read "owners_data"
     else
-    @owners = OwnerHandler.changes_by_owner
+      owners_data = OwnerHandler.changes_by_owner
+      @owners = owners_data
+      Rails.cache.write "owners_data", owners_data
     end
   end
 
