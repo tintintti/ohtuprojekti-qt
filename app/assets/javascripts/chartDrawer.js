@@ -5,10 +5,6 @@ function emptyCharts() {
   d3.selectAll("#charts > *").remove();
 }
 
-function insertTitle(title) {
-    document.getElementById("title").innerHTML = title + "";
-}
-
 function makeUL(array) {
     var list = document.createElement('ul');
     for (var i = 0; i < array.length; i++) {
@@ -37,7 +33,7 @@ function drawPieChart(type, data, showlegend, divName) {
                 .showLabels(true).showLegend(showlegend);
             if (type == "emails") {
                 chart.showLabels(true).showLegend(showlegend).tooltipContent(function(key, y, e, graph) {
-                    var wantedEmailForTooltip = $("#user_data").data().usersbyemail[key.data.label],
+                    var wantedEmailForTooltip = $("#forum_data").data().usersbyemail[key.data.label],
                         tooltipcontent = "<p><b>" + key.data.label + ": " + wantedEmailForTooltip.length + "</b></p>",
                         length = 10;
                     if (wantedEmailForTooltip.length < 10) length = wantedEmailForTooltip.length;
@@ -84,7 +80,6 @@ function objectSorter(array) {
 }
 
 function drawBarChart(data, divName) {
-  addTitle(divName, "barChartTitle", "Käyttäjät viestimäärien mukaan");
   addSvg(divName, "barChart");
 
   var barChartData = [{

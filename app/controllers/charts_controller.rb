@@ -2,7 +2,7 @@ class ChartsController < ApplicationController
   before_action :ensure_that_logged_in, except: [:index]
 
   def index
-    
+
   end
 
   def forumCharts
@@ -16,6 +16,7 @@ class ChartsController < ApplicationController
   end
 
   def gerritCharts
+    @owners = OwnerHandler.get_data
 
   end
 

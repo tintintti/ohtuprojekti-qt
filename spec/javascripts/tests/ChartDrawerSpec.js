@@ -62,7 +62,6 @@ describe('Test chartDrawer ', function() {
       it('test drawing barchart', function() {
         drawBarChart(postBarData, "title");
         jasmine.clock().tick(1000);
-        expect($('#barChartTitle')).toHaveText("Käyttäjät viestimäärien mukaan");
         expect($('#barChart')).toContainText('1-5');
         expect($('#barChart')).toContainText('10+');
         expect($('#barChart')).toContainText('14');

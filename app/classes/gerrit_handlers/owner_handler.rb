@@ -1,5 +1,6 @@
 class OwnerHandler
   @downloader = GerritDownloader.new
+  @data = []
 
   def self.changes_by_owner
       changes = @downloader.changes
@@ -22,6 +23,11 @@ class OwnerHandler
         data << {label: v[:owner]['name'], value: v[:changes]}
       end
       sorted_data = data.sort_by { |item| item[:value] }
+      @data = sorted_data
+  end
+
+  def self.get_data
+    @data
   end
 
 end
