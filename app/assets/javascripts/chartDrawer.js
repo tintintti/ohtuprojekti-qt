@@ -15,6 +15,16 @@ function makeUL(array) {
     return list;
 }
 
+function addTitle(divName, id, title) {
+  var $div = $(divName);
+  $div.append('<h2 id='+id+' class="container">'+title+'</h2>');
+}
+
+function addSvg(divName, id) {
+  var $div = $(divName);
+  $div.append('<svg id='+id+'></svg>');
+}
+
 // pitkät piirtometodit tänne
 
 function drawPieChart(type, data, showlegend, divName) {
@@ -32,17 +42,7 @@ function drawPieChart(type, data, showlegend, divName) {
                 .height(height)
                 .showLabels(true).showLegend(showlegend);
             if (type == "emails") {
-                chart.showLabels(true).showLegend(showlegend).tooltipContent(function(key, y, e, graph) {
-                    var wantedEmailForTooltip = $("#forum_data").data().usersbyemail[key.data.label],
-                        tooltipcontent = "<p><b>" + key.data.label + ": " + wantedEmailForTooltip.length + "</b></p>",
-                        length = 10;
-                    if (wantedEmailForTooltip.length < 10) length = wantedEmailForTooltip.length;
-                    for (var i = 0; i < length; i++) {
-                        tooltipcontent = tooltipcontent + "<p>" + wantedEmailForTooltip[i].user + "</p>"
-                    }
-                    if (wantedEmailForTooltip.length > 10) tooltipcontent = tooltipcontent + "<p>" + "..." + "</p>";
-                    return tooltipcontent;
-                });
+                setEmailToolTipContent(chart);
             }
             d3.select('#pieChart')
                 .datum(data)
@@ -55,15 +55,29 @@ function drawPieChart(type, data, showlegend, divName) {
                 .style({
                     "font-size": "1em"
                 });
-            return chart;
-        },
-        function() {
-            d3.select(divName).selectAll(".nv-slice").on('click',
+
+            d3.select('#pieChart').selectAll(".nv-slice").on('click',
                 function(d) {
                     if (type == "emails") listUsersOfProvider(d.data.label);
                     if (type == "posts") redirectToQtUserPage(d.data.label);
-                });
+            });
+
+            return chart;
         });
+}
+
+function setEmailToolTipContent(chart) {
+  chart.tooltipContent(function(key, y, e, graph) {
+      var emailForTooltip = $("#user_data").data().usersbyemail[key.data.label],
+          tooltipContent = "<p><b>" + key.data.label + ": " + emailForTooltip.length + "</b></p>",
+          length = 10;
+      if (emailForTooltip.length < length) length = emailForTooltip.length;
+      for (var i = 0; i < length; i++) {
+          tooltipContent = tooltipContent + "<p>" + emailForTooltip[i].user + "</p>"
+      }
+      if (emailForTooltip.length > length) tooltipContent = tooltipContent + "<p>" + "..." + "</p>";
+      return tooltipContent;
+  });
 }
 
 function setPieChartHeight(length) {
@@ -112,14 +126,4 @@ function drawBarChart(data, divName) {
     nv.utils.windowResize(chart.update);
     return chart;
   });
-}
-
-function addTitle(divName, id, title) {
-  var $div = $(divName);
-  $div.append('<h2 id='+id+' class="container">'+title+'</h2>');
-}
-
-function addSvg(divName, id) {
-  var $div = $(divName);
-  $div.append('<svg id='+id+'></svg>');
 }
