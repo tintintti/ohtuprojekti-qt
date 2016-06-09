@@ -40,6 +40,8 @@ class ParseGitStats
 
 
   def self.iterate_over_qt_projects strategy
+    old_logger = ActiveRecord::Base.logger
+    ActiveRecord::Base.logger = nil
     dir='/Users/Studies/koulu/qt-software-project/qt-projects'
     Dir.foreach(dir) do |file|
       next if file == '.' or file == '..' or file == '.git'
@@ -49,6 +51,7 @@ class ParseGitStats
         save_repo_data file
       end
     end
+    ActiveRecord::Base.logger = old_logger
   end
 
   def self.generate_git_stats file
@@ -73,35 +76,31 @@ class ParseGitStats
     repo.authors.each{
         |author| a = Author.new(email:author.email, name:author.name) ; a.save ;
          author.commits.each{
-             |commit| Commit.create sha:commit.sha, repo_id:newRepo.id, author_id:a.id, stamp:commit.stamp } }
+             |commit| Commit.create sha:commit.sha, repository_id:newRepo.id, author_id:a.id, stamp:commit.stamp } } ; nil
     puts "done processing #{file}"
   end
 
-  def self.baa
+  def self.link_similar_authors_and_their_commits
     authors = Author.all
     ids_corrected = []
     authors.each do |a|
       next if a.id.in? ids_corrected
-      dubbels = Author.where("name = ? OR email = ?", a.name, a.email)
-      ids = dubbels.pluck(:id)
-      ids_corrected.concat ids
-      Commit.where(author_id:ids).update_all(author_id:a.id)
-      ids.each do
-
-end
+      doubles = Author.where("name = ? OR email = ?", a.name, a.email)
+      double_ids = doubles.pluck(:id)
+      double_ids.delete(a.id)
+      ids_corrected.concat double_ids
+      Commit.where(author_id:double_ids).update_all(author_id:a.id)
+      Author.where(id:double_ids).update_all(linked_id:a.id)
     end
   end
 
 
-  def self.baa_baa
+  def self.find_similar_author
     authors = Author.all
     total_dubbels = [];
     authors.each do |a|
-      dubbels = Author.where("name = ? OR email = ?", a.name, a.email)
-      break;
-
+      dubbels = Author.where("name = ? OR email = ?", a.name, a.email).where(linked_id:nil)
       ids = dubbels.pluck(:id)
-
       total_dubbels.concat ids
     end
     return total_dubbels.uniq
