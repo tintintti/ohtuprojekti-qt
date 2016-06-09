@@ -29,6 +29,8 @@ group :production do
    gem 'rails_12factor'
 end
 
+gem 'delayed_job_active_record'
+
 gem "codeclimate-test-reporter", group: :test, require: nil
 
 # Use SCSS for stylesheets
