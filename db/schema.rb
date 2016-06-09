@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160524101037) do
+ActiveRecord::Schema.define(version: 20160608120011) do
+
+  create_table "authors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.integer  "linked_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "categories", force: :cascade do |t|
     t.integer  "cid"
@@ -31,6 +39,15 @@ ActiveRecord::Schema.define(version: 20160524101037) do
     t.datetime "updated_at",       null: false
   end
 
+  create_table "commits", force: :cascade do |t|
+    t.integer  "repository_id"
+    t.integer  "author_id"
+    t.string   "sha"
+    t.integer  "stamp"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.integer  "pid"
     t.integer  "uid"
@@ -42,6 +59,12 @@ ActiveRecord::Schema.define(version: 20160524101037) do
     t.string   "edited"
     t.boolean  "deleted"
     t.integer  "index"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "repositories", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

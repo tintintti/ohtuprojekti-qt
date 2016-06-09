@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :authors
+  resources :commits
+  resources :repositories
+  resources :topics
+  resources :categories
+  resources :users
+  resources :posts
   # get 'welcome/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
