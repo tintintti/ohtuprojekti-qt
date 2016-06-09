@@ -36,7 +36,8 @@ function drawWithMinPosts(minPosts) {
 
 function drawPosterBarChart() {
     addTitle("#charts", "barChartTitle", "Käyttäjät viestimäärien mukaan");
-    drawBarChart(divideUsersIntoPostCountGroups(), "#charts");
+    var labels = ["Käyttäjien määrä", "Viestien määrä"];
+    drawBarChart(divideUsersIntoPostCountGroups(), "#charts", labels);
 }
 
 //Ohjaa haettavan Qt:n foorumin käyttäjän sivuille
@@ -101,40 +102,7 @@ function emptyContainers() {
 
 function divideUsersIntoPostCountGroups() {
   var labels = createPostBarChartLabels();
-  var labelValues = initializePostCountMap(labels);
-
-  var postCounts = objectSorter(postData);
-
-  for (i in postCounts) {
-    var posts = postCounts[i].value
-    mapPosts(labelValues, posts, labels);
-  }
-  return mapToArrayForNvd3(labelValues);
-}
-
-function mapToArrayForNvd3(dataMap) {
-  var data = [];
-  dataMap.forEach(function (value, key, map){
-   data.push({
-     "label": key,
-     "value": value
-   });
-  });
-  return data;
-}
-
-function initializePostCountMap(labels) {
-  var dataMap = new Map();
-  labels.forEach(function(label) {
-    dataMap.set(label[0], 0);
-  });
-  return dataMap;
-}
-
-function mapPosts(dataMap, posts, labels) {
-    labels.forEach(function(label) {
-      if (posts >= label[1] && posts <= label[2]) dataMap.set(label[0], dataMap.get(label[0])+1);
-    });
+  return createBarChartGroups(postData, labels);
 }
 
 function createPostBarChartLabels() {

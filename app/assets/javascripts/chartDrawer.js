@@ -93,7 +93,7 @@ function objectSorter(array) {
     });
 }
 
-function drawBarChart(data, divName) {
+function drawBarChart(data, divName, labels) {
   addSvg(divName, "barChart");
 
   var barChartData = [{
@@ -114,9 +114,9 @@ function drawBarChart(data, divName) {
         .valueFormat(d3.format(".0f"))
         .height(height)
         chart.yAxis.tickFormat(d3.format(',f'))
-        chart.yAxis.axisLabel('Käyttäjien määrä')
+        chart.yAxis.axisLabel(labels[0])
         .axisLabelDistance(-14)
-        chart.xAxis.axisLabel('Viestien määrä')
+        chart.xAxis.axisLabel(labels[1])
         .axisLabelDistance(-14);
 
     d3.select("#barChart")
@@ -126,4 +126,41 @@ function drawBarChart(data, divName) {
     nv.utils.windowResize(chart.update);
     return chart;
   });
+}
+
+function createBarChartGroups(data, labels) {
+  var labelValues = initializeBarChartMap(labels);
+
+  var counts = objectSorter(data);
+
+  for (i in counts) {
+    var count = counts[i].value
+    mapCounts(labelValues, count, labels);
+  }
+  return mapToArrayForNvd3(labelValues);
+}
+
+function mapToArrayForNvd3(dataMap) {
+  var data = [];
+  dataMap.forEach(function (value, key, map){
+   data.push({
+     "label": key,
+     "value": value
+   });
+  });
+  return data;
+}
+
+function initializeBarChartMap(labels) {
+  var dataMap = new Map();
+  labels.forEach(function(label) {
+    dataMap.set(label[0], 0);
+  });
+  return dataMap;
+}
+
+function mapCounts(dataMap, counts, labels) {
+    labels.forEach(function(label) {
+      if (counts >= label[1] && counts <= label[2]) dataMap.set(label[0], dataMap.get(label[0])+1);
+    });
 }
