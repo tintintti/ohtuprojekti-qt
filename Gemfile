@@ -53,6 +53,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'httparty'
 
+gem 'git_stats'
 # gem 'd3-rails'
 #
 # gem 'nvd3-rails'

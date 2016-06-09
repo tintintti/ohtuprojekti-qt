@@ -51,6 +51,8 @@ describe('Test chartDrawer ', function() {
             "label": "anotherEmail",
             "value": 2
           }]
+
+          labels = ["Käyttäjien määrä", "Viestien määrä"];
           done();
       });
 
@@ -60,7 +62,7 @@ describe('Test chartDrawer ', function() {
       });
 
       it('test drawing barchart', function() {
-        drawBarChart(postBarData, "title");
+        drawBarChart(postBarData, "title", labels);
         jasmine.clock().tick(1000);
         expect($('#barChart')).toContainText('1-5');
         expect($('#barChart')).toContainText('10+');
@@ -69,7 +71,7 @@ describe('Test chartDrawer ', function() {
       });
 
       it('test barchart has labels', function() {
-        drawBarChart(postBarData, "title");
+        drawBarChart(postBarData, "title", labels);
         jasmine.clock().tick(1000);
         expect($('#barChart')).toContainText('Käyttäjien määrä');
         expect($('#barChart')).toContainText('Viestien määrä');
