@@ -12,6 +12,9 @@ class ChartsController < ApplicationController
   end
 
   def gitCharts
+    # 2015 jälkeiset authorien commitit
+    @authorCommitsFrom2015 = GitHandler.author_commits
+    # @commits = Commit.all
 
   end
 
