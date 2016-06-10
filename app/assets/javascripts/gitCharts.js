@@ -1,5 +1,6 @@
-var data;
-function asd() {
-    data = $("#git_data").data().authorCommitsFrom2015;
-    console.log(data)
+// var commits = $('#git_data').data().commits;
+var authors = $("#git_data").data().authors;
+function drawAuthorPieChart() {
+    addTitle("#charts", "pieChartTitle", "asdasdlolkebab");
+    drawPieChart("authors", authors, true, "#charts");
 }

@@ -2,9 +2,9 @@
     <!DOCTYPE html>
     <meta charset="utf-8">
     <body>
-        <button type="button" class="btn btn-primary active" onclick=asd()>asd</button>
+        <button type="button" class="btn btn-primary active" onclick=drawAuthorPieChart()>asd</button>
         <div class="container"></div>
-        <%= content_tag "div", id: "git_data", data: {authorCommitsFrom2015: @authorCommitsFrom2015} do %>
+        <%= content_tag "div", id: "git_data", data: {authors: @authors, commits: @commits} do %>
         <% end %>
         <%= javascript_include_tag "d3.v3.min.js" %>
         <%= javascript_include_tag "nvd3.js" %>
@@ -17,7 +17,7 @@
             <h2 id="title">Git-kaaviot kai tänne</h2>
         </div>
 
-        <div id="chart">
+        <div id="charts">
             <svg></svg>
         </div>
 

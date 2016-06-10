@@ -1,13 +1,11 @@
 class GitHandler
   def self.author_commits
     data = []
-    authors = Author.all
-    # .sort_by{|a| -(a.commits.where("stamp > 1420070400").count || 0)}
-
+    authors = Author.all.sort_by{|a| (a.commits.where("stamp > 1420070400").count || 0)}.last(100)
     authors.each do |author|
-      data << {label: author.name, value: author.commits.count}
+      data << {label: author.name, value: author.commits.where("stamp > 1420070400").count}
     end
-    [data]
+    data
   end
 end
 
