@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608120011) do
+ActiveRecord::Schema.define(version: 20160610074814) do
 
   create_table "authors", force: :cascade do |t|
     t.string   "name"
@@ -46,6 +46,61 @@ ActiveRecord::Schema.define(version: 20160608120011) do
     t.integer  "stamp"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "gerrit_changes", force: :cascade do |t|
+    t.string   "kind"
+    t.string   "id_from_gerrit"
+    t.string   "project"
+    t.string   "branch"
+    t.string   "change_id"
+    t.string   "subject"
+    t.string   "status"
+    t.string   "created"
+    t.string   "updated"
+    t.boolean  "mergeable"
+    t.string   "sortkey"
+    t.integer  "number"
+    t.integer  "gerrit_owner_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "gerrit_code_reviews", force: :cascade do |t|
+    t.string   "change_id_from_gerrit"
+    t.integer  "gerrit_change_id"
+    t.integer  "gerrit_owner_id"
+    t.integer  "value"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "gerrit_messages", force: :cascade do |t|
+    t.string   "message_id"
+    t.string   "date"
+    t.string   "message"
+    t.integer  "revision_number"
+    t.integer  "gerrit_owner_id"
+    t.integer  "gerrit_change_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "gerrit_owners", force: :cascade do |t|
+    t.integer  "account_id"
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "gerrit_sanity_reviews", force: :cascade do |t|
+    t.string   "change_id_from_gerrit"
+    t.integer  "gerrit_change_id"
+    t.integer  "gerrit_owner_id"
+    t.integer  "value"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "posts", force: :cascade do |t|
