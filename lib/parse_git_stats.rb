@@ -40,8 +40,8 @@ class ParseGitStats
 
 
   def self.iterate_over_qt_projects strategy
-    # old_logger = ActiveRecord::Base.logger
-    # ActiveRecord::Base.logger = nil
+    old_logger = ActiveRecord::Base.logger
+    ActiveRecord::Base.logger = nil
     dir='/Users/Studies/koulu/qt-software-project/qt-projects'
     Dir.foreach(dir) do |file|
       next if file == '.' or file == '..' or file == '.git'
@@ -51,7 +51,7 @@ class ParseGitStats
         save_repo_data file
       end
     end
-    # ActiveRecord::Base.logger = old_logger
+    ActiveRecord::Base.logger = old_logger
   end
 
   def self.generate_git_stats file

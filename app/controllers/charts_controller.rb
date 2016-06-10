@@ -12,8 +12,11 @@ class ChartsController < ApplicationController
   end
 
   def gitCharts
+    # @authors = Author.all
+    @authors = GitHandler.author_commits
+    @commits = Commit.where("stamp > 1420070400")
     # 2015 jälkeiset authorien commitit
-    @authorCommitsFrom2015 = GitHandler.author_commits
+    # @authors = Author.all.sort_by{|a| -(a.commits.where("stamp > 1420070400").count || 0)}
     # @commits = Commit.all
 
   end
