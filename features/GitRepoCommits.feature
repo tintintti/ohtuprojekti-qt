@@ -6,4 +6,4 @@ Scenario: User views git charts
 Given there is data in the database
 Given I have logged in
 When I go to git charts
-Then I should see "Git-kaaviot"
+Then I should see "commit"
