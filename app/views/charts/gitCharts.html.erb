@@ -2,8 +2,10 @@
     <!DOCTYPE html>
     <meta charset="utf-8">
     <body>
-        <button type="button" class="btn btn-primary active" onclick=drawAuthorPieChart()>asd</button>
-        <div class="container"></div>
+
+        <div class="container">
+          <button type="button" class="btn btn-primary active" onclick=drawAuthorPieChart()>Näytä Viimeisimmän vuoden top 100 committaajaa</button>
+        </div>
         <%= content_tag "div", id: "git_data", data: {authors: @authors, commits: @commits} do %>
         <% end %>
         <%= javascript_include_tag "d3.v3.min.js" %>
@@ -17,9 +19,7 @@
             <h2 id="title">Git-kaaviot kai tänne</h2>
         </div>
 
-        <div id="charts">
-            <svg></svg>
-        </div>
+        <div id="charts"></div>
 
     </body>
 </html>
