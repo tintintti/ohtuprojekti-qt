@@ -100,7 +100,10 @@ end
 Given /^there is data in the database$/ do
   FactoryGirl.reload
   FactoryGirl.create(:topic)
+  FactoryGirl.create(:repository)
   for i in 0..12
+    FactoryGirl.create(:author)
+    FactoryGirl.create(:commit)
     FactoryGirl.create(:user)
     FactoryGirl.create(:post)
     FactoryGirl.create(:post_user_one)
@@ -135,6 +138,10 @@ end
 
 When /^I click a slice on piechart$/ do
   all(".nv-slice")[0].click
+end
+
+Then /^there should be an author chart$/ do
+  save_and_open_page
 end
 
 Then /^there should be a piechart$/ do
