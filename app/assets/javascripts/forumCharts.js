@@ -21,7 +21,7 @@ function drawEmailPieChart() {
 }
 
 function drawPosterPieChart() {
-    insertMinButton();
+    addMinPostsButton();
     var totalPosts = getTotalPostCount(postData);
     addTitle("#charts", "pieChartTitle", "Viimeiset " + totalPosts + " viestiä käyttäjien mukaan");
     drawWithMinPosts(10);
@@ -29,8 +29,9 @@ function drawPosterPieChart() {
 
 function drawWithMinPosts(minPosts) {
     if (minPosts > 0) {
-        var postsByMin = getPostCountsByUsers(postData, minPosts);
-        drawPieChart("posts", postsByMin, true, "#charts");
+      emptyPieChart();
+      var postsByMin = sortPostsByMin(minPosts);
+      drawPieChart("posts", postsByMin, true, "#charts");
     }
 }
 
@@ -40,28 +41,22 @@ function drawPosterBarChart() {
     drawBarChart(divideUsersIntoPostCountGroups(), "#charts", labels);
 }
 
+function sortPostsByMin(min) {
+    var dataAndTotal = getDataWithCountsAndTotalUnderMin(postData, min);
+    var data = dataAndTotal[0];
+    var total = dataAndTotal[1];
+    if (min > 1) {
+        data.push({
+            "label": "users w/ <" + min + " posts",
+            "value": total
+        })
+    }
+    return objectSorter(data);
+}
+
 //Ohjaa haettavan Qt:n foorumin käyttäjän sivuille
 function redirectToQtUserPage(name) {
     if (!name.includes("users w/")) window.open("http://forum.qt.io/user/" + $("#forum_data").data().postcounts[1][name]);
-}
-
-//Hakee erikseen postausmäärät käyttäjiltä joilla on yli n postia ja laskee
-//myös yhteen alle n-postisten käyttäjien postausmäärän.
-function getPostCountsByUsers(postCounts, minPosts) {
-    var data = []
-    var postCountForGroupedUsers = 0;
-    for (var postCount in postCounts) {
-        if (postCounts[postCount].value < minPosts) {
-            postCountForGroupedUsers++;
-        } else {
-            data.push(postCounts[postCount])
-        }
-    }
-    data.push({
-        "label": "users w/ <" + minPosts + " posts",
-        "value": postCountForGroupedUsers
-    })
-    return objectSorter(data);
 }
 
 function getTotalPostCount(postCounts) {
@@ -86,7 +81,7 @@ function listUsersOfProvider(emailprovider) {
     document.getElementById("usernames").appendChild(makeUL(userArray));
 }
 
-function insertMinButton() {
+function addMinPostsButton() {
     document.getElementById("buttonFeature").innerHTML =
         "<input type=number value=10 id='minimum'/><p><input type = button value = 'Aseta viestien minimimäärä' onclick = 'drawWithMinPosts(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
 }

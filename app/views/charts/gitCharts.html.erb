@@ -4,7 +4,7 @@
     <body>
 
         <div class="container">
-          <button type="button" class="btn btn-primary active" onclick=drawAuthorPieChart()>Näytä qt:n committaajat</button>
+          <button type="button" class="btn btn-primary active" onclick=drawAuthorPieChart()>Näytä Qt:n committaajat</button>
         </div>
         <%= content_tag "div", id: "git_data", data: {authors: @authors, commits: @commits} do %>
         <% end %>
@@ -14,6 +14,8 @@
         <%= stylesheet_link_tag "nvcss.css" %>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+        <div class="container" id="buttonFeature"></div>
 
         <div id="charts"></div>
 

@@ -6,4 +6,4 @@ Scenario: User views gerrit charts
 Given there is data in the database
 Given I have logged in
 When I go to gerrit charts
-Then I should see "gerrit stuff"
+Then I should see "Muutosten omistajat"
