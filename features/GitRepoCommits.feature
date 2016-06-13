@@ -6,4 +6,5 @@ Scenario: User views git charts
 Given there is data in the database
 Given I have logged in
 When I go to git charts
-Then I should see "commit"
+When I press "Näytä qt:n committaajat"
+Then there should be an author chart

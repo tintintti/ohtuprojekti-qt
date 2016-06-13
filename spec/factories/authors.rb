@@ -1,7 +1,9 @@
 FactoryGirl.define do
+
   factory :author do
-    name "MyString"
-    email "MyString"
-    linked_id 1
+    sequence(:name) { |n| "testAuthor#{n}" }
+    sequence(:email) { |n| "author#{n}@test.fi" }
+    linked_id nil
   end
+
 end
