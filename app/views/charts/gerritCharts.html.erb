@@ -4,9 +4,10 @@
     <body>
         <h2 class="container">gerrit stuff</h2>
         <div class="container">
-          <button type="button" class="btn"><%= link_to 'Päivitä data (kestää ikuisuuden)', gerrit_charts_path(download:true) %></button>
+          <!-- <button type="button" class="btn"><%= link_to 'Päivitä data (kestää ikuisuuden)', gerrit_charts_path(download:true) %></button> -->
         </div>
-        <%= content_tag "div", id: "gerrit_data", data: {owners: @owners } do %>
+        <p id="waiting"></p>
+        <%= content_tag "div", id: "gerrit_data", data: {owners: @owners , message: @message} do %>
         <% end %>
         <%= javascript_include_tag "d3.v3.min.js" %>
         <%= javascript_include_tag "nvd3.js" %>

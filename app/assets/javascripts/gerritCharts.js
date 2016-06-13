@@ -1,26 +1,33 @@
-var ownerData;
-drawOwnerCharts();
+$(document).ready(function(){
+  var ownerData = $("#gerrit_data").data().owners;
+  if (ownerData != null) {
+    $('#waiting').empty();
+    emptyCharts();
+    drawOwnerCharts(ownerData);
+  } else {
+    $('#waiting').text("Waiting for data. Please check back again later.");
+  }
+})
 
-function drawOwnerCharts() {
-    ownerData = $("#gerrit_data").data().owners;
-    drawOwnerPieChart();
-    drawOwnerBarChart();
+function drawOwnerCharts(data) {
+    drawOwnerPieChart(data);
+    drawOwnerBarChart(data);
 }
 
-function drawOwnerPieChart() {
+function drawOwnerPieChart(data) {
     addTitle("#charts", "pieChartTitle", "Muutosten omistajat");
-    drawPieChart("owners", ownerData, true, "#charts");
+    drawPieChart("owners", data, true, "#charts");
 }
 
-function drawOwnerBarChart() {
+function drawOwnerBarChart(data) {
     addTitle("#charts", "barChartTitle", "Omistajat muutosten määrän mukaan");
     var labels = ["Omistajien määrä", "Muutosten määrä"];
-    drawBarChart(divideOwnersIntoChangeCountGroups(), "#charts", labels);
+    drawBarChart(divideOwnersIntoChangeCountGroups(data), "#charts", labels);
 }
 
-function divideOwnersIntoChangeCountGroups() {
+function divideOwnersIntoChangeCountGroups(data) {
   var labels = createOwnerBarChartLabels();
-  return createBarChartGroups(ownerData, labels);
+  return createBarChartGroups(data, labels);
 }
 
 function createOwnerBarChartLabels() {

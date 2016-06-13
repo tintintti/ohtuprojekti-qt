@@ -22,15 +22,22 @@ class ChartsController < ApplicationController
   end
 
   def gerritCharts
-    download = params[:download]
+    owners_data = Rails.cache.read "owners_data"
 
-    if download.nil?
-      @owners = Rails.cache.read "owners_data"
+    if Rails.cache.read("downloading") != true && owners_data == nil
+      Rails.cache.write "downloading", true
+      GerritData.delay.perform_later
     else
-      owners_data = OwnerHandler.changes_by_owner
       @owners = owners_data
-      Rails.cache.write "owners_data", owners_data
     end
+
+    # download = params[:download]
+    #
+    # if download.nil?
+    #   @owners = Rails.cache.read "owners_data"
+    # else
+    #   owners_data = GerritData.perform_later
+    # end
   end
 
 

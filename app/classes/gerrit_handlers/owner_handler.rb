@@ -2,7 +2,7 @@ class OwnerHandler
   @downloader = GerritDownloader.new
 
   def self.changes_by_owner
-      changes = @downloader.changes
+      changes = @downloader.n_changes 20
       details = fetch_details(changes)
 
       data = []
