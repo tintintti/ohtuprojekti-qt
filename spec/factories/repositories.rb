@@ -1,5 +1,7 @@
 FactoryGirl.define do
+
   factory :repository do
-    name :name
+    sequence(:name) { |n| "reposirory #{n}" }
   end
+
 end

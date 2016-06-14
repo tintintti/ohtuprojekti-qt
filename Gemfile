@@ -29,6 +29,9 @@ group :production do
    gem 'rails_12factor'
 end
 
+gem 'delayed_job_active_record'
+gem "daemons"
+
 gem "codeclimate-test-reporter", group: :test, require: nil
 
 # Use SCSS for stylesheets
@@ -44,6 +47,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+gem 'jquery-turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.

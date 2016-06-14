@@ -12,19 +12,32 @@ class ChartsController < ApplicationController
   end
 
   def gitCharts
+    # @authors = Author.all
+    @authors = GitHandler.author_commits
+    @commits = Commit.where("stamp > 1420070400")
+    # 2015 jälkeiset authorien commitit
+    # @authors = Author.all.sort_by{|a| -(a.commits.where("stamp > 1420070400").count || 0)}
+    # @commits = Commit.all
 
   end
 
   def gerritCharts
-    download = params[:download]
+    owners_data = Rails.cache.read "owners_data"
 
-    if download.nil?
-      @owners = Rails.cache.read "owners_data"
+    if Rails.cache.read("downloading") != true && owners_data == nil
+      Rails.cache.write "downloading", true
+      GerritData.delay.perform_later
     else
-      owners_data = OwnerHandler.changes_by_owner
       @owners = owners_data
-      Rails.cache.write "owners_data", owners_data
     end
+
+    # download = params[:download]
+    #
+    # if download.nil?
+    #   @owners = Rails.cache.read "owners_data"
+    # else
+    #   owners_data = GerritData.perform_later
+    # end
   end
 
 

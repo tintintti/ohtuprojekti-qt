@@ -36,7 +36,7 @@ FactoryGirl.define do
     lastposttimeISO "time"
   end
   factory :topic_no_user, class: Topic do
-    tid 2
+    tid 3
     uid 5
     cid 1
     mainPid 1

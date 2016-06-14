@@ -2,8 +2,12 @@
     <!DOCTYPE html>
     <meta charset="utf-8">
     <body>
+
         <div class="container">
-       </div>
+          <button type="button" class="btn btn-primary active" onclick=drawAuthorPieChart()>Näytä Qt:n committaajat</button>
+        </div>
+        <%= content_tag "div", id: "git_data", data: {authors: @authors, commits: @commits} do %>
+        <% end %>
         <%= javascript_include_tag "d3.v3.min.js" %>
         <%= javascript_include_tag "nvd3.js" %>
         <%= javascript_include_tag "gitCharts.js" %>
@@ -11,13 +15,9 @@
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-        <div class="container">
-            <h2 id="title">Git-kaaviot kai tänne</h2>
-        </div>
+        <div class="container" id="buttonFeature"></div>
 
-        <div id="chart">
-            <svg></svg>
-        </div>
+        <div id="charts"></div>
 
     </body>
 </html>

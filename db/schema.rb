@@ -13,30 +13,13 @@
 
 ActiveRecord::Schema.define(version: 20160610074814) do
 
+
   create_table "authors", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.integer  "linked_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "categories", force: :cascade do |t|
-    t.integer  "cid"
-    t.string   "name"
-    t.string   "description"
-    t.string   "slug"
-    t.string   "parentCid"
-    t.integer  "topic_count"
-    t.integer  "post_count"
-    t.boolean  "disabled"
-    t.integer  "order"
-    t.string   "link"
-    t.integer  "numRecentReplies"
-    t.integer  "totalPostCount"
-    t.integer  "totalTopicCount"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
   end
 
   create_table "commits", force: :cascade do |t|
@@ -102,6 +85,22 @@ ActiveRecord::Schema.define(version: 20160610074814) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
   end
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "posts", force: :cascade do |t|
     t.integer  "pid"

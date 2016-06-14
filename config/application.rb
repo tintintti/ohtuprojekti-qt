@@ -25,5 +25,6 @@ module QtSoftwareProject
     config.autoload_paths += Dir["#{Rails.root}/lib"]
     config.autoload_paths += Dir["#{Rails.root}/app/classes/forum_handlers"]
     config.autoload_paths += Dir["#{Rails.root}/app/classes/gerrit_handlers"]
+    config.autoload_paths += Dir["#{Rails.root}/app/classes/git_handlers"]
   end
 end
