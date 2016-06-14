@@ -27,8 +27,10 @@ class ParseGerritData
         change = GerritChange.find_by id_from_gerrit: current['id']
       end
 
-      current['messages'].each do |message|
-        self.create_message(message, change.id)
+      if current['messages']
+        current['messages'].each do |message|
+          self.create_message(message, change.id)
+        end
       end
 
       current['labels']['Code-Review']['all'].each do |codereview|
@@ -55,13 +57,18 @@ class ParseGerritData
   end
 
   def self.create_message(message, change_id)
-    author = self.create_owner(message['author'])
-    if author.id.nil?
-      author = GerritOwner.find_by account_id: message['author']['_account_id']
+    authorId = 0
+
+    if message['author']
+      author = self.create_owner(message['author'])
+      if author.id.nil?
+        author = GerritOwner.find_by account_id: message['author']['_account_id']
+      end
+      authorId = author.id
     end
 
     GerritMessage.create(message_id:message['id'], date:message['date'],
-                    message:message['message'], gerrit_owner_id:author.id,
+                    message:message['message'], gerrit_owner_id:authorId,
                     revision_number:message['_revision_number'], gerrit_change_id:change_id)
   end
 
