@@ -5,7 +5,12 @@ class ParseGerritData
   def self.download_details
     changes = @downloader.n_changes(10)
     details = OwnerHandler.fetch_details(changes)
+  end
 
+  def self.fetch_and_save_changes_data(n)
+    changes = @downloader.n_changes(n)
+    details = OwnerHandler.fetch_details(changes)
+    self.parse_all(details)
   end
 
   def self.parse_all(changes)
@@ -35,8 +40,6 @@ class ParseGerritData
       end
 
     end
-
-  return "a<s"
   end
 
   def self.create_owner(change_owner)
@@ -52,7 +55,6 @@ class ParseGerritData
   end
 
   def self.create_message(message, change_id)
-
     author = self.create_owner(message['author'])
     if author.id.nil?
       author = GerritOwner.find_by account_id: message['author']['_account_id']
