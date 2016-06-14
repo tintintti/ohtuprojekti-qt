@@ -5,6 +5,14 @@ function emptyCharts() {
   d3.selectAll("#charts > *").remove();
 }
 
+function emptyPieChart() {
+  d3.selectAll("#pieChart > *").remove();
+}
+
+function emptyBarChart() {
+  d3.selectAll("#barChart > *").remove();
+}
+
 function makeUL(array) {
     var list = document.createElement('ul');
     for (var i = 0; i < array.length; i++) {
@@ -91,6 +99,19 @@ function objectSorter(array) {
     return array.sort(function(a, b) {
         return parseInt(a.value) - parseInt(b.value);
     });
+}
+
+function getDataWithCountsAndTotalUnderMin(counts, min) {
+    var data = []
+    var totalCountsUnderMin = 0;
+    for (var count in counts) {
+        if (counts[count].value < min) {
+            totalCountsUnderMin++;
+        } else {
+            data.push(counts[count])
+        }
+    }
+    return [data, totalCountsUnderMin];
 }
 
 function drawBarChart(data, divName, labels) {

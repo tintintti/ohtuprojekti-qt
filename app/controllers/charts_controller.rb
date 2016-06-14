@@ -12,13 +12,15 @@ class ChartsController < ApplicationController
   end
 
   def gitCharts
-    # @authors = Author.all
-    @authors = GitHandler.author_commits
-    @commits = Commit.where("stamp > 1420070400")
-    # 2015 jälkeiset authorien commitit
-    # @authors = Author.all.sort_by{|a| -(a.commits.where("stamp > 1420070400").count || 0)}
-    # @commits = Commit.all
-
+    time = params[:time]
+    amount = params[:amount]
+    if time == nil
+      time = "01/01/2015".to_date
+    end
+    if amount == nil
+      amount = 100
+    end
+    @authors = GitHandler.author_commits time.to_time.to_i, amount.to_i
   end
 
   def gerritCharts
