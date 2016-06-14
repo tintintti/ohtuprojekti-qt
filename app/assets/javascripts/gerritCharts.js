@@ -19,11 +19,11 @@ function drawOwnerCharts(data) {
 function drawOwnerPieChart(data) {
     addMinOwnersButton();
     addTitle("#charts", "pieChartTitle", "Muutosten omistajat");
-    drawPieChart("owners", data, true, "#charts");
+    drawWithMinOwners(1);
 }
 
 function drawWithMinOwners(minOwners) {
-    if (minOwners >= 0) {
+    if (minOwners > 0) {
         emptyPieChart();
         var ownersByMin = getOwnersByMin(minOwners);
         drawPieChart("owners", ownersByMin, true, "#charts");
@@ -37,16 +37,8 @@ function drawOwnerBarChart(data) {
 }
 
 function getOwnersByMin(min) {
-    var dataAndTotal = getDataWithCountsAndTotalUnderMin(ownerData, min);
-    var data = dataAndTotal[0];
-    var total = dataAndTotal[1];
-    if (min > 1) {
-        data.push({
-            "label": "owners w/ <" + min + " changes",
-            "value": total
-        })
-    }
-    return objectSorter(data);
+    var labelWords = ["owners", "changes"];
+    return sortDataWithMin(ownerData, min, labelWords);
 }
 
 function divideOwnersIntoChangeCountGroups(data) {
@@ -56,7 +48,7 @@ function divideOwnersIntoChangeCountGroups(data) {
 
 function addMinOwnersButton() {
     document.getElementById("buttonFeature").innerHTML =
-        "<input type=number value=0 id='minimum'/><p><input type = button value = 'Aseta muutosten minimimäärä' onclick = 'drawWithMinOwners(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
+        "<input type=number value=1 id='minimum'/><p><input type = button value = 'Aseta muutosten minimimäärä' onclick = 'drawWithMinOwners(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
 }
 
 function createOwnerBarChartLabels() {

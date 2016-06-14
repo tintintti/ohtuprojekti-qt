@@ -101,7 +101,7 @@ function objectSorter(array) {
     });
 }
 
-function getDataWithCountsAndTotalUnderMin(counts, min) {
+function sortDataWithMin(counts, min, labelWords) {
     var data = []
     var totalCountsUnderMin = 0;
     for (var count in counts) {
@@ -111,7 +111,13 @@ function getDataWithCountsAndTotalUnderMin(counts, min) {
             data.push(counts[count])
         }
     }
-    return [data, totalCountsUnderMin];
+    if (min > 1) {
+        data.push({
+            "label": labelWords[0] + " w/ <" + min + " " + labelWords[1],
+            "value": totalCountsUnderMin
+        });
+    }
+    return objectSorter(data);
 }
 
 function drawBarChart(data, divName, labels) {
