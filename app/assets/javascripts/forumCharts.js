@@ -42,7 +42,7 @@ function drawPosterBarChart() {
 }
 
 function getPostsByMin(min) {
-    var labelWords = ["users", "messages"];
+    var labelWords = ["users", "posts"];
     return sortDataWithMin(postData, min, labelWords);
 }
 
