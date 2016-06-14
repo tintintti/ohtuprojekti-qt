@@ -4,8 +4,15 @@
     <body>
 
         <div class="container">
+          <%= form_tag git_charts_path do %>
+            <%= submit_tag "Rajaa dataa" %>
+            Aika <%= date_field_tag :time, params[:time] || Date.today %>
+            Määrä <%= text_field_tag :amount, params[:amount] || 100 %>
+          <% end %>
+
           <button type="button" class="btn btn-primary active" onclick=drawAuthorPieChart()>Näytä Qt:n committaajat</button>
         </div>
+
         <%= content_tag "div", id: "git_data", data: {authors: @authors, commits: @commits} do %>
         <% end %>
         <%= javascript_include_tag "d3.v3.min.js" %>
