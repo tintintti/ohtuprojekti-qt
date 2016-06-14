@@ -19,7 +19,7 @@ function drawOwnerCharts(data) {
 function drawOwnerPieChart(data) {
     addMinOwnersButton();
     addTitle("#charts", "pieChartTitle", "Muutosten omistajat");
-    drawWithMinOwners(1);
+    drawPieChart("owners", ownerData, true, "#charts");
 }
 
 function drawWithMinOwners(minOwners) {
