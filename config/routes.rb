@@ -18,9 +18,10 @@ Rails.application.routes.draw do
   get 'forum_charts' => 'charts#forumCharts'
 
   get 'git_charts' => 'charts#gitCharts'
+  post 'git_charts' => 'charts#gitCharts'
 
   get 'gerrit_charts' => 'charts#gerritCharts'
-  
+
   get 'authors' => 'application#authors'
   get 'index.html' => 'application#index'
   get 'activity.html' => 'application#activity'
@@ -29,6 +30,7 @@ Rails.application.routes.draw do
   get 'tags.html' => 'application#tags'
 
   post 'session', to:'sessions#create'
+
 
   delete 'logout', to:'sessions#destroy'
 
