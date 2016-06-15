@@ -140,10 +140,11 @@ When /^I click a slice on piechart$/ do
   all(".nv-slice")[0].click
 end
 
-Then /^there should be an author chart$/ do
-  save_and_open_page
+When /^I limit authors to (.+)$/ do |amount|
+  fill_in 'time', :with => '01/01/2014'
+  fill_in 'amount', :with => amount
+  click_button('Rajaa dataa')
 end
-
 Then /^there should be a piechart$/ do
   expect(page).to have_css(".nvd3-svg")
   find(:xpath, '//*[@class="nvd3 nv-wrap nv-pieChart"]')
