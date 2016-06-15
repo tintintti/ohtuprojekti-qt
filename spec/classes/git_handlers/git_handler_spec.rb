@@ -5,11 +5,8 @@ RSpec.describe GitHandler do
   before(:each) do
     FactoryGirl.reload
 
-    authors = FactoryGirl.build_list(:author, 5)
-    commits = FactoryGirl.build_list(:commit, 5)
-
+    authors = FactoryGirl.create_list(:author, 5)
     Author.stubs(:all).returns(authors)
-    Commit.stubs(:where).returns(commits)
   end
 
   it "author_commits returns right amount of authors" do
