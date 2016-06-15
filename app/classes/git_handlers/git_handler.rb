@@ -4,8 +4,11 @@ class GitHandler
     data = []
     authors = Author.all.sort_by{|a| (a.commits.where(timeFrame).count || 0)}.last(amount)
     authors.each do |author|
-      label = author.name #+  " " + author.email
-      data << {label: label, value: author.commits.where(timeFrame).count}
+      label = author.name
+      value = author.commits.where(timeFrame).count #+  " " + author.email
+      if (value > 0)
+        data << {label: label, value: value}
+      end
     end
     data
   end

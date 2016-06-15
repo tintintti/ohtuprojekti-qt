@@ -145,6 +145,13 @@ When /^I limit authors to (.+)$/ do |amount|
   fill_in 'amount', :with => amount
   click_button('Rajaa dataa')
 end
+
+When /^I limit commit count to start from (.+)$/ do |time|
+  fill_in 'time', :with => time
+  fill_in 'amount', :with => 100
+  click_button('Rajaa dataa')
+end
+
 Then /^there should be a piechart$/ do
   expect(page).to have_css(".nvd3-svg")
   find(:xpath, '//*[@class="nvd3 nv-wrap nv-pieChart"]')
