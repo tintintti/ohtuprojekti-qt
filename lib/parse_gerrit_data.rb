@@ -13,6 +13,12 @@ class ParseGerritData
     self.parse_all(details)
   end
 
+  def self.fetch_and_save_merged_changes(n)
+    changes = @downloader.n_changes_with_status(n, 'merged')
+    details = OwnerHandler.fetch_details(changes)
+    self.parse_all(details)
+  end
+
   def self.parse_all(changes)
 
     changes.each do |current|
