@@ -5,19 +5,19 @@ $(document).ready(function() {
     if (ownerData != null) {
         $('#waiting').empty();
         emptyCharts();
-        drawOwnerCharts(ownerData);
+        drawOwnerCharts();
     } else {
         $('#waiting').text("Waiting for data. Please check back again later.");
     }
 })
 
-function drawOwnerCharts(data) {
-    drawOwnerPieChart(data);
-    drawOwnerBarChart(data);
+function drawOwnerCharts() {
+    drawOwnerPieChart();
+    drawOwnerBarChart();
 }
 
-function drawOwnerPieChart(data) {
-    addMinOwnersButton();
+function drawOwnerPieChart() {
+    insertMinOwnersButton();
     addTitle("#charts", "pieChartTitle", "Muutosten omistajat");
     drawPieChart("owners", ownerData, true, "#charts");
 }
@@ -30,10 +30,10 @@ function drawWithMinOwners(minOwners) {
     }
 }
 
-function drawOwnerBarChart(data) {
+function drawOwnerBarChart() {
     addTitle("#charts", "barChartTitle", "Omistajat muutosten määrän mukaan");
     var labels = ["Omistajien määrä", "Muutosten määrä"];
-    drawBarChart(divideOwnersIntoChangeCountGroups(data), "#charts", labels);
+    drawBarChart(divideOwnersIntoChangeCountGroups(ownerData), "#charts", labels);
 }
 
 function getOwnersByMin(min) {
@@ -46,7 +46,7 @@ function divideOwnersIntoChangeCountGroups(data) {
     return createBarChartGroups(data, labels);
 }
 
-function addMinOwnersButton() {
+function insertMinOwnersButton() {
     document.getElementById("buttonFeature").innerHTML =
         "<input type=number value=1 id='minimum'/><p><input type = button value = 'Aseta muutosten minimimäärä' onclick = 'drawWithMinOwners(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
 }

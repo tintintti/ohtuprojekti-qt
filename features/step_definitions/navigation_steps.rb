@@ -157,7 +157,12 @@ Then /^there should be a piechart$/ do
   find(:xpath, '//*[@class="nvd3 nv-wrap nv-pieChart"]')
 end
 
-Then /^there should be a barchart with data$/ do
+Then /^there should be a barchart$/ do
+  expect(page).to have_css(".nvd3-svg")
+  find(:xpath, '//*[@class="nvd3 nv-wrap nv-discreteBarWithAxes"]')
+end
+
+Then /^there should be a barchart with post data$/ do
   expect(page).to have_css(".nvd3-svg")
   find(:xpath, '//*[@class="nvd3 nv-wrap nv-discreteBarWithAxes"]')
   expect(page).to have_content("Käyttäjät viestimäärien mukaan") #title

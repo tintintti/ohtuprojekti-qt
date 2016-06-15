@@ -21,7 +21,7 @@ function drawEmailPieChart() {
 }
 
 function drawPosterPieChart() {
-    addMinPostsButton();
+    insertMinPostsButton();
     var totalPosts = getTotalPostCount(postData);
     addTitle("#charts", "pieChartTitle", "Viimeiset " + totalPosts + " viestiä käyttäjien mukaan");
     drawWithMinPosts(10);
@@ -73,7 +73,7 @@ function listUsersOfProvider(emailprovider) {
     document.getElementById("usernames").appendChild(makeUL(userArray));
 }
 
-function addMinPostsButton() {
+function insertMinPostsButton() {
     document.getElementById("buttonFeature").innerHTML =
         "<input type=number value=10 id='minimum'/><p><input type = button value = 'Aseta viestien minimimäärä' onclick = 'drawWithMinPosts(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
 }
