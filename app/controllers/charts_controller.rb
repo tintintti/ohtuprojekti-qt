@@ -15,7 +15,7 @@ class ChartsController < ApplicationController
     time = params[:time]
     amount = params[:amount]
     if time == nil
-      time = "01/01/2015".to_date
+      time =  Time.at(Commit.all.sort_by{|a| a.stamp}.first.stamp).to_date
     end
     if amount == nil
       amount = 100
