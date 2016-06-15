@@ -6,7 +6,7 @@
         <div class="container">
           <%= form_tag git_charts_path do %>
             <%= submit_tag "Rajaa dataa" %>
-            Aika <%= date_field_tag :time, params[:time] || "01/01/2015" %>
+            Aika <%= date_field_tag :time, params[:time] || "01/01/2015".to_date %>
             Määrä <%= text_field_tag :amount, params[:amount] || 100 %>
           <% end %>
           <p></p>
