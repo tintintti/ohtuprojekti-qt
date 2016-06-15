@@ -15,17 +15,13 @@ function drawAuthorPieChart() {
 
 function drawAuthorBarChart() {
     addTitle("#charts", "barChartTitle", "Tekijät committien määrän mukaan");
-    var labels = ["Tekijöiden määrä", "Committien määrä"];
-    drawBarChart(divideAuthorsIntoChangeCountGroups(authorData), "#charts", labels);
-}
-
-function divideAuthorsIntoChangeCountGroups(data) {
-    var labels = createAuthorBarChartLabels();
-    return createBarChartGroups(data, labels);
+    var xyLabels = ["Committien määrä", "Tekijöiden määrä"];
+    var groupLabels = createAuthorBarChartGroupLabels();
+    drawBarChart(createBarChartGroups(authorData, groupLabels), "#charts", xyLabels);
 }
 
 
-function createAuthorBarChartLabels() {
+function createAuthorBarChartGroupLabels() {
     var labels = [
         ["1-49", 1, 49],
         ["50-99", 50, 99],

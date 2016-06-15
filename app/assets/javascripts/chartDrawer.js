@@ -120,7 +120,7 @@ function sortDataWithMin(counts, min, labelWords) {
     return objectSorter(data);
 }
 
-function drawBarChart(data, divName, labels) {
+function drawBarChart(data, divName, xyLabels) {
   addSvg(divName, "barChart");
 
   var barChartData = [{
@@ -140,11 +140,12 @@ function drawBarChart(data, divName, labels) {
         .showValues(true)       //...instead, show the bar value right on top of each bar.
         .valueFormat(d3.format(".0f"))
         .height(height)
-        chart.yAxis.tickFormat(d3.format(',f'))
-        chart.yAxis.axisLabel(labels[0])
+        chart.xAxis.axisLabel(xyLabels[0])
         .axisLabelDistance(-14)
-        chart.xAxis.axisLabel(labels[1])
-        .axisLabelDistance(-14);
+        chart.yAxis.axisLabel(xyLabels[1])
+        .axisLabelDistance(-14)
+        chart.yAxis.tickFormat(d3.format(',f'));
+
 
     d3.select("#barChart")
         .datum(barChartData)
