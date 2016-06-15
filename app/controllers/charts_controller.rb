@@ -15,12 +15,12 @@ class ChartsController < ApplicationController
     time = params[:time]
     amount = params[:amount]
     if time == nil
-      time = "01/01/2015"
+      time = "01/01/2015".to_date
     end
     if amount == nil
       amount = 100
     end
-    @authors = GitHandler.author_commits time.to_date.to_time.to_i, amount.to_i
+    @authors = GitHandler.author_commits time.to_time.to_i, amount.to_i
   end
 
   def gerritCharts

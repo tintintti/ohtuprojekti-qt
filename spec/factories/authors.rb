@@ -7,7 +7,6 @@ FactoryGirl.define do
     after(:build) do |author|
       author.commits << FactoryGirl.build(:commit, :author_id => author)
     end
-
   end
 
 end
