@@ -21,24 +21,6 @@ ActiveRecord::Schema.define(version: 20160610074814) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "categories", force: :cascade do |t|
-    t.integer  "cid"
-    t.string   "name"
-    t.string   "description"
-    t.string   "slug"
-    t.string   "parentCid"
-    t.integer  "topic_count"
-    t.integer  "post_count"
-    t.boolean  "disabled"
-    t.integer  "order"
-    t.string   "link"
-    t.integer  "numRecentReplies"
-    t.integer  "totalPostCount"
-    t.integer  "totalTopicCount"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-  end
-
   create_table "commits", force: :cascade do |t|
     t.integer  "repository_id"
     t.integer  "author_id"

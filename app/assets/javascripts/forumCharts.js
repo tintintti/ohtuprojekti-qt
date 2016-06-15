@@ -30,7 +30,7 @@ function drawPosterPieChart() {
 function drawWithMinPosts(minPosts) {
     if (minPosts > 0) {
       emptyPieChart();
-      var postsByMin = sortPostsByMin(minPosts);
+      var postsByMin = getPostsByMin(minPosts);
       drawPieChart("posts", postsByMin, true, "#charts");
     }
 }
@@ -41,17 +41,9 @@ function drawPosterBarChart() {
     drawBarChart(divideUsersIntoPostCountGroups(), "#charts", labels);
 }
 
-function sortPostsByMin(min) {
-    var dataAndTotal = getDataWithCountsAndTotalUnderMin(postData, min);
-    var data = dataAndTotal[0];
-    var total = dataAndTotal[1];
-    if (min > 1) {
-        data.push({
-            "label": "users w/ <" + min + " posts",
-            "value": total
-        })
-    }
-    return objectSorter(data);
+function getPostsByMin(min) {
+    var labelWords = ["users", "posts"];
+    return sortDataWithMin(postData, min, labelWords);
 }
 
 //Ohjaa haettavan Qt:n foorumin käyttäjän sivuille

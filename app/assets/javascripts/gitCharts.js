@@ -2,6 +2,6 @@
 var authors = $("#git_data").data().authors;
 function drawAuthorPieChart() {
     emptyCharts();
-    addTitle("#charts", "pieChartTitle", "Commitit vuoden 2015 alusta nykyhetkeen");
+    addTitle("#charts", "pieChartTitle", "Committien tekijät");
     drawPieChart("authors", authors, true, "#charts");
 }

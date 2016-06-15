@@ -140,8 +140,16 @@ When /^I click a slice on piechart$/ do
   all(".nv-slice")[0].click
 end
 
-Then /^there should be an author chart$/ do
-  save_and_open_page
+When /^I limit authors to (.+)$/ do |amount|
+  fill_in 'time', :with => '01/01/2014'
+  fill_in 'amount', :with => amount
+  click_button('Rajaa dataa')
+end
+
+When /^I limit commit count to start from (.+)$/ do |time|
+  fill_in 'time', :with => time
+  fill_in 'amount', :with => 100
+  click_button('Rajaa dataa')
 end
 
 Then /^there should be a piechart$/ do
