@@ -5,22 +5,25 @@ $(document).ready(function() {
     if (ownerData != null) {
         $('#waiting').empty();
         emptyCharts();
-        drawOwnerCharts(ownerData);
+        drawOwnerCharts();
     } else {
         $('#waiting').text("Waiting for data. Please check back again later.");
     }
 })
 
-function drawOwnerCharts(data) {
-    drawOwnerPieChart(data);
-    drawOwnerBarChart(data);
+function drawOwnerCharts() {
+    drawOwnerPieChart();
+    drawOwnerBarChart();
 }
 
-function drawOwnerPieChart(data) {
-    addMinOwnersButton();
+//Piechart-metodit
+
+function drawOwnerPieChart() {
+    insertMinOwnersButton();
     addTitle("#charts", "pieChartTitle", "Muutosten omistajat");
     drawPieChart("owners", ownerData, true, "#charts");
 }
+
 
 function drawWithMinOwners(minOwners) {
     if (minOwners > 0) {
@@ -30,28 +33,26 @@ function drawWithMinOwners(minOwners) {
     }
 }
 
-function drawOwnerBarChart(data) {
-    addTitle("#charts", "barChartTitle", "Omistajat muutosten määrän mukaan");
-    var labels = ["Omistajien määrä", "Muutosten määrä"];
-    drawBarChart(divideOwnersIntoChangeCountGroups(data), "#charts", labels);
-}
-
 function getOwnersByMin(min) {
     var labelWords = ["owners", "changes"];
     return sortDataWithMin(ownerData, min, labelWords);
 }
 
-function divideOwnersIntoChangeCountGroups(data) {
-    var labels = createOwnerBarChartLabels();
-    return createBarChartGroups(data, labels);
-}
-
-function addMinOwnersButton() {
+function insertMinOwnersButton() {
     document.getElementById("buttonFeature").innerHTML =
         "<input type=number value=1 id='minimum'/><p><input type = button value = 'Aseta muutosten minimimäärä' onclick = 'drawWithMinOwners(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
 }
 
-function createOwnerBarChartLabels() {
+//Barchart-metodit
+
+function drawOwnerBarChart() {
+    addTitle("#charts", "barChartTitle", "Omistajat muutosten määrän mukaan");
+    var xyLabels = ["Muutosten määrä", "Omistajien määrä"];
+    var groupLabels = createOwnerBarChartGroupLabels();
+    drawBarChart(createBarChartGroups(ownerData, groupLabels), "#charts", xyLabels);
+}
+
+function createOwnerBarChartGroupLabels() {
     var labels = [
         ["1", 1, 1],
         ["2", 2, 2],

@@ -10,7 +10,7 @@
             Määrä <%= text_field_tag :amount, params[:amount] || 100 %>
           <% end %>
           <p></p>
-          <button type="button" class="btn btn-primary active" onclick=drawAuthorPieChart()>Näytä kaavio</button>
+          <button type="button" class="btn btn-primary active" onclick=drawAuthorCharts()>Näytä kaavio</button>
         </div>
 
         <%= content_tag "div", id: "git_data", data: {authors: @authors, commits: @commits} do %>
