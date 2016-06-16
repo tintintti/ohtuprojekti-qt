@@ -26,6 +26,7 @@ class ChartsController < ApplicationController
     end
 
     @authors = GitHandler.author_commits time.to_time.to_i, amount.to_i
+    @emails = GitHandler.author_emails
   end
 
   def gerritCharts

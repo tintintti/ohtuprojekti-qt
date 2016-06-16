@@ -17,7 +17,7 @@
           <button type="button" class="btn btn-primary active" onclick=drawAuthorCharts()>Näytä kaaviot</button>
         </div>
 
-        <%= content_tag "div", id: "git_data", data: {authors: @authors, commits: @commits} do %>
+        <%= content_tag "div", id: "git_data", data: {authors: @authors, emails: @emails} do %>
         <% end %>
         <%= javascript_include_tag "d3.v3.min.js" %>
         <%= javascript_include_tag "nvd3.js" %>

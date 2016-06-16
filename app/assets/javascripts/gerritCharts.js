@@ -21,7 +21,7 @@ function drawOwnerCharts() {
 function drawOwnerPieChart() {
     insertMinOwnersButton();
     addTitle("#charts", "pieChartTitle", "Muutosten omistajat");
-    drawPieChart("owners", ownerData, true, "#charts");
+    drawPieChart("owners", ownerData, true, "#charts", "OwnerPieChart");
 }
 
 function drawWithMinOwners(minOwners) {
@@ -29,7 +29,7 @@ function drawWithMinOwners(minOwners) {
         emptyPieChart();
         var labelWords = ["owners", "changes"];
         var ownersByMin = sortDataWithMin(ownerData, minOwners, labelWords);
-        drawPieChart("owners", ownersByMin, true, "#charts");
+        drawPieChart("owners", ownersByMin, true, "#charts", "OwnerPieChart");
     }
 }
 
@@ -44,7 +44,7 @@ function drawOwnerBarChart() {
     addTitle("#charts", "barChartTitle", "Omistajat muutosten määrän mukaan");
     var xyLabels = ["Muutosten määrä", "Omistajien määrä"];
     var groupLabels = createOwnerBarChartGroupLabels();
-    drawBarChart(createBarChartGroups(ownerData, groupLabels), "#charts", xyLabels);
+    drawBarChart(createBarChartGroups(ownerData, groupLabels), "#charts", xyLabels, "OwnerBarChart");
 }
 
 function createOwnerBarChartGroupLabels() {

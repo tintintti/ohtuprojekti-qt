@@ -82,4 +82,49 @@ describe "ParseGerritData" do
 
   end
 
+  describe "create_message" do
+    before (:each) do
+      ParseGerritData.create_change(single_detail, 1)
+      change = ParseGerritData.create_change(single_detail, 1)
+      ParseGerritData.create_message(single_detail['messages'][0], change.id)
+    end
+
+    it "saves the message even if author is not saved" do
+      expect(GerritMessage.all.count).to be(1)
+      expect(GerritOwner.all.count).to be(1)
+    end
+
+    it "wont save a same author again" do
+      ParseGerritData.create_message(single_detail['messages'][0], 1)
+      expect(GerritMessage.all.count).to be(2)
+      expect(GerritOwner.all.count).to be(1)
+    end
+  end
+
+  describe "parse_all" do
+    before (:each) do
+      ParseGerritData.parse_all(details_parsed)
+    end
+
+    it "saves the changes correctly" do
+      expect(GerritChange.all.count).to be(2)
+    end
+
+    it "saves the owners correctly" do
+      expect(GerritOwner.all.count).to be(13)
+    end
+
+    it "saves the code reviews correctly" do
+      expect(GerritCodeReview.all.count).to be(13)
+    end
+
+    it "saves the sanity reviews correctly" do
+      expect(GerritSanityReview.all.count).to be(13)
+    end
+
+    it "saves the messages correctly" do
+      expect(GerritMessage.all.count).to be(11)
+    end
+  end
+
 end
