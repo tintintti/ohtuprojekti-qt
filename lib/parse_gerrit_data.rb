@@ -3,7 +3,7 @@ class ParseGerritData
   @downloader = GerritDownloader.new
 
   def self.download_details
-    changes = @downloader.n_changes(10)
+    changes = @downloader.n_changes(2)
     details = OwnerHandler.fetch_details(changes)
   end
 
