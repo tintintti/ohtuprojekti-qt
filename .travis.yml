@@ -3,23 +3,23 @@ rvm:
 - 2.3.0
 notifications: email:false
 before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - "export JASMINE_SPEC_FORMAT=documentation"
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- export JASMINE_SPEC_FORMAT=documentation
 script:
-  - "bundle exec rake db:create"
-  - "bundle exec rake db:migrate RAILS_ENV=test"
-  - "bundle exec rake db:test:prepare"
-  - "bundle exec rspec spec"
-  - "bundle exec rake jasmine:ci"
-  - "bundle exec cucumber"
+- bundle exec rake db:create
+- bundle exec rake db:migrate RAILS_ENV=test
+- bundle exec rake db:test:prepare
+- bundle exec rspec spec
+- bundle exec rake jasmine:ci
+- bundle exec cucumber
+addons:
+  code_climate:
+    repo_token: "$CODECLIMATE_TOKEN"
 deploy:
   provider: heroku
   api_key:
-    secure: Jrjk+KpoZvxKWrO1+wtDdJBxWR8zARVW3JTJXlFkXBuuGAxLyvZIw6MLnJc/0L6Le7K4GL7SsWPlczf2A0kMBDtv3lwAbrCAtFN4dMWZ2w/WLxoj5HcBvL9nBsJ2lIcPB7Z+RceJu2XjRDeF16fDMtFDFGR5pH+Tppb/s7eAk1dE1+R4v0SYCjkoiqAnBUl9/jNuGdZ3GMtBVLDVMolNZ4hfTG5DF9G3ZziAvop+Pq7uVfYMPBl9RT32IRdSfK66ydZoYJqE+48+lqLcIeA0MS9ucNBjiQWhfL3vXp0WO8IFiH7pXG7ZRbjPjOTLMIOwil8coMu3aSqh+qu83v88xpwfDnYjoo/Cv+DNH6W++AHUFpCnfseK5nCg8PzRPzFodr6olGu9AnPPLPrhuzkAkVUTq27Fy6ney2HYfAf8rA/lfArGjscOKTRB42UkK2dsXzd442RQT9zr3acUEFztzThTX7Cn+kTFPjskZpHVMpIwf19Xue0wLJyy7Sevi7XqItzojxgRN36Vp7Amxsas+UxHypPwsR0fKQ7wU7DHWAmH+r2VH2LsMKq34PuiVazbzITH9bkOaCObO13WpGq1+G6ciTo6ZqowfplNGxMVJhek5JTXmrP+pLCBJumn+LUHbSnO1bHy8X0v0EJ378nGB2luzgV6q3Qphm2Xo1rVzxQ=
-  app: qt-software-project
+    secure: Zlgnqz+fVQ79RQFOg1+T6e/WR02MI97CIstUDARq75R2wgnsPM+Ssy9TtnL9LXs7dHAKqMEQvrWUNWQjGn7kNGUIsdR8lXqEpo5WPqKAY4XBJC6msfMewKa+tJZH/bLYbEg2LJWX/kTZ7kVl+oUHFnteBDLmE9TwxRKDbknz77UDwmS1ybfrr4gDoeWQvbRdXkZuL9imt2AyCjG+ENRjlmLT4K9bXqnTIT4RHyfX1rwiA1Z2QHjztNa47+nZXe4D+T6wnt/nEDovxqoMdmIVO4kyHBCvLz9n2Ie8SVt1mrBL+6hd9sadjzM8ELuNr800e83jpxQ4sIjX909Sxb8+ZHPkSrT4qWlhmxOUnSCjVLP2iLJQX5RxjMtmuCZvh44DPAeZnZBrVOgEomULrG+mnovq/VybrZeW84YGF+QkqQrcQ8GjCkiONmxZbGRFTCPcX1xU5cpeLeGXW0zUH6w7wr26PtL+eFfWUuI7MajfX1aejBqE4xbG8B5nCEctslBuW6uoH8hsRnFOXfbmCzOP52H/js8KYblzRskS84+t+3JVj8rjWhA5tr7KZDaMQE6ajr1NPP2/KQKC3P+IuVmzQdyxPoA96XHXF5Iqp408evFOdR+wLTsxb64BaL4rsF0K7QIVfuovR0oL4wv+yBn9N/JpTW1Ov65iCldinntBd/M=
+  app: qt-community-stats
   on:
     repo: tintintti/qt-software-project
-addons:
-  code_climate:
-    repo_token: $CODECLIMATE_TOKEN
