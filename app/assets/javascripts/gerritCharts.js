@@ -29,7 +29,7 @@ function drawWithMinOwners(minOwners) {
         emptyPieChart();
         var labelWords = ["owners", "changes"];
         var ownersByMin = sortDataWithMin(ownerData, minOwners, labelWords);
-        drawPieChart("owners", ownersByMin, true, "#charts");
+        drawPieChart("owners", ownersByMin, true, "#charts", "OwnerPieChart");
     }
 }
 
