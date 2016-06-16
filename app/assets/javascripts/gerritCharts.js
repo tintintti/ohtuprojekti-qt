@@ -24,18 +24,13 @@ function drawOwnerPieChart() {
     drawPieChart("owners", ownerData, true, "#charts");
 }
 
-
 function drawWithMinOwners(minOwners) {
     if (minOwners > 0) {
         emptyPieChart();
-        var ownersByMin = getOwnersByMin(minOwners);
+        var labelWords = ["owners", "changes"];
+        var ownersByMin = sortDataWithMin(ownerData, minOwners, labelWords);
         drawPieChart("owners", ownersByMin, true, "#charts");
     }
-}
-
-function getOwnersByMin(min) {
-    var labelWords = ["owners", "changes"];
-    return sortDataWithMin(ownerData, min, labelWords);
 }
 
 function insertMinOwnersButton() {

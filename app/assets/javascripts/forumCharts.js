@@ -31,15 +31,12 @@ function drawPosterPieChart() {
 function drawWithMinPosts(minPosts) {
     if (minPosts > 0) {
       emptyPieChart();
-      var postsByMin = getPostsByMin(minPosts);
+      var labelWords = ["users", "posts"];
+      var postsByMin = sortDataWithMin(postData, minPosts, labelWords);
       drawPieChart("posts", postsByMin, true, "#charts");
     }
 }
 
-function getPostsByMin(min) {
-    var labelWords = ["users", "posts"];
-    return sortDataWithMin(postData, min, labelWords);
-}
 
 function insertMinPostsButton() {
     document.getElementById("buttonFeature").innerHTML =
