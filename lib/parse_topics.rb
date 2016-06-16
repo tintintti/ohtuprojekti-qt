@@ -66,7 +66,7 @@ class ParseTopics
         posts = topic["posts"]
         continue if (posts.nil?)
         self.add_posts_and_users(posts)
-        Topic.create(tid:topic["tid"], slug:topic["slug"], uid:topic["uid"], cid:topic["cid"], mainPid:topic["mainPid"], title:topic["title"], timestamp:topic["timestamp"], postcount:topic["postcount"], viewcount:topic["viewcount"], locked:topic["locked"], pinned:topic["pinned"], isQuestion:topic["isQuestion"], isSolved:topic["isSolved"], relativeTime:topic["relativeTime"], lastposttime:topic["lastposttime"] )
+        Topic.create(tid:topic["tid"], slug:topic["slug"], uid:topic["uid"], cid:topic["cid"], mainpid:topic["mainpid"], title:topic["title"], timestamp:topic["timestamp"], postcount:topic["postcount"], viewcount:topic["viewcount"], locked:topic["locked"], pinned:topic["pinned"], isquestion:topic["isQuestion"], issolved:topic["isSolved"], relativetime:topic["relativeTime"], lastposttime:topic["lastposttime"] )
       end
     end
 
