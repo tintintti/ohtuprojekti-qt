@@ -101,4 +101,30 @@ describe "ParseGerritData" do
     end
   end
 
+  describe "parse_all" do
+    before (:each) do
+      ParseGerritData.parse_all(details_parsed)
+    end
+
+    it "saves the changes correctly" do
+      expect(GerritChange.all.count).to be(2)
+    end
+
+    it "saves the owners correctly" do
+      expect(GerritOwner.all.count).to be(13)
+    end
+
+    it "saves the code reviews correctly" do
+      expect(GerritCodeReview.all.count).to be(13)
+    end
+
+    it "saves the sanity reviews correctly" do
+      expect(GerritSanityReview.all.count).to be(13)
+    end
+
+    it "saves the messages correctly" do
+      expect(GerritMessage.all.count).to be(11)
+    end
+  end
+
 end
