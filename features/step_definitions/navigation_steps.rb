@@ -107,6 +107,8 @@ Given /^there is data in the database$/ do
     FactoryGirl.create(:user)
     FactoryGirl.create(:post)
     FactoryGirl.create(:post_user_one)
+    FactoryGirl.create(:gerrit_change)
+    FactoryGirl.create(:gerrit_owner)
   end
 end
 
