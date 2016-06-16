@@ -33,7 +33,7 @@ function drawWithMinPosts(minPosts) {
       emptyPieChart();
       var labelWords = ["users", "posts"];
       var postsByMin = sortDataWithMin(postData, minPosts, labelWords);
-      drawPieChart("posts", postsByMin, true, "#charts", "EmailPieChart");
+      drawPieChart("posts", postsByMin, true, "#charts", "PostPieChart");
   }
 }
 
