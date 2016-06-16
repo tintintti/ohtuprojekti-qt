@@ -15,6 +15,31 @@ class ChangeHandler
     times
   end
 
+  def self.average_time
+    times = time_to_pass
+    sum = 0
+    times.each do |hash|
+      sum += hash[:time]
+    end
+    sum = sum / times.length
+  end
+
+  def self.average_revisions
+    revisions = revisions_needed_to_pass
+    sum = 0
+    revisions.each do |hash|
+      sum += hash[:revisions]
+    end
+    sum = sum /revisions.length
+  end
+
+  def self.print_formatted(time)
+    mm, ss = time.divmod(60)
+    hh, mm = mm.divmod(60)
+    dd, hh = hh.divmod(24)
+    puts "#{dd} days, #{hh} hours, #{mm} minutes and #{ss.round} seconds"
+  end
+
   def self.revisions_needed_to_pass
     passed = passed_reviews
     changes = []
