@@ -79,9 +79,7 @@ describe "ParseGerritData" do
       expect(GerritSanityReview.all.count).to be(1)
       expect(GerritSanityReview.all.first.change_id_from_gerrit).to eq("qt%2Fqtbase~dev~I92b24750f498b2548ef0668839c3db21d5a0e320")
     end
-<<<<<<< HEAD
 
-=======
   end
 
   describe "create_message" do
@@ -101,7 +99,6 @@ describe "ParseGerritData" do
       expect(GerritMessage.all.count).to be(2)
       expect(GerritOwner.all.count).to be(1)
     end
->>>>>>> mikko-gerritCharts
   end
 
 end
