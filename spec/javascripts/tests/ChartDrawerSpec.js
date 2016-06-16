@@ -14,8 +14,8 @@ describe('Test chartDrawer ', function() {
     });
 
     it('height shouldn\'t be set higher than 1500', function() {
-        var height = setPieChartHeight(300);
-        expect(height).toEqual(1500);
+        var height = setPieChartHeight(3000);
+        expect(height).toEqual(2000);
     });
 
     it('test adding svg', function() {
@@ -77,7 +77,7 @@ describe('Test chartDrawer ', function() {
       });
 
       it('test drawing barchart', function() {
-        drawBarChart(postBarData, "title", labels);
+        drawBarChart(postBarData, "title", labels, "barChart");
         jasmine.clock().tick(1000);
         expect($('#barChart')).toContainText('1-5');
         expect($('#barChart')).toContainText('10+');
@@ -86,14 +86,14 @@ describe('Test chartDrawer ', function() {
       });
 
       it('test barchart has labels', function() {
-        drawBarChart(postBarData, "title", labels);
+        drawBarChart(postBarData, "title", labels, "barChart");
         jasmine.clock().tick(1000);
         expect($('#barChart')).toContainText('Käyttäjien määrä');
         expect($('#barChart')).toContainText('Viestien määrä');
       });
 
       it('test drawing piechart', function() {
-        drawPieChart("email", emailChartData, true, "title");
+        drawPieChart("email", emailChartData, true, "title", "pieChart");
         jasmine.clock().tick(1000);
         expect($('#pieChart')).toContainText('email');
         expect($('#pieChart')).toContainText('anotherEmail');

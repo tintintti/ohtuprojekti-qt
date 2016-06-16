@@ -35,11 +35,11 @@ function addSvg(divName, id) {
 
 // pitkät piirtometodit tänne
 
-function drawPieChart(type, data, showlegend, divName) {
-    addSvg(divName, "pieChart");
+function drawPieChart(type, data, showlegend, divName, id) {
+    addSvg(divName, id);
     var height = setPieChartHeight(data.length);
     nv.addGraph(function() {
-            d3.select('#pieChart').attr('height', height);
+            d3.select('#' + id).attr('height', height);
             var chart = nv.models.pieChart()
                 .x(function(d) {
                     return d.label
@@ -53,7 +53,7 @@ function drawPieChart(type, data, showlegend, divName) {
             if (type == "emails") {
                 setEmailToolTipContent(chart);
             }
-            d3.select('#pieChart')
+            d3.select('#' + id)
                 .datum(data)
                 .transition().duration(1200)
                 .call(chart);
@@ -65,12 +65,11 @@ function drawPieChart(type, data, showlegend, divName) {
                     "font-size": "1em"
                 });
 
-            d3.select('#pieChart').selectAll(".nv-slice").on('click',
+            d3.select('#' + id).selectAll(".nv-slice").on('click',
                 function(d) {
                     if (type == "emails") listUsersOfProvider(d.data.label);
                     if (type == "posts") redirectToQtUserPage(d.data.label);
             });
-
             return chart;
         });
 }
@@ -92,7 +91,7 @@ function setEmailToolTipContent(chart) {
 function setPieChartHeight(length) {
     var height = 800;
     height += length * 3;
-    if (height > 1500) height = 1500;
+    if (height > 2000) height = 2000;
     return height;
 }
 
@@ -121,8 +120,8 @@ function sortDataWithMin(counts, min, labelWords) {
     return objectSorter(data);
 }
 
-function drawBarChart(data, divName, xyLabels) {
-  addSvg(divName, "barChart");
+function drawBarChart(data, divName, xyLabels, id) {
+  addSvg(divName, id);
 
   var barChartData = [{
     key: "Cumulative Return",
@@ -132,7 +131,7 @@ function drawBarChart(data, divName, xyLabels) {
   nv.addGraph(function() {
     var height = 600;
 
-    d3.select("#barChart").attr('height', height);
+    d3.select('#' + id).attr('height', height);
     var chart = nv.models.discreteBarChart()
         .x(function(d) { return d.label })    //Specify the data accessors.
         .y(function(d) { return d.value })
@@ -148,7 +147,7 @@ function drawBarChart(data, divName, xyLabels) {
         chart.yAxis.tickFormat(d3.format(',f'));
 
 
-    d3.select("#barChart")
+    d3.select('#' + id)
         .datum(barChartData)
         .call(chart);
 

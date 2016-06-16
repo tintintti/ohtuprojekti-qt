@@ -18,7 +18,7 @@ function drawPosterCharts() {
 
 function drawEmailPieChart() {
     addTitle("#charts", "pieChartTitle", "Sähköpostien palveluntarjoajat");
-    drawPieChart("emails", emailData, true, "#charts");
+    drawPieChart("emails", emailData, true, "#charts", "EmailPieChart");
 }
 
 function drawPosterPieChart() {
@@ -33,8 +33,8 @@ function drawWithMinPosts(minPosts) {
       emptyPieChart();
       var labelWords = ["users", "posts"];
       var postsByMin = sortDataWithMin(postData, minPosts, labelWords);
-      drawPieChart("posts", postsByMin, true, "#charts");
-    }
+      drawPieChart("posts", postsByMin, true, "#charts", "EmailPieChart");
+  }
 }
 
 
@@ -49,7 +49,7 @@ function drawPosterBarChart() {
     addTitle("#charts", "barChartTitle", "Käyttäjät viestimäärien mukaan");
     var xyLabels = ["Viestien määrä", "Käyttäjien määrä"];
     var groupLabels = createPostBarChartGroupLabels();
-    drawBarChart(createBarChartGroups(postData, groupLabels), "#charts", xyLabels);
+    drawBarChart(createBarChartGroups(postData, groupLabels), "#charts", xyLabels, "PosterBarChart");
 }
 
 function createPostBarChartGroupLabels() {

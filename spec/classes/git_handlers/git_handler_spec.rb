@@ -14,4 +14,9 @@ RSpec.describe GitHandler do
     expect(GitHandler.author_commits(0, 4).length).to be(4)
   end
 
+  it "author_emails returns emails" do
+    expect(GitHandler.author_emails().length).to be(1)
+    expect(GitHandler.author_emails()[0][:value]).to be(5)
+    expect(GitHandler.author_emails()[0][:label]).to eq("test")
+  end
 end
