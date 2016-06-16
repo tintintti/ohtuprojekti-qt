@@ -14,12 +14,17 @@ class ChartsController < ApplicationController
   def gitCharts
     time = params[:time]
     amount = params[:amount]
-    if time == nil
-      time =  Time.at(Commit.all.sort_by{|a| a.stamp}.first.stamp).to_date
+
+    if Commit.all.length < 1
+      time = "01/01/2015".to_date
+    elsif time == nil
+      time =  Time.at(Commit.all.sort_by{|c| c.stamp}.first.stamp).to_date
     end
+
     if amount == nil
       amount = 100
     end
+
     @authors = GitHandler.author_commits time.to_time.to_i, amount.to_i
   end
 

@@ -23,6 +23,21 @@ describe('Test chartDrawer ', function() {
       expect($("#chart")).toBeInDOM();
     });
 
+    it('test that data will be sorted properly by counts', function() {
+         data = [{
+           "label": "1",
+           "value": 1
+         }, {
+           "label": "3",
+           "value": 3
+         }, {
+           "label": "2",
+           "value": 2
+         }]
+         var list = sortDataWithMin(data, 0, ["", ""]);
+         expect(list[2]).toEqual(data[1]);
+     });
+
     describe("long asynchronous specs", function() {
 
       var originalTimeout;

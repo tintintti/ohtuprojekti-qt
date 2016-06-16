@@ -6,11 +6,11 @@
         <div class="container">
           <%= form_tag git_charts_path do %>
             <%= submit_tag "Rajaa dataa" %>
-            Aika <%= date_field_tag :time, params[:time] || Time.at(Commit.all.sort_by{|a| a.stamp}.first.stamp).to_date %>
+            Aika <%= date_field_tag :time, params[:time] || nil %>
             Määrä <%= text_field_tag :amount, params[:amount] || 100 %>
           <% end %>
           <p></p>
-          <button type="button" class="btn btn-primary active" onclick=drawAuthorCharts()>Näytä kaavio</button>
+          <button type="button" class="btn btn-primary active" onclick=drawAuthorCharts()>Näytä kaaviot</button>
         </div>
 
         <%= content_tag "div", id: "git_data", data: {authors: @authors, commits: @commits} do %>
