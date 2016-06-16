@@ -47,6 +47,7 @@ function drawPieChart(type, data, showlegend, divName) {
                 .y(function(d) {
                     return d.value
                 })
+                .valueFormat(d3.format(".0f"))
                 .height(height)
                 .showLabels(true).showLegend(showlegend);
             if (type == "emails") {

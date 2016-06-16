@@ -6,7 +6,11 @@
         <div class="container">
           <%= form_tag git_charts_path do %>
             <%= submit_tag "Rajaa dataa" %>
-            Aika <%= date_field_tag :time, params[:time] || nil %>
+              <% if Commit.all.length < 1 %>
+              Aika <%= date_field_tag :time, params[:time] || time = nil%>
+              <% else %>
+              Aika <%= date_field_tag :time, params[:time] || time = Time.at(Commit.all.sort_by{|c| c.stamp}.first.stamp).to_date %>
+              <% end %>
             Määrä <%= text_field_tag :amount, params[:amount] || 100 %>
           <% end %>
           <p></p>
