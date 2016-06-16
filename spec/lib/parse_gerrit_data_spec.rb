@@ -79,7 +79,29 @@ describe "ParseGerritData" do
       expect(GerritSanityReview.all.count).to be(1)
       expect(GerritSanityReview.all.first.change_id_from_gerrit).to eq("qt%2Fqtbase~dev~I92b24750f498b2548ef0668839c3db21d5a0e320")
     end
+<<<<<<< HEAD
 
+=======
+  end
+
+  describe "create_message" do
+    before (:each) do
+      ParseGerritData.create_change(single_detail, 1)
+      change = ParseGerritData.create_change(single_detail, 1)
+      ParseGerritData.create_message(single_detail['messages'][0], change.id)
+    end
+
+    it "saves the message even if author is not saved" do
+      expect(GerritMessage.all.count).to be(1)
+      expect(GerritOwner.all.count).to be(1)
+    end
+
+    it "wont save a same author again" do
+      ParseGerritData.create_message(single_detail['messages'][0], 1)
+      expect(GerritMessage.all.count).to be(2)
+      expect(GerritOwner.all.count).to be(1)
+    end
+>>>>>>> mikko-gerritCharts
   end
 
 end
