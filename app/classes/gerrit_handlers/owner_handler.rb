@@ -2,12 +2,12 @@ class OwnerHandler
   @downloader = GerritDownloader.new
 
   def self.changes_by_owner
-      changes = @downloader.changes
-      details = fetch_details(changes)
+      changes = GerritChange.where.not(status: "MERGED")
 
       data = []
-      owners(details).each_value do |v|
-        data << {label: v[:owner]['name'], value: v[:changes]}
+      changes.each do |change|
+        owner = change.gerrit_owner.name
+        data << {label: owner, value: owner.gerrit_changes.length}
       end
       sorted_data = data.sort_by { |item| item[:value] }
   end
