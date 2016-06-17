@@ -15,7 +15,7 @@ class OwnerHandler
     owners = {}
     change_details.each do |change|
       if change['status'] == "MERGED"
-        next 
+        next
       end
       owner_id = change['owner']['_account_id']
       if !owners.key?(owner_id)
@@ -40,6 +40,9 @@ class OwnerHandler
 
   def self.owner_domains
     owners = GerritOwner.all
+    if owners.empty?
+      return owners
+    end
     domains = {}
 
     owners.each do |owner|
@@ -50,7 +53,7 @@ class OwnerHandler
       end
       domains[email][:value] += 1
     end
-    
+
     data = []
     domains.each_value { |value| data << value }
     data
