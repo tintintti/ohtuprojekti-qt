@@ -39,14 +39,17 @@ class ParseGerritData
         end
       end
 
-      current['labels']['Code-Review']['all'].each do |codereview|
-        self.create_code_review(codereview, change)
+      if current['labels']['Code-Review']
+        current['labels']['Code-Review']['all'].each do |codereview|
+          self.create_code_review(codereview, change)
+        end
       end
 
-      current['labels']['Sanity-Review']['all'].each do |sanityreview|
-        self.create_sanity_review(sanityreview, change)
+      if current['Sanity-Review']
+        current['labels']['Sanity-Review']['all'].each do |sanityreview|
+          self.create_sanity_review(sanityreview, change)
+        end
       end
-
     end
   end
 

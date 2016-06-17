@@ -2,7 +2,7 @@ class OwnerHandler
   @downloader = GerritDownloader.new
 
   def self.changes_by_owner
-      owners = GerritOwner.all
+      owners = GerritOwner.where.not(status: "MERGED")
 
       data = []
       owners.each do |owner|
