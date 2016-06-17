@@ -45,7 +45,7 @@ class ParseGerritData
         end
       end
 
-      if current['Sanity-Review']
+      if current['labels']['Sanity-Review']
         current['labels']['Sanity-Review']['all'].each do |sanityreview|
           self.create_sanity_review(sanityreview, change)
         end
