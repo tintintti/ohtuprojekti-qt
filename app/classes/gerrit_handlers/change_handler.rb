@@ -36,20 +36,14 @@ class ChangeHandler
   end
 
   def self.average(data)
-    if data.length > 0
     sum = 0
+    if data.length > 0
       data.each do |hash|
         sum += hash[:value]
       end
-    sum = sum /data.length
+      sum = sum / data.length
     end
-  end
-
-  def self.print_formatted(time)
-    mm, ss = time.divmod(60)
-    hh, mm = mm.divmod(60)
-    dd, hh = hh.divmod(24)
-    puts "#{dd} days, #{hh} hours, #{mm} minutes and #{ss.round} seconds"
+    sum
   end
 
   def self.revisions_needed_to_pass
