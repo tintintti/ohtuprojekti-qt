@@ -47,11 +47,13 @@ class OwnerHandler
 
     owners.each do |owner|
       email = owner.email
+      if email.split("@")[1] != nil
       email = email.split("@")[1].split(".")[0]
       if !domains.key? email
         domains[email] = {label:email, value:0}
       end
       domains[email][:value] += 1
+    end
     end
 
     data = []
