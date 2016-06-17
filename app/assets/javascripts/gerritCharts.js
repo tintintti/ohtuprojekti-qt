@@ -1,7 +1,6 @@
 var ownerData;
 var averageData;
 
-
 function showChangeData() {
   averageData = $("#gerrit_data").data().changeAverages;
   emptyContainers();;
@@ -21,11 +20,13 @@ function drawDomainsCharts() {
     emptyContainers();
     drawDomainsPieChart();
 }
+
 //Piechart-metodit
 
 function drawDomainsPieChart() {
-  addTitle("#charts", "pieChartTitle", "Domains");
-  drawPieChart("domains", domainsData, true, "#charts", "DomainsPieChart");
+    addTitle("#charts", "pieChartTitle", "Omistajien eri domainien määrät");
+    var sortedDomains = sortDataWithMin(domainsData, 0, ["",""]);
+    drawPieChart("domains", sortedDomains, true, "#charts", "DomainsPieChart");
 }
 
 function drawOwnerPieChart() {

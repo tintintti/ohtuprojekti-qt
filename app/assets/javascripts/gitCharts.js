@@ -1,6 +1,6 @@
-// var commits = $('#git_data').data().commits;
 var authorData;
 var authorEmails;
+
 function drawAuthorCharts() {
     authorData = $("#git_data").data().authors;
     emptyContainers();
