@@ -11,21 +11,6 @@ class OwnerHandler
       sorted_data = data.sort_by { |item| item[:value] }
   end
 
-  def self.owners(change_details)
-    owners = {}
-    change_details.each do |change|
-      if change['status'] == "MERGED"
-        next
-      end
-      owner_id = change['owner']['_account_id']
-      if !owners.key?(owner_id)
-        owners[owner_id] = {owner: change['owner'], changes: 0}
-      end
-      owners[owner_id][:changes] += 1
-    end
-    owners
-  end
-
   def self.fetch_details(changes)
     change_details = []
 
