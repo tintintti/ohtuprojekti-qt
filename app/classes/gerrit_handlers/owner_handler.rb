@@ -38,4 +38,22 @@ class OwnerHandler
     change_details
   end
 
+  def self.owner_domains
+    owners = GerritOwner.all
+    domains = {}
+
+    owners.each do |owner|
+      email = owner.email
+      email = email.split("@")[1].split(".")[0]
+      if !domains.key? email
+        domains[email] = {label:email, value:0}
+      end
+      domains[email][:value] += 1
+    end
+    
+    data = []
+    domains.each_value { |value| data << value }
+    data
+  end
+
 end

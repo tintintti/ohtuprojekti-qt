@@ -16,7 +16,17 @@ function drawOwnerCharts() {
     drawOwnerBarChart();
 }
 
+function drawDomainsCharts() {
+    domainsData = $("#gerrit_data").data().domains;
+    emptyContainers();
+    drawDomainsPieChart();
+}
 //Piechart-metodit
+
+function drawDomainsPieChart() {
+  addTitle("#charts", "pieChartTitle", "Domains");
+  drawPieChart("domains", domainsData, true, "#charts", "DomainsPieChart");
+}
 
 function drawOwnerPieChart() {
     insertMinOwnersButton();
