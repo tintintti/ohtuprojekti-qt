@@ -33,6 +33,7 @@ class ChartsController < ApplicationController
     @owners  = OwnerHandler.changes_by_owner
     @change_averages = ChangeHandler.averages
     @changes = ChangeHandler.change_data
+    @domains = OwnerHandler.owner_domains
   end
 
 
