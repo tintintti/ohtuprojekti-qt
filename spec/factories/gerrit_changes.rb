@@ -1,7 +1,8 @@
 FactoryGirl.define do
   factory :gerrit_change do
     kind "MyString"
-    id_from_gerrit "MyString"
+    #id_from_gerrit "MyString"
+    sequence(:id_from_gerrit) { |n| n }
     project "MyString"
     branch "MyString"
     change_id "MyString"
