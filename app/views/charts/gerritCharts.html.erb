@@ -3,10 +3,11 @@
     <meta charset="utf-8">
     <body>
         <div class="container">
-          <!-- <button type="button" class="btn"><%= link_to 'Päivitä data (kestää ikuisuuden)', gerrit_charts_path(download:true) %></button> -->
+          <button type="button" class="btn btn-primary active" id="ownerDataButton">Muutosten omistajat</button>
+          <button type="button" class="btn btn-primary active" id="changeDataButton">Muutosten läpimeno</button>
         </div>
         <div class="container" id="waiting"></div>
-        <%= content_tag "div", id: "gerrit_data", data: {owners: @owners , message: @message} do %>
+        <%= content_tag "div", id: "gerrit_data", data: {owners: @owners, changes: @changes, change_averages: @change_averages} do %>
         <% end %>
         <%= javascript_include_tag "d3.v3.min.js" %>
         <%= javascript_include_tag "nvd3.js" %>

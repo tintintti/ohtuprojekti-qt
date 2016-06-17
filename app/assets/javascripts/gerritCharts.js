@@ -1,15 +1,37 @@
 var ownerData;
 
 $(document).ready(function() {
-    ownerData = $("#gerrit_data").data().owners;
-    if (ownerData != null) {
-        $('#waiting').empty();
-        emptyCharts();
-        drawOwnerCharts();
-    } else {
-        $('#waiting').text("Waiting for data. Please check back again later.");
-    }
+  $('#ownerDataButton').click(showOwnerData)
+  $('#changeDataButton').click(showChangeData)
 })
+
+function showOwnerData() {
+    ownerData = $("#gerrit_data").data().owners;
+    emptyCharts();
+    $('#waiting').empty();
+    drawOwnerCharts();
+}
+
+function showChangeData() {
+  emptyCharts();
+  $("#buttonFeature").empty();
+  $('#waiting').empty();
+  var averages = $("#gerrit_data").data().changeAverages;
+  console.log(averages);
+  $('#waiting').append("<h3>Keskimääräinen aika, että muutos menee läpi: " + formatTime(averages.time) + "</h3>");
+  $('#waiting').append("<h3>Keskimääräinen muutosten määrä läpimenoon: " + averages.revisions + "</h3>");
+}
+
+function formatTime(seconds) {
+  var mm = Math.floor(seconds / 60);
+  var ss = seconds % 60;
+  var hh = Math.floor(mm / 60);
+  mm = mm % 60;
+  var dd = Math.floor(hh / 24);
+  hh = hh % 24;
+  var time = dd + " päivää, " + hh + " tuntia, " + mm + " minuuttia ja " + ss + " sekuntia.";
+  return time;
+}
 
 function drawOwnerCharts() {
     drawOwnerPieChart();
