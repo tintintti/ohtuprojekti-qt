@@ -3,6 +3,6 @@ FactoryGirl.define do
     #account_id 1
     sequence(:account_id) { |n| n }
     name "MyString"
-    email "MyString"
+    email "daa@email.com"
   end
 end
