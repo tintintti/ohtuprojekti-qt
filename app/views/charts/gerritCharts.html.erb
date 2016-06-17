@@ -3,10 +3,10 @@
     <meta charset="utf-8">
     <body>
         <div class="container">
-          <button type="button" class="btn btn-primary active" id="ownerDataButton">Muutosten omistajat</button>
-          <button type="button" class="btn btn-primary active" id="changeDataButton">Muutosten läpimeno</button>
+          <button type="button" class="btn btn-primary active" onclick=drawOwnerCharts()>Muutosten omistajat</button>
+          <button type="button" class="btn btn-primary active" onclick=showChangeData()>Muutosten läpimeno</button>
         </div>
-        <div class="container" id="waiting"></div>
+        <div class="container" id="info"></div>
         <%= content_tag "div", id: "gerrit_data", data: {owners: @owners, changes: @changes, change_averages: @change_averages} do %>
         <% end %>
         <%= javascript_include_tag "d3.v3.min.js" %>

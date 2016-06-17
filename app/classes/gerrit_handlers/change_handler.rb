@@ -25,7 +25,9 @@ class ChangeHandler
 
   def self.average_time
     times = time_to_pass
-    average(times).round
+    if average(times) != nil
+      average(times).round
+    end
   end
 
   def self.average_revisions
@@ -34,11 +36,13 @@ class ChangeHandler
   end
 
   def self.average(data)
+    if data.length > 0
     sum = 0
-    data.each do |hash|
-      sum += hash[:value]
-    end
+      data.each do |hash|
+        sum += hash[:value]
+      end
     sum = sum /data.length
+    end
   end
 
   def self.print_formatted(time)

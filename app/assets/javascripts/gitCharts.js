@@ -2,8 +2,8 @@
 var authorData;
 var authorEmails;
 function drawAuthorCharts() {
-    emptyCharts();
     authorData = $("#git_data").data().authors;
+    emptyContainers();
     drawAuthorPieChart();
     drawAuthorBarChart();
     drawAuthorEmailPieChart();

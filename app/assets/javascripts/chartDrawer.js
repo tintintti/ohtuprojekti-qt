@@ -192,3 +192,12 @@ function mapCounts(dataMap, counts, labels) {
       if (counts >= label[1] && counts <= label[2]) dataMap.set(label[0], dataMap.get(label[0])+1);
     });
 }
+
+
+function emptyContainers() {
+    document.getElementById("buttonFeature").innerHTML = "";
+    if (document.getElementById("info")) document.getElementById("info").innerHTML = "";
+    if (document.getElementById("usernames")) document.getElementById("usernames").innerHTML = "";
+    if (document.getElementById("barChartTitle")) document.getElementById("barChartTitle").innerHTML = "";
+    emptyCharts();
+}

@@ -94,10 +94,3 @@ function listUsersOfProvider(emailprovider) {
     }
     document.getElementById("usernames").appendChild(makeUL(userArray));
 }
-
-function emptyContainers() {
-    document.getElementById("buttonFeature").innerHTML = "";
-    document.getElementById("usernames").innerHTML = "";
-    if (document.getElementById("barChartTitle")) document.getElementById("barChartTitle").innerHTML = "";
-    emptyCharts();
-}
