@@ -9,14 +9,26 @@ class ParseGerritData
 
   def self.fetch_and_save_changes_data(n)
     changes = @downloader.n_changes(n)
-    details = OwnerHandler.fetch_details(changes)
+    details = fetch_details(changes)
     self.parse_all(details)
   end
 
   def self.fetch_and_save_merged_changes(n)
     changes = @downloader.n_changes_with_status(n, 'merged')
-    details = OwnerHandler.fetch_details(changes)
+    details = fetch_details(changes)
     self.parse_all(details)
+  end
+
+  def self.fetch_details(changes)
+    change_details = []
+
+    changes.each do |change|
+      details = @downloader.change(change['id'])
+      if details != nil
+        change_details << details
+      end
+    end
+    change_details
   end
 
   def self.parse_all(changes)

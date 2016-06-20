@@ -11,18 +11,6 @@ class OwnerHandler
       sorted_data = data.sort_by { |item| item[:value] }
   end
 
-  def self.fetch_details(changes)
-    change_details = []
-
-    changes.each do |change|
-      details = @downloader.change(change['id'])
-      if details != nil
-        change_details << details
-      end
-    end
-    change_details
-  end
-
   def self.owner_domains
     owners = GerritOwner.all
     if owners.empty?
