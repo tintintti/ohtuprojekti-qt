@@ -1,37 +1,20 @@
 require 'httparty'
 
 class ParseGitStats
-  def self.create_everything_required_for_gitstats
+  def self.load_git_repos
     all_repositories = HTTParty.get("https://api.github.com/users/qtproject/repos?per_page=128").parsed_response
     i = 0
     all_repositories.each do |repo|
       i += 1
-      # git clone repo
-      load_git_stuff repo
-      # create_and_move_stats_to_views
-      # add_commits_to_database
-      # somehow_manage_adding_new_routes
-      # rm repo and gitstats
+      clone_git_repos repo
       puts i
       puts "/"
       puts all_repositories.count
     end
-
   end
 
-  def self.create_and_move_stats_to_views
 
-  end
-
-  def self.add_gitdata_to_db
-
-  end
-
-  def self.somehow_manage_adding_new_routes
-
-  end
-
-  def self.load_git_stuff repo
+  def self.clone_git_repos repo
     `git clone #{repo["clone_url"]}`
     repo_name = repo["name"]
     `cd #{repo_name} ; ls | grep -v .git | xargs rm -rf`
@@ -93,21 +76,4 @@ class ParseGitStats
       Author.where(id:double_ids).update_all(linked_id:a.id)
     end
   end
-
-
-  def self.find_similar_author
-    authors = Author.all
-    total_dubbels = [];
-    authors.each do |a|
-      dubbels = Author.where("name = ? OR email = ?", a.name, a.email).where(linked_id:nil)
-      ids = dubbels.pluck(:id)
-      total_dubbels.concat ids
-    end
-    return total_dubbels.uniq
-  end
 end
-
-#a567ccdd387988a97f78ac890034dce3d972eac9
-# repo = GitStats::GitData::Repo.new(path: 'qt-projects/qt-labs-umlquick', first_commit_sha: '72dd7b21734ed80e3f3670a7e5c85a298a73e5a1', last_commit_sha: 'HEAD')
-# repo = GitStats::GitData::Repo.new(path: '.', first_commit_sha: 'a567ccdd387988a97f78ac890034dce3d972eac9', last_commit_sha: 'HEAD')
-# repo = GitStats::GitData::Repo.new(path: 'qt-projects/qt', first_commit_sha: '8f427b2b914d5b575a4a7c0ed65d2fb8f45acc76', last_commit_sha: 'HEAD')
