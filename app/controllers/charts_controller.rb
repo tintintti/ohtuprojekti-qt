@@ -18,7 +18,7 @@ class ChartsController < ApplicationController
     if Commit.all.length < 1
       time = "01/01/2015".to_date
     elsif time == nil
-      time =  Time.at(Commit.all.sort_by{|c| c.stamp}.first.stamp).to_date
+      time =  Time.at(Commit.all.sort_by{|commit| commit.stamp}.first.stamp).to_date
     end
 
     if amount == nil
