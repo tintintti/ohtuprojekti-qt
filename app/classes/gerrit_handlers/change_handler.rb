@@ -25,9 +25,7 @@ class ChangeHandler
 
   def self.average_time
     times = time_to_pass
-    if average(times) != nil
-      average(times).round
-    end
+    average(times).round
   end
 
   def self.average_revisions
