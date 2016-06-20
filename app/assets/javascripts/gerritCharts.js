@@ -27,7 +27,7 @@ function drawDomainsPieChart() {
     addTitle("#charts", "pieChartTitle", "Omistajien eri domainien määrät");
     var sortedDomains = sortDataWithMin(domainsData, 0, ["",""]);
     drawPieChart("domains", sortedDomains, true, "#charts", "DomainsPieChart");
-
+}
 
 function drawOwnerPieChart() {
     insertMinOwnersButton();
