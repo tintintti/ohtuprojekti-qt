@@ -12,7 +12,9 @@ class OwnerHandler
   end
 
   def self.owner_domains
-    owners = GerritOwner.all
+    changes_owners = GerritChange.all.pluck(:gerrit_owner_id)
+    owners = GerritOwner.find(changes_owners)
+    
     if owners.empty?
       return owners
     end
