@@ -193,7 +193,6 @@ function mapCounts(dataMap, counts, labels) {
     });
 }
 
-
 function emptyContainers() {
     document.getElementById("buttonFeature").innerHTML = "";
     if (document.getElementById("info")) document.getElementById("info").innerHTML = "";

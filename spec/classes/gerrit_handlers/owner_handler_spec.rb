@@ -15,7 +15,7 @@ RSpec.describe OwnerHandler do
 
   it "changes_by_owner returns an array with the owner name" do
     changes = OwnerHandler.changes_by_owner
-    expect(changes.any? { |change| change[:label] == 'TestOwner1' }).to be(true)
+    expect(changes.any? { |change| change[:label] == 'testOwner1' }).to be(true)
   end
 
   it "changes_by_owner returns an array with the rigth amount of changes for the owner" do

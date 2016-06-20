@@ -154,6 +154,10 @@ When /^I limit commit count to start from (.+)$/ do |time|
   click_button('Rajaa dataa')
 end
 
+Then /^show page$/ do
+  save_and_open_page
+end
+
 Then /^there should be a piechart$/ do
   expect(page).to have_css(".nvd3-svg")
   find(:xpath, '//*[@class="nvd3 nv-wrap nv-pieChart"]')
