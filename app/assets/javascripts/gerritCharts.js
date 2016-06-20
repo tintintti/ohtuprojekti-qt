@@ -3,7 +3,7 @@ var averageData;
 
 function showChangeData() {
   averageData = $("#gerrit_data").data().changeAverages;
-  emptyContainers();;
+  emptyContainers();
   $('#info').append("<h3>Keskimääräinen aika, että muutos menee läpi: " + formatTime(averageData.time) + "</h3>");
   $('#info').append("<h3>Keskimääräinen muutosten määrä läpimenoon: " + averageData.revisions + "</h3>");
 }
