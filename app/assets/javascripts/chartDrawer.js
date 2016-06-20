@@ -5,12 +5,12 @@ function emptyCharts() {
   d3.selectAll("#charts > *").remove();
 }
 
-function emptyPieChart() {
-  d3.selectAll("#pieChart > *").remove();
+function emptyPieChart(title) {
+  d3.selectAll("#" + title + " > *").remove();
 }
 
-function emptyBarChart() {
-  d3.selectAll("#barChart > *").remove();
+function emptyBarChart(title) {
+  d3.selectAll("#" + title + " > *").remove();
 }
 
 function makeUL(array) {

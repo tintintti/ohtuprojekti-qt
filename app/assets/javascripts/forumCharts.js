@@ -30,7 +30,7 @@ function drawPosterPieChart() {
 
 function drawWithMinPosts(minPosts) {
     if (minPosts > 0) {
-      emptyPieChart();
+      emptyPieChart("PostPieChart");
       var labelWords = ["users", "posts"];
       var postsByMin = sortDataWithMin(postData, minPosts, labelWords);
       drawPieChart("posts", postsByMin, true, "#charts", "PostPieChart");

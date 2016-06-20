@@ -24,7 +24,7 @@ function drawAuthorBarChart() {
 function drawAuthorEmailPieChart() {
   authorEmails = $("#git_data").data().emails;
   addTitle("#charts", "pieChartTitle2", "Committaajien domainit");
-  drawPieChart("author emails", authorEmails, true, "#charts", "EmailPieChart");
+  drawPieChart("author_emails", authorEmails, true, "#charts", "EmailPieChart");
 }
 
 function createAuthorBarChartGroupLabels() {
