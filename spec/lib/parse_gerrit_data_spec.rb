@@ -6,6 +6,23 @@ describe "ParseGerritData" do
   details_parsed = eval(details)
   single_detail = details_parsed[0]
 
+  describe "fetch_details" do
+
+    it "returns an empty array if changes is an empty array" do
+      expect(ParseGerritData.fetch_details []).to eq([])
+    end
+
+    it "returns the details of a change" do
+      GerritDownloader.any_instance.stubs(:change).returns(["change details"])
+      expect(ParseGerritData.fetch_details ["change1"]).to eq([["change details"]])
+    end
+
+    it "returns the details of multiple changes" do
+      GerritDownloader.any_instance.stubs(:change).returns(["change details"])
+      expect(ParseGerritData.fetch_details ["change1", "change2"]).to eq([["change details"], ["change details"]])
+    end
+  end
+
   describe "create_owner" do
 
     before (:each) do

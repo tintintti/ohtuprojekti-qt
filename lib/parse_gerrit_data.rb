@@ -2,14 +2,13 @@ class ParseGerritData
 
   @downloader = GerritDownloader.new
 
-  def self.download_details
-    changes = @downloader.n_changes(2)
-    details = OwnerHandler.fetch_details(changes)
+  def self.download_details(n)
+    changes = @downloader.n_changes(n)
+    details = fetch_details(changes)
   end
 
   def self.fetch_and_save_changes_data(n)
-    changes = @downloader.n_changes(n)
-    details = fetch_details(changes)
+    details = download_details n
     self.parse_all(details)
   end
 
