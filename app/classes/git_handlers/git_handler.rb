@@ -19,9 +19,7 @@ class GitHandler
     emails = {}
     authors.each do |author|
       if author.email != nil && author.email.include?("@") || author.email.include?(" at ")
-        puts "asdsd" + author.email
         email = author.email.split(" at ").join("@").split(" ").join(".")
-        puts "asd " + email
         email = email.split("@")[1].split(".")[0]
       end
       if !emails.key? email
