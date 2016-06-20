@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 describe "ParseGerritData" do
-
   details = IO.read("spec/fixtures/details.json")
   details_parsed = eval(details)
   single_detail = details_parsed[0]
 
   describe "fetch_details" do
-
     it "returns an empty array if changes is an empty array" do
       expect(ParseGerritData.fetch_details []).to eq([])
     end
@@ -24,34 +22,29 @@ describe "ParseGerritData" do
   end
 
   describe "create_owner" do
-
     before (:each) do
       ParseGerritData.create_owner(single_detail['owner'])
     end
 
     it "saves the owner correctly with valid account_id" do
-
       expect(GerritOwner.all.count).to be(1)
       expect(GerritOwner.all.first.account_id).to be(1002160)
     end
 
     it "wont save owner if it is already saved" do
       ParseGerritData.create_owner(single_detail['owner'])
-
       expect(GerritOwner.all.count).to be(1)
       expect(GerritOwner.all.first.account_id).to be(1002160)
     end
   end
 
   describe "create_change" do
-
     before (:each) do
       ParseGerritData.create_change(single_detail, 1)
     end
 
 
     it "creates a change with valid data" do
-
       expect(GerritChange.all.count).to be(1)
       expect(GerritChange.all.first.id_from_gerrit).to eq("qt%2Fqtbase~dev~I92b24750f498b2548ef0668839c3db21d5a0e320")
       expect(GerritChange.all.first.gerrit_owner_id).to be(1)
@@ -59,18 +52,14 @@ describe "ParseGerritData" do
     end
 
     it "wont save a change if it is already saved" do
-
       ParseGerritData.create_change(single_detail, 1)
-
       expect(GerritChange.all.count).to be(1)
       expect(GerritChange.all.first.id_from_gerrit).to eq("qt%2Fqtbase~dev~I92b24750f498b2548ef0668839c3db21d5a0e320")
       expect(GerritChange.all.first.gerrit_owner_id).to be(1)
     end
-
   end
 
   describe "create_code_review" do
-
     before (:each) do
       ParseGerritData.create_change(single_detail, 1)
       change = ParseGerritData.create_change(single_detail, 1)
@@ -81,11 +70,9 @@ describe "ParseGerritData" do
       expect(GerritCodeReview.all.count).to be(1)
       expect(GerritCodeReview.all.first.change_id_from_gerrit).to eq("qt%2Fqtbase~dev~I92b24750f498b2548ef0668839c3db21d5a0e320")
     end
-
   end
 
   describe "create_sanity_review" do
-
     before (:each) do
       ParseGerritData.create_change(single_detail, 1)
       change = ParseGerritData.create_change(single_detail, 1)
@@ -143,5 +130,4 @@ describe "ParseGerritData" do
       expect(GerritMessage.all.count).to be(11)
     end
   end
-
 end
