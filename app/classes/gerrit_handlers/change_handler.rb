@@ -49,7 +49,7 @@ class ChangeHandler
     changes = []
     passed.each do |pass|
       change = pass[0]
-      revisions = pass[1].revision_number
+      revisions = pass[1].revision_number - 1
       changes << {label: change.id, value: revisions}
     end
     changes

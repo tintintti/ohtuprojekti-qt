@@ -12,6 +12,10 @@ function showChangeData() {
     emptyContainers();
     addTitle("#charts", "changeTimeChart", "Ajat muutosten läpimenoon")
     drawChangeTimeToPassChart();
+
+    addTitle("#charts", "changeRevisionsChart", "Korjaukset muutosten läpimenoon")
+    drawRevisionsToPassChart();
+
     $('#info').append("<h3>Keskimääräinen aika, että muutos menee läpi: " + formatTime(averageData.time) + "</h3>");
     $('#info').append("<h3>Keskimääräinen muutosten määrä läpimenoon: " + averageData.revisions + "</h3>");
 }
@@ -21,6 +25,13 @@ function drawChangeTimeToPassChart() {
   var xyLabels = ["Time to pass", "Changes"];
   var groupLabels = createChangeTimeToPassChartGroupLabels();
   drawBarChart(createBarChartGroups(times, groupLabels), "#charts", xyLabels, "ChangeBarChart");
+}
+
+function drawRevisionsToPassChart() {
+  revisions = $("#gerrit_data").data().changes.revisions
+  var xyLabels = ["Revisions to pass", "Changes"];
+  var groupLabels = createRevisionsToPassChartGroupLabels();
+  drawBarChart(createBarChartGroups(revisions, groupLabels), "#charts", xyLabels, "changeRevisionsBarChart");
 }
 
 function drawDomainsCharts() {
@@ -101,6 +112,24 @@ function createChangeTimeToPassChartGroupLabels() {
       ["3 to 10 days", 259200, 864000],
       ["10 days to 1 month", 864000, 2629744],
       ["Over a month", 2629745, Number.MAX_SAFE_INTEGER]
+    ]
+    return labels;
+}
+
+function createRevisionsToPassChartGroupLabels() {
+    var labels = [
+      ["0", 0, 0],
+      ["1", 1, 1],
+      ["2", 2, 2],
+      ["3", 3, 3],
+      ["4", 4, 4],
+      ["5", 5, 5],
+      ["6", 6, 6],
+      ["7", 7, 7],
+      ["8", 8, 8],
+      ["9", 9, 9],
+      ["10", 10, 10],
+      [">10", 11, Number.MAX_SAFE_INTEGER]
     ]
     return labels;
 }

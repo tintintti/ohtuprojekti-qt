@@ -23,7 +23,7 @@ RSpec.describe ChangeHandler do
   end
 
   it "average_revisions returns an average of the number of revisions" do
-    expect(ChangeHandler.average_revisions).to be(2)
+    expect(ChangeHandler.average_revisions).to be(1)
   end
 
   it "revisions_needed_to_pass returns an array" do
