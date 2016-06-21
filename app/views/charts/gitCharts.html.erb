@@ -13,7 +13,9 @@
               Näytä committaajia <%= text_field_tag :amount, params[:amount] || 100 %>
           <% end %>
           <p></p>
-          <button type="button" class="btn btn-primary active" onclick=drawAuthorCharts()>Näytä kaaviot</button>
+          <button type="button" class="btn btn-primary active" onclick=drawAuthorCommitChart()>Näytä committaajat</button>
+          <button type="button" class="btn btn-primary active" onclick=drawAuthorEmailChart()>Näytä committaajien domainit</button>
+          <button type="button" class="btn btn-primary active" onclick=drawAuthorsByCommitsChart()>Näytä committaajien jakauma aktiivisuuden mukaan</button>
         </div>
 
         <%= content_tag "div", id: "git_data", data: {authors: @authors, emails: @emails} do %>
