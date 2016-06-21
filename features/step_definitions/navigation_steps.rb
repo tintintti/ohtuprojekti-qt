@@ -176,7 +176,7 @@ Then /^there should be a barchart with post data$/ do
   expect(page).to have_content("3-5")
 end
 
-Then /^there should be labels on the barchart$/ do
+Then /^there should be proper labels on the post barchart$/ do
   expect(page).to have_content("Käyttäjien määrä") #labels
   expect(page).to have_content("Viestien määrä")
 end

@@ -5,30 +5,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :logged_in
 
-  def authors
-    render "test/authors"
-  end
-
-  def index
-    render "test/index"
-  end
-
-  def activity
-    render "test/activity"
-  end
-
-  def files
-    render "test/files"
-  end
-
-  def lines
-    render "test/lines"
-  end
-
-  def tags
-    render "test/tags"
-  end
-
   def logged_in
     return session[0]
   end

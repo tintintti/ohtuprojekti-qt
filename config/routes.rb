@@ -22,15 +22,7 @@ Rails.application.routes.draw do
 
   get 'gerrit_charts' => 'charts#gerritCharts'
 
-  get 'authors' => 'application#authors'
-  get 'index.html' => 'application#index'
-  get 'activity.html' => 'application#activity'
-  get 'files.html' => 'application#files'
-  get 'lines.html' => 'application#lines'
-  get 'tags.html' => 'application#tags'
-
   post 'session', to:'sessions#create'
-
 
   delete 'logout', to:'sessions#destroy'
 
