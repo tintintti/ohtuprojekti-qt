@@ -58,11 +58,10 @@ function insertMinOwnersButton() {
 }
 
 function formatTime(seconds) {
-    var ss = seconds % 60,
-        mm = Math.floor(seconds / 60),
+    var mm = Math.floor(seconds / 60),
         hh = Math.floor(mm / 60),
         dd = Math.floor(hh / 24);
-    return dd + " päivää, " + hh % 24 + " tuntia, " + mm % 60 + " minuuttia ja " + ss + " sekuntia.";
+    return dd + " päivää, " + hh % 24 + " tuntia, " + mm % 60 + " minuuttia ja " + seconds % 60 + " sekuntia.";
 }
 
 //Barchart-metodit
