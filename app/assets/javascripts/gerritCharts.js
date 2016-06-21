@@ -17,10 +17,10 @@ function showChangeData() {
 }
 
 function drawChangeTimeToPassChart() {
-  times = $("#gerrit_data").data().changes.times
-  var xyLabels = ["Time to pass", "Changes"];
-  var groupLabels = createChangeTimeToPassChartGroupLabels();
-  drawBarChart(createBarChartGroups(times, groupLabels), "#charts", xyLabels, "ChangeBarChart");
+    times = $("#gerrit_data").data().changes.times
+    var xyLabels = ["Time to pass", "Changes"];
+    var groupLabels = createChangeTimeToPassChartGroupLabels();
+    drawBarChart(createBarChartGroups(times, groupLabels), "#charts", xyLabels, "ChangeBarChart");
 }
 
 function drawDomainsCharts() {
@@ -58,14 +58,11 @@ function insertMinOwnersButton() {
 }
 
 function formatTime(seconds) {
-    var mm = Math.floor(seconds / 60);
-    var ss = seconds % 60;
-    var hh = Math.floor(mm / 60);
-    mm = mm % 60;
-    var dd = Math.floor(hh / 24);
-    hh = hh % 24;
-    var time = dd + " päivää, " + hh + " tuntia, " + mm + " minuuttia ja " + ss + " sekuntia.";
-    return time;
+    var ss = seconds % 60,
+        mm = Math.floor(seconds / 60),
+        hh = Math.floor(mm / 60),
+        dd = Math.floor(hh / 24);
+    return dd + " päivää, " + hh % 24 + " tuntia, " + mm % 60 + " minuuttia ja " + ss + " sekuntia.";
 }
 
 //Barchart-metodit
@@ -93,14 +90,14 @@ function createOwnerBarChartGroupLabels() {
 
 function createChangeTimeToPassChartGroupLabels() {
     var labels = [
-      ["less than 1 hour", 0, 3599],
-      ["1 to 3 hours", 3600, 10799],
-      ["3 to 10 hours", 10800, 35999],
-      ["10 to 24 hours", 36000, 86399],
-      ["1 to 3 days", 86400, 259199],
-      ["3 to 10 days", 259200, 864000],
-      ["10 days to 1 month", 864000, 2629744],
-      ["Over a month", 2629745, Number.MAX_SAFE_INTEGER]
+        ["less than 1 hour", 0, 3599],
+        ["1 to 3 hours", 3600, 10799],
+        ["3 to 10 hours", 10800, 35999],
+        ["10 to 24 hours", 36000, 86399],
+        ["1 to 3 days", 86400, 259199],
+        ["3 to 10 days", 259200, 864000],
+        ["10 days to 1 month", 864000, 2629744],
+        ["Over a month", 2629745, Number.MAX_SAFE_INTEGER]
     ]
     return labels;
 }
