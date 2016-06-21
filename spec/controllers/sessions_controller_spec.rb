@@ -28,7 +28,12 @@ RSpec.describe SessionsController, type: :controller do
        assert_equal 'Tervetuloa!', flash[:notice]
     end
 
-    
+    describe "GET #destroy" do
+      it "logs out the user" do
+        get :destroy
+        assert_equal 'Kirjauduit ulos.', flash[:notice]
+      end
+    end
   end
 
 end
