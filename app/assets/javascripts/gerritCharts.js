@@ -1,18 +1,17 @@
-var ownerData;
-var averageData;
-
-function showChangeData() {
-  averageData = $("#gerrit_data").data().changeAverages;
-  emptyContainers();
-  $('#info').append("<h3>Keskimääräinen aika, että muutos menee läpi: " + formatTime(averageData.time) + "</h3>");
-  $('#info').append("<h3>Keskimääräinen muutosten määrä läpimenoon: " + averageData.revisions + "</h3>");
-}
+drawOwnerCharts();
 
 function drawOwnerCharts() {
     ownerData = $("#gerrit_data").data().owners;
     emptyContainers();
     drawOwnerPieChart();
     drawOwnerBarChart();
+}
+
+function showChangeData() {
+    averageData = $("#gerrit_data").data().changeAverages;
+    emptyContainers();
+    $('#info').append("<h3>Keskimääräinen aika, että muutos menee läpi: " + formatTime(averageData.time) + "</h3>");
+    $('#info').append("<h3>Keskimääräinen muutosten määrä läpimenoon: " + averageData.revisions + "</h3>");
 }
 
 function drawDomainsCharts() {
@@ -25,7 +24,7 @@ function drawDomainsCharts() {
 
 function drawDomainsPieChart() {
     addTitle("#charts", "pieChartTitle", "Omistajien eri domainien määrät");
-    var sortedDomains = sortDataWithMin(domainsData, 0, ["",""]);
+    var sortedDomains = sortDataWithMin(domainsData, 0, ["", ""]);
     drawPieChart("domains", sortedDomains, true, "#charts", "DomainsPieChart");
 }
 
@@ -50,14 +49,14 @@ function insertMinOwnersButton() {
 }
 
 function formatTime(seconds) {
-  var mm = Math.floor(seconds / 60);
-  var ss = seconds % 60;
-  var hh = Math.floor(mm / 60);
-  mm = mm % 60;
-  var dd = Math.floor(hh / 24);
-  hh = hh % 24;
-  var time = dd + " päivää, " + hh + " tuntia, " + mm + " minuuttia ja " + ss + " sekuntia.";
-  return time;
+    var mm = Math.floor(seconds / 60);
+    var ss = seconds % 60;
+    var hh = Math.floor(mm / 60);
+    mm = mm % 60;
+    var dd = Math.floor(hh / 24);
+    hh = hh % 24;
+    var time = dd + " päivää, " + hh + " tuntia, " + mm + " minuuttia ja " + ss + " sekuntia.";
+    return time;
 }
 
 //Barchart-metodit
