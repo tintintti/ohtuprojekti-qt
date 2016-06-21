@@ -10,8 +10,17 @@ function drawOwnerCharts() {
 function showChangeData() {
     averageData = $("#gerrit_data").data().changeAverages;
     emptyContainers();
+    addTitle("#charts", "changeTimeChart", "Ajat muutosten läpimenoon")
+    drawChangeTimeToPassChart();
     $('#info').append("<h3>Keskimääräinen aika, että muutos menee läpi: " + formatTime(averageData.time) + "</h3>");
     $('#info').append("<h3>Keskimääräinen muutosten määrä läpimenoon: " + averageData.revisions + "</h3>");
+}
+
+function drawChangeTimeToPassChart() {
+  times = $("#gerrit_data").data().changes.times
+  var xyLabels = ["Time to pass", "Changes"];
+  var groupLabels = createChangeTimeToPassChartGroupLabels();
+  drawBarChart(createBarChartGroups(times, groupLabels), "#charts", xyLabels, "ChangeBarChart");
 }
 
 function drawDomainsCharts() {
@@ -78,6 +87,20 @@ function createOwnerBarChartGroupLabels() {
         ["20-29", 20, 29],
         ["30-49", 30, 49],
         ["50+", 50, Number.MAX_SAFE_INTEGER]
+    ]
+    return labels;
+}
+
+function createChangeTimeToPassChartGroupLabels() {
+    var labels = [
+      ["less than 1 hour", 0, 3599],
+      ["1 to 3 hours", 3600, 10799],
+      ["3 to 10 hours", 10800, 35999],
+      ["10 to 24 hours", 36000, 86399],
+      ["1 to 3 days", 86400, 259199],
+      ["3 to 10 days", 259200, 864000],
+      ["10 days to 1 month", 864000, 2629744],
+      ["Over a month", 2629745, Number.MAX_SAFE_INTEGER]
     ]
     return labels;
 }
