@@ -7,12 +7,8 @@ class ParseGitStats
     all_repositories.each do |repo|
       i += 1
       clone_git_repos repo
-      puts i
-      puts "/"
-      puts all_repositories.count
     end
   end
-
 
   def self.clone_git_repos repo
     `git clone #{repo["clone_url"]}`
@@ -20,7 +16,6 @@ class ParseGitStats
     `cd #{repo_name} ; ls | grep -v .git | xargs rm -rf`
     `mv #{repo_name} qt-projects/`
   end
-
 
   def self.iterate_over_qt_projects strategy
     old_logger = ActiveRecord::Base.logger
