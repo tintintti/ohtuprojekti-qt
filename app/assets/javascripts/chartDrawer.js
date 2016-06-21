@@ -1,4 +1,3 @@
-
 // HTML:ään lisäämistä
 
 function emptyCharts() {

@@ -1,5 +1,4 @@
-var emailData;
-var postData;
+drawEmailCharts();
 
 function drawEmailCharts() {
     emailData = $("#forum_data").data().emailcounts;
