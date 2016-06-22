@@ -2,6 +2,12 @@ require 'httparty'
 
 class ParseTopics
 
+  # Downloads the data and saves it in the database.
+  def self.fetch_and_save_newest_topics(n)
+    topics = fetch_newest_topics(n)
+    self.add_newest_topics(topics)
+  end
+
   # returns the topic id (tid) of the newest topic
   def self.newest_topic
     topics = fetch_recent_topics()
@@ -76,11 +82,6 @@ class ParseTopics
         Post.create(pid:post["pid"], uid:post["uid"], tid:post["tid"], content:post["content"], timestamp:post["timestamp"], reputation:post["reputation"], votes:post["votes"], edited:post["edited"], deleted:post["deleted"], index:post["index"])
         User.create(username:user["username"], userslug:user["userslug"], email:user["email"], picture:user["picture"], fullname:user["fullname"], signature:user["signature"], reputation:user["reputation"], postcount:user["postcount"], banned:user["banned"], status:user["status"], lastonline:user["lastonline"], uid:user["uid"])
       end
-    end
-
-    def self.fetch_and_save_newest_topics(n)
-      topics = fetch_newest_topics(n)
-      self.add_newest_topics(topics)
     end
 
 end
