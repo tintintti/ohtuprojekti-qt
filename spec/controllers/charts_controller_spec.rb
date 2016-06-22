@@ -33,6 +33,15 @@ RSpec.describe ChartsController, type: :controller do
       expect(response).to have_http_status(:success)
     end
 
+    it "going to git charts with data works" do
+      user = FactoryGirl.create(:commit)
+      users = Array.new
+      users << user
+      Commit.stubs(:all).returns(users)
+      get :gitCharts
+      expect(response).to have_http_status(:success)
+    end
+
     it "going to gerrit charts works" do
       get :gerritCharts
       expect(response).to have_http_status(:success)
