@@ -3,15 +3,15 @@ drawAuthorCommitChart();
 function drawAuthorCommitChart() {
     authorData = $("#git_data").data().authors;
     emptyContainers();
-    addTitle("#charts", "pieChartTitle", "Committien tekijät");
+    addTitle("#charts", "pieChartTitle", "Committers");
     drawPieChart("authors", authorData, true, "#charts", "authorPieChart");
 }
 
 function drawAuthorsByCommitsChart() {
     authorData = $("#git_data").data().authors;
     emptyContainers();
-    addTitle("#charts", "barChartTitle", "Tekijät committien määrän mukaan");
-    var xyLabels = ["Committien määrä", "Tekijöiden määrä"];
+    addTitle("#charts", "barChartTitle", "Committers by commit amounts");
+    var xyLabels = ["Commits", "Committers"];
     var groupLabels = createAuthorBarChartGroupLabels();
     drawBarChart(createBarChartGroups(authorData, groupLabels), "#charts", xyLabels, "BarChart");
 }
@@ -19,7 +19,7 @@ function drawAuthorsByCommitsChart() {
 function drawAuthorEmailChart() {
     authorEmails = $("#git_data").data().emails;
     emptyContainers();
-    addTitle("#charts", "pieChartTitle2", "Committaajien domainit");
+    addTitle("#charts", "pieChartTitle2", "Committer domains");
     drawPieChart("author_emails", authorEmails, true, "#charts", "emailPieChart");
 }
 

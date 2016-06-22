@@ -21,18 +21,18 @@ RSpec.describe SessionsController, type: :controller do
     it "redirects to root_path with welcome message when given correct credentials" do
       post :create, params = {username: 'tunnus', password: 'passu'}
        assert_redirected_to root_path
-       assert_equal 'Tervetuloa!', flash[:notice]
+       assert_equal 'Welcome!', flash[:notice]
     end
 
     it "login fails with an error message when given wrong credentials" do
       post :create, params = {username: 'kayttis', password: 'salis'}
-       assert_equal 'Nimi tai salasana väärin.', flash[:alert]
+       assert_equal 'Invalid username or password.', flash[:alert]
     end
 
     describe "GET #destroy" do
       it "logs out the user" do
         get :destroy
-        assert_equal 'Kirjauduit ulos.', flash[:notice]
+        assert_equal 'Logged out.', flash[:notice]
       end
     end
   end

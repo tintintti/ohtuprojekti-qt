@@ -16,14 +16,14 @@ function drawPosterCharts() {
 //Piechart-metodit
 
 function drawEmailPieChart() {
-    addTitle("#charts", "pieChartTitle", "Sähköpostien palveluntarjoajat");
+    addTitle("#charts", "pieChartTitle", "Email service providers");
     drawPieChart("emails", emailData, true, "#charts", "EmailPieChart");
 }
 
 function drawPosterPieChart() {
     insertMinPostsButton();
     var totalPosts = getTotalPostCount(postData);
-    addTitle("#charts", "pieChartTitle", "Viimeiset " + totalPosts + " viestiä käyttäjien mukaan");
+    addTitle("#charts", "pieChartTitle", "Last " + totalPosts + " posts by users");
     drawWithMinPosts(10);
 }
 
@@ -39,14 +39,14 @@ function drawWithMinPosts(minPosts) {
 
 function insertMinPostsButton() {
     document.getElementById("buttonFeature").innerHTML =
-        "<input type=number value=10 id='minimum'/><p><input type = button value = 'Aseta viestien minimimäärä' onclick = 'drawWithMinPosts(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
+        "<input type=number value=10 id='minimum'/><p><input type = button value = 'Set minimum postcount' onclick = 'drawWithMinPosts(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
 }
 
 //Barchart-metodit
 
 function drawPosterBarChart() {
-    addTitle("#charts", "barChartTitle", "Käyttäjät viestimäärien mukaan");
-    var xyLabels = ["Viestien määrä", "Käyttäjien määrä"];
+    addTitle("#charts", "barChartTitle", "Users by postcount");
+    var xyLabels = ["Posts", "Users"];
     var groupLabels = createPostBarChartGroupLabels();
     drawBarChart(createBarChartGroups(postData, groupLabels), "#charts", xyLabels, "PosterBarChart");
 }

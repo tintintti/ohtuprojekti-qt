@@ -4,18 +4,18 @@
     <body>
         <div class="container">
           <%= form_tag git_charts_path do %>
-            <%= submit_tag "Rajaa dataa" %>
+            <%= submit_tag "Limit data" %>
               <% if Commit.all.length < 1 %>
-              Commitit lähtien <%= date_field_tag :time, params[:time] || time = nil%>
+              Commits since <%= date_field_tag :time, params[:time] || time = nil%>
               <% else %>
-              Commitit lähtien <%= date_field_tag :time, params[:time] || time = Time.at(Commit.all.sort_by{|c| c.stamp}.first.stamp).to_date %>
+              Commits since <%= date_field_tag :time, params[:time] || time = Time.at(Commit.all.sort_by{|c| c.stamp}.first.stamp).to_date %>
               <% end %>
-              Näytä committaajia <%= text_field_tag :amount, params[:amount] || 100 %>
+              Amount of committers <%= text_field_tag :amount, params[:amount] || 100 %>
           <% end %>
           <p></p>
-          <button type="button" class="btn btn-primary active" onclick=drawAuthorCommitChart()>Näytä committaajat</button>
-          <button type="button" class="btn btn-primary active" onclick=drawAuthorEmailChart()>Näytä committaajien domainit</button>
-          <button type="button" class="btn btn-primary active" onclick=drawAuthorsByCommitsChart()>Näytä committaajien jakauma aktiivisuuden mukaan</button>
+          <button type="button" class="btn btn-primary active" onclick=drawAuthorCommitChart()>Show committers</button>
+          <button type="button" class="btn btn-primary active" onclick=drawAuthorEmailChart()>Show committer domains</button>
+          <button type="button" class="btn btn-primary active" onclick=drawAuthorsByCommitsChart()>Show committer distribution by activity</button>
         </div>
 
         <%= content_tag "div", id: "git_data", data: {authors: @authors, emails: @emails} do %>

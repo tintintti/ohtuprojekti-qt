@@ -2,12 +2,12 @@
 
 <p id="alert"><%= alert %></p>
 
-<h1>Sisäänkirjautuminen</h1>
+<h1>Log in</h1>
 
 <%= form_tag session_path do %>
-  Nimi <%= text_field_tag :username, params[:username] %>
-  Salasana <%= password_field_tag :password, params[:password] %>
-  <%= submit_tag "Kirjaudu sisään" %>
+  Username: <%= text_field_tag :username, params[:username] %>
+  Password: <%= password_field_tag :password, params[:password] %>
+  <%= submit_tag "Log in" %>
 <% end %>
 
 </div>

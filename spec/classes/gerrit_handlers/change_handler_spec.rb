@@ -3,6 +3,7 @@ require Rails.root.to_s + '/app/classes/gerrit_handlers/change_handler.rb'
 
 RSpec.describe ChangeHandler do
   before(:each) do
+    FactoryGirl.reload
     change1 = FactoryGirl.build(:gerrit_change)
     change2 = FactoryGirl.build(:gerrit_change)
     change1.status = "MERGED"

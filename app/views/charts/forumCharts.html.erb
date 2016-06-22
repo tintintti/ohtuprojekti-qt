@@ -3,8 +3,8 @@
     <meta charset="utf-8">
     <body>
         <div class="container">
-          <button type="button" class="btn btn-primary active" onclick=drawEmailCharts()>Sähköpostien palveluntarjoajat</button>
-          <button type="button" class="btn btn-primary active" onclick=drawPosterCharts()>Viestien lähettäjät</button>
+          <button type="button" class="btn btn-primary active" onclick=drawEmailCharts()>Email service providers</button>
+          <button type="button" class="btn btn-primary active" onclick=drawPosterCharts()>Users</button>
         </div>
         <%= content_tag "div", id: "forum_data", data: {postcounts: @post_counts, emailcounts: @email_counts, usersbyemail: @users_by_email } do %>
         <% end %>
@@ -12,7 +12,7 @@
         <%= javascript_include_tag "nvd3.js" %>
         <%= javascript_include_tag "forumCharts.js" %>
         <%= stylesheet_link_tag "nvcss.css" %>
-        
+
         <p></p>
 
         <div class="container" id="buttonFeature"></div>

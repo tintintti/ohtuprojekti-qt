@@ -1,20 +1,20 @@
 <% if logged_in %>
 
 <li role="presentation" class="dropdown">
-  <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Datakaaviot
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Data charts
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li><%= link_to 'Foorumit', forum_charts_path %></li>
+    <li><%= link_to 'Forum', forum_charts_path %></li>
     <li><%= link_to 'Git', git_charts_path %></li>
     <li><%= link_to 'Gerrit', gerrit_charts_path %></li>
   </ul>
 </li>
 
-<li><%= link_to 'Kirjaudu ulos', logout_path, method: :delete %></li>
-  
+<li><%= link_to 'Log out', logout_path, method: :delete %></li>
+
 <% else %>
 
-<li><%= link_to 'Kirjaudu sisään', login_path%></li>
+<li><%= link_to 'Log in', login_path%></li>
 
 <% end %>
