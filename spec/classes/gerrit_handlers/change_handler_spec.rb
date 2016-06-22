@@ -11,7 +11,7 @@ RSpec.describe ChangeHandler do
     change1.save
     change2.save
     FactoryGirl.create(:gerrit_message)
-    FactoryGirl.create(:gerrit_message2)
+    change2.gerrit_messages = [] << FactoryGirl.create(:gerrit_message2)
   end
 
   it "average returns 0 if given an empty array" do
