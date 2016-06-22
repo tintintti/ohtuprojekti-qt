@@ -19,7 +19,8 @@ Given there is data in the database
 Given I have logged in
 When I go to gerrit charts
 When I press "Passed changes"
-Then I should see "Average time for a change to pass CI:"
+Then I should see "Average time for a change to pass CI: 0 days, 1 hour"
+Then I should see "13"
 
 @javascript
 Scenario: User views user domain piechart
