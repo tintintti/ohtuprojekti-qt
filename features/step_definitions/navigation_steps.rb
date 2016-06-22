@@ -57,6 +57,11 @@ Then /^I should see "([^\"]*)"$/ do |text|
   page.should have_content(text)
 end
 
+Then /^I should see "([^\"]*)" in "([^\"]*)"$/ do |text, id|
+  div = find(:xpath, '//*[@id="' +id + '"]')
+  div.should have_content(text)
+end
+
 Then /^I should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
   page.should have_content(regexp)

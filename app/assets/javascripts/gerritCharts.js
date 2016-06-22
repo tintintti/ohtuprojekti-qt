@@ -24,7 +24,7 @@ function drawChangeTimeToPassChart() {
     times = $("#gerrit_data").data().changes.times
     var xyLabels = ["Time to pass", "Changes"];
     var groupLabels = createChangeTimeToPassChartGroupLabels();
-    drawBarChart(createBarChartGroups(times, groupLabels), "#charts", xyLabels, "ChangeBarChart");
+    drawBarChart(createBarChartGroups(times, groupLabels), "#charts", xyLabels, "changeTimeToPassBarChart");
 }
 
 function drawRevisionsToPassChart() {

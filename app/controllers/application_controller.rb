@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_that_logged_in
-    redirect_to login_path, alert:'Et ole kirjautunut sisään.' unless logged_in
+    redirect_to login_path, alert:'You must log in first.' unless logged_in
   end
 
 end
