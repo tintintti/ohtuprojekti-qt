@@ -2,17 +2,16 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
 
-  describe "GET #new" do
+  describe "going to login page" do
 
     it "returns http success" do
-      session[0]=1
       get :new
       expect(response).to have_http_status(:success)
     end
 
   end
 
-  describe "POST #create" do
+  describe "when logging in" do
 
     before(:each) do
       request.env["HTTP_REFERER"] = "http://test.host/login"
@@ -24,12 +23,13 @@ RSpec.describe SessionsController, type: :controller do
        assert_equal 'Welcome!', flash[:notice]
     end
 
-    it "login fails with an error message when given wrong credentials" do
+    it "fails with an error message when given wrong credentials" do
       post :create, params = {username: 'kayttis', password: 'salis'}
+       expect(response).to have_http_status(:redirect)
        assert_equal 'Invalid username or password.', flash[:alert]
     end
 
-    describe "GET #destroy" do
+    describe "when logging out" do
       it "logs out the user" do
         get :destroy
         assert_equal 'Logged out.', flash[:notice]
