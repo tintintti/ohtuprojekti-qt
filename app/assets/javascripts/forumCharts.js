@@ -85,7 +85,7 @@ function redirectToQtUserPage(name) {
 //Listaa sivulla kaikki yhden palveluntarjoajan käyttäjät
 function listUsersOfProvider(emailprovider) {
     document.getElementById("usernames").innerHTML = "";
-    document.getElementById("usernames").innerHTML += "<h2>Käyttäjät tarjoajalla " + emailprovider + "</h2>";
+    document.getElementById("usernames").innerHTML += "<h2>Users with " + emailprovider + "</h2>";
     var objectArray = $("#forum_data").data().usersbyemail[emailprovider],
         userArray = [];
     for (var i = 0; i < objectArray.length; i++) {

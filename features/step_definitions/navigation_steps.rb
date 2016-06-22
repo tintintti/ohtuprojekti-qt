@@ -116,21 +116,21 @@ Given /^I have logged in$/ do
   visit path_to("the login page")
   fill_in('username', :with => 'tunnus')
   fill_in('password', :with => 'passu')
-  click_button('Kirjaudu sisään')
+  click_button('Log in')
 end
 
 When /^I log in successfully$/ do
   visit path_to("the login page")
   fill_in('username', :with => 'tunnus')
   fill_in('password', :with => 'passu')
-  click_button('Kirjaudu sisään')
+  click_button('Log in')
 end
 
 When /^I try to log in with wrong password$/ do
   visit path_to("the login page")
   fill_in('username', :with => 'tunnus')
   fill_in('password', :with => 'salis')
-  click_button('Kirjaudu sisään')
+  click_button('Log in')
 end
 
 When /^I hover mouse over a slice on piechart$/ do
@@ -145,13 +145,13 @@ end
 When /^I limit authors to (.+)$/ do |amount|
   fill_in 'time', :with => '01/01/2014'
   fill_in 'amount', :with => amount
-  click_button('Rajaa dataa')
+  click_button('Limit data')
 end
 
 When /^I limit commit count to start from (.+)$/ do |time|
   fill_in 'time', :with => time
   fill_in 'amount', :with => 100
-  click_button('Rajaa dataa')
+  click_button('Limit data')
 end
 
 Then /^show page$/ do
@@ -171,14 +171,14 @@ end
 Then /^there should be a barchart with post data$/ do
   expect(page).to have_css(".nvd3-svg")
   find(:xpath, '//*[@class="nvd3 nv-wrap nv-discreteBarWithAxes"]')
-  expect(page).to have_content("Käyttäjät viestimäärien mukaan") #title
+  expect(page).to have_content("Users by postcount") #title
   expect(page).to have_content("12")
   expect(page).to have_content("3-5")
 end
 
 Then /^there should be proper labels on the post barchart$/ do
-  expect(page).to have_content("Käyttäjien määrä") #labels
-  expect(page).to have_content("Viestien määrä")
+  expect(page).to have_content("Users") #labels
+  expect(page).to have_content("Posts")
 end
 
 Then /^I should see some email provider users$/ do
@@ -187,7 +187,7 @@ end
 
 Then /^I should see email users as a list$/ do
   emailProvider = all(".nv-slice")[0].text
-  page.should have_content("Käyttäjät tarjoajalla " + emailProvider)
+  page.should have_content("Users with " + emailProvider)
   all(:xpath, '//div[@id="usernames"]//ul//li')[0].text.should == "testUser1"
   all(:xpath, '//div[@id="usernames"]//ul//li')[1].text.should == "testUser2"
 end
@@ -197,7 +197,7 @@ Then /^I should be on user's forum page$/ do
   forumPage = current_url
   switch_to_window(windows.first)
   visit path_to("forum_charts")
-  click_button("Viestien lähettäjät")
+  click_button("Users")
   all(".nv-slice")[0].hover
   forumPage.should == "http://forum.qt.io/user/" + find(".key").text
 end
