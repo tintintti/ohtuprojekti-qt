@@ -1,4 +1,4 @@
-drawAuthorCommitChart();
+drawAuthorCommitPieChart();
 
 //  Piechart-related
 
