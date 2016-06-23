@@ -173,15 +173,14 @@ Then /^there should be a barchart$/ do
   find(:xpath, '//*[@class="nvd3 nv-wrap nv-discreteBarWithAxes"]')
 end
 
+#gerrit chart tests
 Then /^I should see a pie chart with change owner data$/ do
-  expect(page).to have_css(".nvd3-svg")
   div = find(:xpath, '//*[@class="nvd3 nv-wrap nv-pieChart"]')
   div.should have_content("testOwner1")
   div.should have_content("testOwner2")
 end
 
 Then /^I should see a bar chart with change owner data$/ do
-  expect(page).to have_css(".nvd3-svg")
   #div with bar chart y axis data
   div = find(:xpath, '//*[@class="nv-groups"]')
   div.should have_content("0")
@@ -190,36 +189,75 @@ Then /^I should see a bar chart with change owner data$/ do
 end
 
 Then /^I should see a bar chart with change revision data$/ do
-  expect(page).to have_css(".nvd3-svg")
-  #div with bar chart y axis data
   div = find(:xpath, '//*[@id="changeRevisionsBarChart"]//*[@class="nv-groups"]')
   div.should have_content("0")
   div.should have_content("13")
   div.should_not have_content("2")
 end
 
-
 Then /^I should see a bar chart with change time to pass data$/ do
-  expect(page).to have_css(".nvd3-svg")
-  #div with bar chart y axis data
   div = find(:xpath, '//*[@id="changeTimeToPassBarChart"]//*[@class="nv-groups"]')
   div.should have_content("0")
   div.should have_content("13")
   div.should_not have_content("2")
 end
 
+Then /^I should see a pie chart with change owner domains$/ do
+  div = find(:xpath, '//*[@class="nvd3 nv-wrap nv-pieChart"]')
+  div.should have_content("email")
+end
+
+Then /^I should see average time and revisions for a change to pass$/ do
+  page.should have_content("Average time for a change to pass CI: 0 days, 1 hours, 0 minutes and 0 seconds.")
+  page.should have_content("Average revisions needed for a change to pass CI: 0")
+end
+
+#git chart tests
+Then /^I should see a pie chart of git committers$/ do
+  div = find(:xpath, '//*[@class="nvd3 nv-wrap nv-pieChart"]')
+  div.should have_content("testAuthor13")
+  div.should have_content("testAuthor2")
+end
+
+Then /^I should see a pie chart with one git committer$/ do
+  div = find(:xpath, '//*[@class="nvd3 nv-wrap nv-pieChart"]')
+  div.should have_content("testAuthor13")
+  div.should_not have_content("testAuthor2")
+  div.should_not have_content("testAuthor12")
+end
+
+Then /^I should not see git committers$/ do
+  page.should_not have_content("testAuthor")
+end
+
+Then /^I should see a bar chart of git committers$/ do
+  div = find(:xpath, '//*[@class="nv-groups"]')
+  div.should have_content("0")
+  div.should have_content("13")
+  div.should_not have_content("2")
+end
+
+Then /^I should see a bar chart with 2 git committers$/ do
+  div = find(:xpath, '//*[@class="nv-groups"]')
+  div.should have_content("0")
+  div.should_not have_content("1")
+  div.should have_content("2")
+end
+
+Then /^I should see a pie chart of committer domains$/ do
+  div = find(:xpath, '//*[@class="nvd3 nv-wrap nv-pieChart"]')
+  div.should have_content("test")
+end
+
+Then /^I should not see committer domains$/ do
+  page.should_not have_content("test")
+end
+
 Then /^there should be a barchart with post data$/ do
-  expect(page).to have_css(".nvd3-svg")
   find(:xpath, '//*[@class="nvd3 nv-wrap nv-discreteBarWithAxes"]')
   expect(page).to have_content("Users by postcount") #title
   expect(page).to have_content("12")
   expect(page).to have_content("3-5")
-end
-
-Then /^I should see a pie chart with change owner domains$/ do
-  expect(page).to have_css(".nvd3-svg")
-  div = find(:xpath, '//*[@class="nvd3 nv-wrap nv-pieChart"]')
-  div.should have_content("email")
 end
 
 Then /^there should be proper labels on the post barchart$/ do
