@@ -1,5 +1,4 @@
 class OwnerHandler
-  @downloader = GerritDownloader.new
 
   def self.changes_by_owner
       owners = GerritOwner.all

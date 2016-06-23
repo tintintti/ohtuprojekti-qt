@@ -260,6 +260,11 @@ Then /^there should be a barchart with post data$/ do
   expect(page).to have_content("3-5")
 end
 
+Then /^I should see a pie chart of email providers$/ do
+  div = find(:xpath, '//*[@class="nvd3 nv-wrap nv-pieChart"]')
+  div.should have_content("test")
+end
+
 Then /^there should be proper labels on the post barchart$/ do
   expect(page).to have_content("Users") #labels
   expect(page).to have_content("Posts")

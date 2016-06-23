@@ -1,5 +1,4 @@
 require 'rails_helper'
-require "#{Rails.root}/app/classes/gerrit_handlers/gerrit_downloader.rb"
 
 RSpec.describe GerritDownloader do
 

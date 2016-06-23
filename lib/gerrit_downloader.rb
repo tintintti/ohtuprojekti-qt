@@ -34,6 +34,8 @@ class GerritDownloader
     JSON.parse(change)
   end
 
+  # Gerrit API JSON response body starts with a magic prefix line that must be
+  # stripped before feeding the rest of the response body to a JSON parser
   def body_no_first_line(response)
     response.body.lines.to_a[1..-1].join
   end
