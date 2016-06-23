@@ -1,26 +1,30 @@
 drawAuthorCommitChart();
 
-function drawAuthorCommitChart() {
+//  Piechart-related
+
+function drawAuthorCommitPieChart() {
     authorData = $("#git_data").data().authors;
     emptyContainers();
     addTitle("#charts", "pieChartTitle", "Committers");
-    drawPieChart("authors", authorData, true, "#charts", "authorPieChart");
+    drawPieChart("gitAuthors", authorData, true, "#charts", "AuthorPieChart");
 }
 
-function drawAuthorsByCommitsChart() {
+function drawAuthorEmailPieChart() {
+    authorEmails = $("#git_data").data().emails;
+    emptyContainers();
+    addTitle("#charts", "pieChartTitle2", "Committer domains");
+    drawPieChart("gitEmails", authorEmails, true, "#charts", "EmailPieChart");
+}
+
+//  Barchart-related
+
+function drawAuthorsByCommitsBarChart() {
     authorData = $("#git_data").data().authors;
     emptyContainers();
     addTitle("#charts", "barChartTitle", "Committers by commit amounts");
     var xyLabels = ["Commits", "Committers"];
     var groupLabels = createAuthorBarChartGroupLabels();
-    drawBarChart(createBarChartGroups(authorData, groupLabels), "#charts", xyLabels, "BarChart");
-}
-
-function drawAuthorEmailChart() {
-    authorEmails = $("#git_data").data().emails;
-    emptyContainers();
-    addTitle("#charts", "pieChartTitle2", "Committer domains");
-    drawPieChart("author_emails", authorEmails, true, "#charts", "emailPieChart");
+    drawBarChart(createBarChartGroups(authorData, groupLabels), "#charts", xyLabels, "AuthorBarChart");
 }
 
 function createAuthorBarChartGroupLabels() {

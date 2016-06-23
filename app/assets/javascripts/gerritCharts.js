@@ -11,27 +11,13 @@ function showChangeData() {
     averageData = $("#gerrit_data").data().changeAverages;
     emptyContainers();
     addTitle("#charts", "changeTimeChart", "Time for changes to pass")
-    drawChangeTimeToPassChart();
+    drawChangeTimeToPassBarChart();
 
     addTitle("#charts", "changeRevisionsChart", "Revisions for changes to pass")
-    drawRevisionsToPassChart();
+    drawRevisionsToPassBarChart();
 
     $('#info').append("<h3>Average time for a change to pass CI: " + formatTime(averageData.time) + "</h3>");
     $('#info').append("<h3>Average revisions needed for a change to pass CI: " + averageData.revisions + "</h3>");
-}
-
-function drawChangeTimeToPassChart() {
-    times = $("#gerrit_data").data().changes.times
-    var xyLabels = ["Time to pass", "Changes"];
-    var groupLabels = createChangeTimeToPassChartGroupLabels();
-    drawBarChart(createBarChartGroups(times, groupLabels), "#charts", xyLabels, "changeTimeToPassBarChart");
-}
-
-function drawRevisionsToPassChart() {
-  revisions = $("#gerrit_data").data().changes.revisions
-  var xyLabels = ["Revisions to pass", "Changes"];
-  var groupLabels = createRevisionsToPassChartGroupLabels();
-  drawBarChart(createBarChartGroups(revisions, groupLabels), "#charts", xyLabels, "changeRevisionsBarChart");
 }
 
 function drawDomainsCharts() {
@@ -40,48 +26,50 @@ function drawDomainsCharts() {
     drawDomainsPieChart();
 }
 
-//Piechart-metodit
+//  Piechart-related
 
 function drawDomainsPieChart() {
     addTitle("#charts", "pieChartTitle", "Owner domains");
     var sortedDomains = sortDataWithMin(domainsData, 0, ["", ""]);
-    drawPieChart("domains", sortedDomains, true, "#charts", "DomainsPieChart");
+    drawPieChart("gerritDomains", sortedDomains, true, "#charts", "DomainsPieChart");
 }
 
 function drawOwnerPieChart() {
     insertMinOwnersButton();
     addTitle("#charts", "pieChartTitle", "Change owners");
-    drawPieChart("owners", ownerData, true, "#charts", "OwnerPieChart");
+    drawPieChart("gerritOwners", ownerData, true, "#charts", "OwnerPieChart");
 }
 
 function drawWithMinOwners(minOwners) {
     if (minOwners > 0) {
-        emptyPieChart("OwnerPieChart");
+        emptyChartByTitle("OwnerPieChart");
         var labelWords = ["owners", "changes"];
         var ownersByMin = sortDataWithMin(ownerData, minOwners, labelWords);
-        drawPieChart("owners", ownersByMin, true, "#charts", "OwnerPieChart");
+        drawPieChart("gerritOwners", ownersByMin, true, "#charts", "OwnerPieChart");
     }
 }
 
-function insertMinOwnersButton() {
-    document.getElementById("buttonFeature").innerHTML =
-        "<input type=number value=1 id='minimum'/><p><input type = button value = 'Set minimum amount of changes' onclick = 'drawWithMinOwners(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
-}
-
-function formatTime(seconds) {
-    var mm = Math.floor(seconds / 60),
-        hh = Math.floor(mm / 60),
-        dd = Math.floor(hh / 24);
-    return dd + " days, " + hh % 24 + " hours, " + mm % 60 + " minutes and " + seconds % 60 + " seconds.";
-}
-
-//Barchart-metodit
+//  Barchart-related
 
 function drawOwnerBarChart() {
     addTitle("#charts", "barChartTitle", "Owners by change amounts");
     var xyLabels = ["Changes", "Owners"];
     var groupLabels = createOwnerBarChartGroupLabels();
     drawBarChart(createBarChartGroups(ownerData, groupLabels), "#charts", xyLabels, "OwnerBarChart");
+}
+
+function drawChangeTimeToPassBarChart() {
+    times = $("#gerrit_data").data().changes.times
+    var xyLabels = ["Time to pass", "Changes"];
+    var groupLabels = createChangeTimeToPassChartGroupLabels();
+    drawBarChart(createBarChartGroups(times, groupLabels), "#charts", xyLabels, "ChangeTimeToPassBarChart");
+}
+
+function drawRevisionsToPassBarChart() {
+    revisions = $("#gerrit_data").data().changes.revisions
+    var xyLabels = ["Revisions to pass", "Changes"];
+    var groupLabels = createRevisionsToPassChartGroupLabels();
+    drawBarChart(createBarChartGroups(revisions, groupLabels), "#charts", xyLabels, "ChangeRevisionsBarChart");
 }
 
 function createOwnerBarChartGroupLabels() {
@@ -114,18 +102,32 @@ function createChangeTimeToPassChartGroupLabels() {
 
 function createRevisionsToPassChartGroupLabels() {
     var labels = [
-      ["0", 0, 0],
-      ["1", 1, 1],
-      ["2", 2, 2],
-      ["3", 3, 3],
-      ["4", 4, 4],
-      ["5", 5, 5],
-      ["6", 6, 6],
-      ["7", 7, 7],
-      ["8", 8, 8],
-      ["9", 9, 9],
-      ["10", 10, 10],
-      [">10", 11, Number.MAX_SAFE_INTEGER]
+        ["0", 0, 0],
+        ["1", 1, 1],
+        ["2", 2, 2],
+        ["3", 3, 3],
+        ["4", 4, 4],
+        ["5", 5, 5],
+        ["6", 6, 6],
+        ["7", 7, 7],
+        ["8", 8, 8],
+        ["9", 9, 9],
+        ["10", 10, 10],
+        [">10", 11, Number.MAX_SAFE_INTEGER]
     ]
     return labels;
+}
+
+//  Other
+
+function formatTime(seconds) {
+    var mm = Math.floor(seconds / 60),
+        hh = Math.floor(mm / 60),
+        dd = Math.floor(hh / 24);
+    return dd + " days, " + hh % 24 + " hours, " + mm % 60 + " minutes and " + seconds % 60 + " seconds.";
+}
+
+function insertMinOwnersButton() {
+    document.getElementById("buttonFeature").innerHTML =
+        "<input type=number value=1 id='minimum'/><p><input type = button value = 'Set minimum amount of changes' onclick = 'drawWithMinOwners(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
 }

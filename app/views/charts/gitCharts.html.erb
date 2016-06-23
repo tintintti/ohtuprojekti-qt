@@ -13,9 +13,9 @@
               Amount of committers <%= text_field_tag :amount, params[:amount] || 100 %>
           <% end %>
           <p></p>
-          <button type="button" class="btn btn-primary active" onclick=drawAuthorCommitChart()>Show committers</button>
-          <button type="button" class="btn btn-primary active" onclick=drawAuthorEmailChart()>Show committer domains</button>
-          <button type="button" class="btn btn-primary active" onclick=drawAuthorsByCommitsChart()>Show committer distribution by activity</button>
+          <button type="button" class="btn btn-primary active" onclick=drawAuthorCommitPieChart()>Show committers</button>
+          <button type="button" class="btn btn-primary active" onclick=drawAuthorEmailPieChart()>Show committer domains</button>
+          <button type="button" class="btn btn-primary active" onclick=drawAuthorsByCommitsBarChart()>Show committer distribution by activity</button>
         </div>
 
         <%= content_tag "div", id: "git_data", data: {authors: @authors, emails: @emails} do %>

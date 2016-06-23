@@ -13,11 +13,11 @@ function drawPosterCharts() {
     drawPosterBarChart();
 }
 
-//Piechart-metodit
+//  Piechart-related
 
 function drawEmailPieChart() {
     addTitle("#charts", "pieChartTitle", "Email service providers");
-    drawPieChart("emails", emailData, true, "#charts", "EmailPieChart");
+    drawPieChart("forumEmails", emailData, true, "#charts", "EmailPieChart");
 }
 
 function drawPosterPieChart() {
@@ -29,20 +29,14 @@ function drawPosterPieChart() {
 
 function drawWithMinPosts(minPosts) {
     if (minPosts > 0) {
-      emptyPieChart("PostPieChart");
+      emptyChartByTitle("PosterPieChart");
       var labelWords = ["users", "posts"];
       var postsByMin = sortDataWithMin(postData, minPosts, labelWords);
-      drawPieChart("posts", postsByMin, true, "#charts", "PostPieChart");
+      drawPieChart("forumPosts", postsByMin, true, "#charts", "PosterPieChart");
   }
 }
 
-
-function insertMinPostsButton() {
-    document.getElementById("buttonFeature").innerHTML =
-        "<input type=number value=10 id='minimum'/><p><input type = button value = 'Set minimum postcount' onclick = 'drawWithMinPosts(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
-}
-
-//Barchart-metodit
+//  Barchart-related
 
 function drawPosterBarChart() {
     addTitle("#charts", "barChartTitle", "Users by postcount");
@@ -65,7 +59,7 @@ function createPostBarChartGroupLabels() {
   return labels;
 }
 
-//Muut jutut
+//  Other
 
 function getTotalPostCount(postCounts) {
     totalPosts = 0;
@@ -77,12 +71,19 @@ function getTotalPostCount(postCounts) {
     return totalPosts;
 }
 
-//Ohjaa haettavan Qt:n foorumin käyttäjän sivuille
-function redirectToQtUserPage(name) {
-    if (!name.includes("users w/")) window.open("http://forum.qt.io/user/" + $("#forum_data").data().postcounts[1][name]);
+
+function insertMinPostsButton() {
+    document.getElementById("buttonFeature").innerHTML =
+        "<input type=number value=10 id='minimum'/><p><input type = button value = 'Set minimum postcount' onclick = 'drawWithMinPosts(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
 }
 
-//Listaa sivulla kaikki yhden palveluntarjoajan käyttäjät
+function redirectToQtUserPage(name) {
+    if (!name.includes("users w/")) {
+    window.open("http://forum.qt.io/user/" + $("#forum_data").data().postcounts[1][name]);
+  }
+}
+
+//For listing (appending) the users of a provider on the page
 function listUsersOfProvider(emailprovider) {
     document.getElementById("usernames").innerHTML = "";
     document.getElementById("usernames").innerHTML += "<h2>Users with " + emailprovider + "</h2>";
