@@ -10,19 +10,18 @@ When I press "Change owners"
 Then I should see a pie chart with change owner data
 Then I should see a bar chart with change owner data
 
-
 @javascript
 Scenario: User views change passing statistics
 Given there is data in the database
 Given I have logged in
 When I go to gerrit charts
 When I press "Passed changes"
-Then I should see "Average time for a change to pass CI: 0 days, 1 hours, 0 minutes"
+Then I should see average time and revisions for a change to pass
 Then I should see a bar chart with change revision data
 Then I should see a bar chart with change time to pass data
 
 @javascript
-Scenario: User views user domain piechart
+Scenario: User views gerrit owner domain piechart
 Given there is data in the database
 Given I have logged in
 When I go to gerrit charts
