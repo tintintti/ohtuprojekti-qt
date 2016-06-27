@@ -1,26 +1,4 @@
-// HTML:ään lisäämistä
-
-function emptyCharts() {
-  d3.selectAll("#charts > *").remove();
-}
-
-function emptyPieChart(title) {
-  d3.selectAll("#" + title + " > *").remove();
-}
-
-function emptyBarChart(title) {
-  d3.selectAll("#" + title + " > *").remove();
-}
-
-function makeUL(array) {
-    var list = document.createElement('ul');
-    for (var i = 0; i < array.length; i++) {
-        var item = document.createElement('li');
-        item.appendChild(document.createTextNode(array[i]));
-        list.appendChild(item);
-    }
-    return list;
-}
+// HTML operations here
 
 function addTitle(divName, id, title) {
   var $div = $(divName);
@@ -32,7 +10,35 @@ function addSvg(divName, id) {
   $div.append('<svg id='+id+'></svg>');
 }
 
-// pitkät piirtometodit tänne
+//for appending a list to the HTML
+function makeUL(array) {
+    var list = document.createElement('ul');
+    for (var i = 0; i < array.length; i++) {
+        var item = document.createElement('li');
+        item.appendChild(document.createTextNode(array[i]));
+        list.appendChild(item);
+    }
+    return list;
+}
+
+function emptyCharts() {
+  d3.selectAll("#charts > *").remove();
+}
+
+function emptyChartByTitle(title) {
+  d3.selectAll("#" + title + " > *").remove();
+}
+
+//empties the containers so that some other chart can use them
+function emptyContainers() {
+    document.getElementById("buttonFeature").innerHTML = "";
+    if (document.getElementById("info")) document.getElementById("info").innerHTML = "";
+    if (document.getElementById("usernames")) document.getElementById("usernames").innerHTML = "";
+    if (document.getElementById("barChartTitle")) document.getElementById("barChartTitle").innerHTML = "";
+    emptyCharts();
+}
+
+//  Piechart-related
 
 function drawPieChart(type, data, showlegend, divName, id) {
     addSvg(divName, id);
@@ -49,7 +55,7 @@ function drawPieChart(type, data, showlegend, divName, id) {
                 .valueFormat(d3.format(".0f"))
                 .height(height)
                 .showLabels(true).showLegend(showlegend);
-            if (type == "emails") {
+            if (type == "forumEmails") {
                 setEmailToolTipContent(chart);
             }
             d3.select('#' + id)
@@ -66,13 +72,14 @@ function drawPieChart(type, data, showlegend, divName, id) {
 
             d3.select('#' + id).selectAll(".nv-slice").on('click',
                 function(d) {
-                    if (type == "emails") listUsersOfProvider(d.data.label);
-                    if (type == "posts") redirectToQtUserPage(d.data.label);
+                    if (type == "forumEmails") listUsersOfProvider(d.data.label);
+                    if (type == "forumPosts") redirectToQtUserPage(d.data.label);
             });
             return chart;
         });
 }
 
+//lists the usernames of a provider in a tooltip for the forum email chart
 function setEmailToolTipContent(chart) {
   chart.tooltipContent(function(key, y, e, graph) {
       var emailForTooltip = $("#forum_data").data().usersbyemail[key.data.label],
@@ -87,6 +94,7 @@ function setEmailToolTipContent(chart) {
   });
 }
 
+//scales the piechart size with the amount of data (length)
 function setPieChartHeight(length) {
     var height = 800;
     height += length * 3;
@@ -94,12 +102,8 @@ function setPieChartHeight(length) {
     return height;
 }
 
-function objectSorter(array) {
-    return array.sort(function(a, b) {
-        return parseInt(a.value) - parseInt(b.value);
-    });
-}
-
+//adds total counts under minimum as its own node and then sorts
+//the data using objectSorter
 function sortDataWithMin(counts, min, labelWords) {
     var data = []
     var totalCountsUnderMin = 0;
@@ -119,6 +123,8 @@ function sortDataWithMin(counts, min, labelWords) {
     return objectSorter(data);
 }
 
+//  Barchart-related
+
 function drawBarChart(data, divName, xyLabels, id) {
   addSvg(divName, id);
 
@@ -132,11 +138,11 @@ function drawBarChart(data, divName, xyLabels, id) {
 
     d3.select('#' + id).attr('height', height);
     var chart = nv.models.discreteBarChart()
-        .x(function(d) { return d.label })    //Specify the data accessors.
+        .x(function(d) { return d.label })
         .y(function(d) { return d.value })
-        .staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
-        .tooltips(false)        //Don't show tooltips
-        .showValues(true)       //...instead, show the bar value right on top of each bar.
+        .staggerLabels(true)
+        .tooltips(false)
+        .showValues(true)
         .valueFormat(d3.format(".0f"))
         .height(height)
         chart.xAxis.axisLabel(xyLabels[0])
@@ -155,6 +161,9 @@ function drawBarChart(data, divName, xyLabels, id) {
   });
 }
 
+//these create the groups to be shown in the barchart based on
+//given data and labels
+
 function createBarChartGroups(data, labels) {
   var labelValues = initializeBarChartMap(labels);
 
@@ -165,17 +174,6 @@ function createBarChartGroups(data, labels) {
     mapCounts(labelValues, count, labels);
   }
   return mapToArrayForNvd3(labelValues);
-}
-
-function mapToArrayForNvd3(dataMap) {
-  var data = [];
-  dataMap.forEach(function (value, key, map){
-   data.push({
-     "label": key,
-     "value": value
-   });
-  });
-  return data;
 }
 
 function initializeBarChartMap(labels) {
@@ -192,10 +190,21 @@ function mapCounts(dataMap, counts, labels) {
     });
 }
 
-function emptyContainers() {
-    document.getElementById("buttonFeature").innerHTML = "";
-    if (document.getElementById("info")) document.getElementById("info").innerHTML = "";
-    if (document.getElementById("usernames")) document.getElementById("usernames").innerHTML = "";
-    if (document.getElementById("barChartTitle")) document.getElementById("barChartTitle").innerHTML = "";
-    emptyCharts();
+function mapToArrayForNvd3(dataMap) {
+  var data = [];
+  dataMap.forEach(function (value, key, map){
+   data.push({
+     "label": key,
+     "value": value
+   });
+  });
+  return data;
+}
+
+//  Other
+
+function objectSorter(array) {
+    return array.sort(function(a, b) {
+        return parseInt(a.value) - parseInt(b.value);
+    });
 }

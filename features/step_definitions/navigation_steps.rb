@@ -189,14 +189,14 @@ Then /^I should see a bar chart with change owner data$/ do
 end
 
 Then /^I should see a bar chart with change revision data$/ do
-  div = find(:xpath, '//*[@id="changeRevisionsBarChart"]//*[@class="nv-groups"]')
+  div = find(:xpath, '//*[@id="ChangeRevisionsBarChart"]//*[@class="nv-groups"]')
   div.should have_content("0")
   div.should have_content("13")
   div.should_not have_content("2")
 end
 
 Then /^I should see a bar chart with change time to pass data$/ do
-  div = find(:xpath, '//*[@id="changeTimeToPassBarChart"]//*[@class="nv-groups"]')
+  div = find(:xpath, '//*[@id="ChangeTimeToPassBarChart"]//*[@class="nv-groups"]')
   div.should have_content("0")
   div.should have_content("13")
   div.should_not have_content("2")
