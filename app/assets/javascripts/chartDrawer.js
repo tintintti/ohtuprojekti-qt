@@ -56,7 +56,7 @@ function drawPieChart(type, data, showlegend, divName, id) {
                 .height(height)
                 .showLabels(true).showLegend(showlegend);
             if (type == "forumEmails") {
-                setEmailToolTipContent(chart);
+                setToolTipContent(chart, $("#forum_data").data().usersbyemail);
             }
             d3.select('#' + id)
                 .datum(data)
@@ -79,17 +79,17 @@ function drawPieChart(type, data, showlegend, divName, id) {
         });
 }
 
-//lists the usernames of a provider in a tooltip for the forum email chart
-function setEmailToolTipContent(chart) {
+//sets the nodes in the given data to a tooltip for the chart
+function setToolTipContent(chart, data) {
   chart.tooltipContent(function(key, y, e, graph) {
-      var emailForTooltip = $("#forum_data").data().usersbyemail[key.data.label],
-          tooltipContent = "<p><b>" + key.data.label + ": " + emailForTooltip.length + "</b></p>",
+      var dataForTooltip = data[key.data.label],
+          tooltipContent = "<p><b>" + key.data.label + ": " + dataForTooltip.length + "</b></p>",
           length = 10;
-      if (emailForTooltip.length < length) length = emailForTooltip.length;
+      if (dataForTooltip.length < length) length = dataForTooltip.length;
       for (var i = 0; i < length; i++) {
-          tooltipContent = tooltipContent + "<p>" + emailForTooltip[i].user + "</p>"
+          tooltipContent = tooltipContent + "<p>" + dataForTooltip[i].user + "</p>"
       }
-      if (emailForTooltip.length > length) tooltipContent = tooltipContent + "<p>" + "..." + "</p>";
+      if (dataForTooltip.length > length) tooltipContent = tooltipContent + "<p>" + "..." + "</p>";
       return tooltipContent;
   });
 }
