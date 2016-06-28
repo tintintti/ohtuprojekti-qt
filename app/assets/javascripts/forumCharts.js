@@ -1,5 +1,7 @@
 drawEmailCharts();
 
+//  called by buttonclicks in forumCharts.html
+
 function drawEmailCharts() {
     emailData = $("#forum_data").data().emailcounts;
     emptyContainers();
