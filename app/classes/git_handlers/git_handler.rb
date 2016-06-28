@@ -9,6 +9,18 @@ class GitHandler
   end
 
   def self.author_commits(time, amount)
+    if Commit.all.length < 1
+      time = "01/01/2015".to_date
+    elsif time == nil
+      time = Time.at(Commit.all.sort_by{|commit| commit.stamp}.first.stamp).to_date
+    end
+
+    if amount == nil
+        amount = 100
+    end
+
+    time = time.to_time.to_i
+    amount = amount.to_i
     @@authors = authors_by_latest_commits(time, amount)
     timeFrame = "stamp > " + time.to_s
     data = []

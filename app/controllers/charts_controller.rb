@@ -15,17 +15,7 @@ class ChartsController < ApplicationController
     time = params[:time]
     amount = params[:amount]
 
-    if Commit.all.length < 1
-      time = "01/01/2015".to_date
-    elsif time == nil
-      time =  Time.at(Commit.all.sort_by{|commit| commit.stamp}.first.stamp).to_date
-    end
-
-    if amount == nil
-      amount = 100
-    end
-
-    @authors = GitHandler.author_commits time.to_time.to_i, amount.to_i
+    @authors = GitHandler.author_commits time, amount
     @emails = GitHandler.author_emails
   end
 
