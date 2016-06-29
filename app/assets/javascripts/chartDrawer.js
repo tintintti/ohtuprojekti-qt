@@ -102,8 +102,8 @@ function setPieChartHeight(length) {
     return height;
 }
 
-//adds total counts under minimum as its own node and then sorts
-//the data using objectSorter
+//adds total counts under the set minimum as its own node with the label words
+//("users w/ <10 posts" for example) and then sorts the data using objectSorter
 function sortDataWithMin(counts, min, labelWords) {
     var data = []
     var totalCountsUnderMin = 0;
