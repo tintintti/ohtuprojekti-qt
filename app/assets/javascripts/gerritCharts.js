@@ -104,7 +104,7 @@ function createChangeTimeToPassChartGroupLabels() {
 
 function createRevisionsToPassChartGroupLabels() {
     var labels = [
-        ["1", 1, 1],
+        ["1", 0, 1],
         ["2", 2, 2],
         ["3", 3, 3],
         ["4", 4, 4],
