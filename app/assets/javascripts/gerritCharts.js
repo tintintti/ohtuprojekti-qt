@@ -1,7 +1,5 @@
 drawOwnerCharts();
 
-//  called by buttonclicks in gerritCharts.html
-
 function drawOwnerCharts() {
     ownerData = $("#gerrit_data").data().owners;
     emptyContainers();
@@ -9,7 +7,7 @@ function drawOwnerCharts() {
     drawOwnerBarChart();
 }
 
-function drawChangeCharts() {
+function showChangeData() {
     averageData = $("#gerrit_data").data().changeAverages;
     emptyContainers();
     addTitle("#charts", "changeTimeChart", "Time for changes to pass")
@@ -22,7 +20,7 @@ function drawChangeCharts() {
     $('#info').append("<h3>Average revisions needed for a change to pass CI: " + averageData.revisions + "</h3>");
 }
 
-function drawDomainsChart() {
+function drawDomainsCharts() {
     domainsData = $("#gerrit_data").data().domains;
     emptyContainers();
     drawDomainsPieChart();
