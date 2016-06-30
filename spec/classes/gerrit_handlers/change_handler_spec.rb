@@ -14,8 +14,8 @@ RSpec.describe ChangeHandler do
     change2.gerrit_messages = [] << FactoryGirl.create(:gerrit_message2)
   end
 
-  it "average returns 0 if given an empty array" do
-    expect(ChangeHandler.average []).to be(0)
+  it "count_average returns 0 if given an empty array" do
+    expect(ChangeHandler.count_average []).to be(0)
   end
 
   it "passed_reviews returns an array of correct length" do
