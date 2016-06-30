@@ -177,7 +177,6 @@ end
 Then /^I should see a pie chart with change owner data$/ do
   div = find(:xpath, '//*[@class="nvd3 nv-wrap nv-pieChart"]')
   div.should have_content("testOwner1")
-  div.should have_content("testOwner2")
 end
 
 Then /^I should see a bar chart with change owner data$/ do
