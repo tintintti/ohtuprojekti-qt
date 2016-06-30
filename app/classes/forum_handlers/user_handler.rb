@@ -44,9 +44,7 @@ class UserHandler
     data
   end
 
-
   def self.emails_and_users
-
     users = User.all
     emails = {}
     users.each do |user|

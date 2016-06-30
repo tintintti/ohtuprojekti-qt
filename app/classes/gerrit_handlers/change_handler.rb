@@ -5,6 +5,7 @@ class ChangeHandler
   end
 
   # time it took each change to pass in seconds
+  # Returns an array of hashes with label: change_id and value: time
   def self.time_to_pass
     passed = passed_reviews
     times = []
@@ -19,31 +20,8 @@ class ChangeHandler
     times
   end
 
-  def self.averages
-    averages = {time: average_time, revisions: average_revisions}
-  end
-
-  def self.average_time
-    times = time_to_pass
-    average(times).round
-  end
-
-  def self.average_revisions
-    revisions = revisions_needed_to_pass
-    average(revisions)
-  end
-
-  def self.average(data)
-    sum = 0
-    if data.length > 0
-      data.each do |hash|
-        sum += hash[:value]
-      end
-      sum = sum / data.length
-    end
-    sum
-  end
-
+  # amount of revisions it took for each change to pass
+  # Returns an array of hashes with label: change_id and value: revisions
   def self.revisions_needed_to_pass
     passed = passed_reviews
     changes = []
@@ -55,6 +33,35 @@ class ChangeHandler
     changes
   end
 
+  def self.averages
+    averages = {time: average_time, revisions: average_revisions}
+  end
+
+  def self.average_time
+    times = time_to_pass
+    count_average(times).round
+  end
+
+  def self.average_revisions
+    revisions = revisions_needed_to_pass
+    count_average(revisions)
+  end
+
+  # takes an array of hashes and returns the average of the values in the hashes
+  # key :value
+  def self.count_average(data)
+    sum = 0
+    if data.length > 0
+      data.each do |hash|
+        sum += hash[:value]
+      end
+      sum = sum / data.length
+    end
+    sum
+  end
+
+  # Returns a list of the changes that have passed CI with the message that
+  # indicates when CI was passed.
   def self.passed_reviews
     merged = GerritChange.where(status: "MERGED")
     passed = []
