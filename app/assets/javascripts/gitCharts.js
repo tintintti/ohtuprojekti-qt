@@ -29,10 +29,10 @@ function drawAuthorsByCommitsBarChart() {
 
 function createAuthorBarChartGroupLabels() {
     var labels = [
-        ["1-9", 1, 9],
+        ["1-4", 1, 4],
+        ["5-9", 5, 9],
         ["10-19", 10, 19],
-        ["20-29", 20, 29],
-        ["30-49", 30, 49],
+        ["20-49", 20, 49],
         ["50-99", 50, 99],
         ["100-199", 100, 199],
         ["200-499", 200, 499],
