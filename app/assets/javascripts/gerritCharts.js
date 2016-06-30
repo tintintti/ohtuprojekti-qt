@@ -39,7 +39,7 @@ function drawDomainsPieChart() {
 function drawOwnerPieChart() {
     insertMinOwnersButton();
     addTitle("#charts", "pieChartTitle", "Change owners");
-    drawPieChart("gerritOwners", ownerData, true, "#charts", "OwnerPieChart");
+    drawWithMinOwners(2);
 }
 
 function drawWithMinOwners(minOwners) {
@@ -131,5 +131,5 @@ function formatTime(seconds) {
 
 function insertMinOwnersButton() {
     document.getElementById("buttonFeature").innerHTML =
-        "<input type=number value=1 id='minimum'/><p><input type = button value = 'Set minimum amount of changes' onclick = 'drawWithMinOwners(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
+        "<input type=number value=2 id='minimum'/><p><input type = button value = 'Set minimum amount of changes' onclick = 'drawWithMinOwners(document.getElementById(&quot;minimum&quot;).value)'></input></p>";
 }
