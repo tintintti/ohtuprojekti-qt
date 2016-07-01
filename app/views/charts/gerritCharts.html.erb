@@ -1,26 +1,18 @@
-<html>
-    <!DOCTYPE html>
-    <meta charset="utf-8">
-    <body>
-        <div class="container">
-          <button type="button" class="btn btn-primary active" onclick=drawOwnerCharts()>Change owners</button>
-          <button type="button" class="btn btn-primary active" onclick=drawChangeCharts()>Passed changes</button>
-          <button type="button" class="btn btn-primary active" onclick=drawDomainsChart()>Owner domains</button>
+<div>
+  <button type="button" class="btn btn-primary active" onclick=drawOwnerCharts()>Change owners</button>
+  <button type="button" class="btn btn-primary active" onclick=drawChangeCharts()>Passed changes</button>
+  <button type="button" class="btn btn-primary active" onclick=drawDomainsChart()>Owner domains</button>
+</div>
 
-        </div>
-        <div class="container" id="info"></div>
-        <%= content_tag "div", id: "gerrit_data", data: {owners: @owners, changes: @changes, change_averages: @change_averages, domains: @domains} do %>
-        <% end %>
-        <%= javascript_include_tag "d3.v3.min.js" %>
-        <%= javascript_include_tag "nvd3.js" %>
-        <%= javascript_include_tag "gerritCharts.js" %>
-        <%= stylesheet_link_tag "nvcss.css" %>
+<div id="info"></div>
 
-        <p></p>
+<%= content_tag "div", id: "gerrit_data", data: {owners: @owners, changes: @changes, change_averages: @change_averages, domains: @domains} do %>
+<% end %>
 
-        <div class="container" id="buttonFeature"></div>
+<%= javascript_include_tag "gerritCharts.js" %>
 
-        <div id="charts"></div>
+<p></p>
 
-    </body>
-</html>
+<div id="buttonFeature"></div>
+
+<div id="charts"></div>

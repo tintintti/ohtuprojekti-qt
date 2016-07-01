@@ -56,6 +56,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'autoprefixer-rails'
 
+gem 'tzinfo-data'
+gem 'tzinfo'
+
 gem 'httparty'
 
 gem 'git_stats'

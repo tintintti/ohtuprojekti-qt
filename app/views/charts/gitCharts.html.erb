@@ -1,33 +1,24 @@
-<html>
-    <!DOCTYPE html>
-    <meta charset="utf-8">
-    <body>
-        <div class="container">
-          <%= form_tag git_charts_path do %>
-            <%= submit_tag "Limit data" %>
-              <% if Commit.all.length < 1 %>
-              Commits since <%= date_field_tag :time, params[:time] || time = nil%>
-              <% else %>
-              Commits since <%= date_field_tag :time, params[:time] || time = Time.at(Commit.all.sort_by{|c| c.stamp}.first.stamp).to_date %>
-              <% end %>
-              Amount of committers <%= text_field_tag :amount, params[:amount] || 100 %>
-          <% end %>
-          <p></p>
-          <button type="button" class="btn btn-primary active" onclick=drawAuthorCommitPieChart()>Show committers</button>
-          <button type="button" class="btn btn-primary active" onclick=drawAuthorEmailPieChart()>Show committer domains</button>
-          <button type="button" class="btn btn-primary active" onclick=drawAuthorsByCommitsBarChart()>Show committer distribution by activity</button>
-        </div>
+<div>
+  <%= form_tag git_charts_path do %>
+    <%= submit_tag "Limit data" %>
+      <% if Commit.all.length < 1 %>
+      Commits since <%= date_field_tag :time, params[:time] || time = nil%>
+      <% else %>
+      Commits since <%= date_field_tag :time, params[:time] || time = Time.at(Commit.all.sort_by{|c| c.stamp}.first.stamp).to_date %>
+      <% end %>
+      Amount of committers <%= text_field_tag :amount, params[:amount] || 100 %>
+  <% end %>
+  <p></p>
+  <button type="button" class="btn btn-primary active" onclick=drawAuthorCommitPieChart()>Show committers</button>
+  <button type="button" class="btn btn-primary active" onclick=drawAuthorEmailPieChart()>Show committer domains</button>
+  <button type="button" class="btn btn-primary active" onclick=drawAuthorsByCommitsBarChart()>Show committer distribution by activity</button>
+</div>
 
-        <%= content_tag "div", id: "git_data", data: {authors: @authors, emails: @emails} do %>
-        <% end %>
-        <%= javascript_include_tag "d3.v3.min.js" %>
-        <%= javascript_include_tag "nvd3.js" %>
-        <%= javascript_include_tag "gitCharts.js" %>
-        <%= stylesheet_link_tag "nvcss.css" %>
+<%= content_tag "div", id: "git_data", data: {authors: @authors, emails: @emails} do %>
+<% end %>
 
-        <div class="container" id="buttonFeature"></div>
+<%= javascript_include_tag "gitCharts.js" %>
 
-        <div id="charts"></div>
+<div id="buttonFeature"></div>
 
-    </body>
-</html>
+<div id="charts"></div>

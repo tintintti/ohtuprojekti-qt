@@ -2,7 +2,7 @@
 
 function addTitle(divName, id, title) {
   var $div = $(divName);
-  $div.append('<h2 id='+id+' class="container">'+title+'</h2>');
+  $div.append('<h2 id='+id+'>'+title+'</h2>');
 }
 
 function addSvg(divName, id) {
