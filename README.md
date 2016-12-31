@@ -8,4 +8,6 @@
 
 [heroku page] (http://qt-community-stats.herokuapp.com)
 
+[documentation] (https://github.com/tintintti/qt-software-project/wiki)
+
 käyttäjänimi on tunnus ja salasana passu
